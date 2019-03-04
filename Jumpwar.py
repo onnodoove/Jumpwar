@@ -12,7 +12,7 @@ pygame.mixer.init()
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 Exp=[0]
 
-Load=open('Jumpwar.sav', 'r')
+Load=open('Jumpwar.txt', 'r')
 LoadList=list(Load)
 Load.close()
 LevelSave1=int(LoadList[0].rstrip())
@@ -220,7 +220,7 @@ while Level < 22:
 		Enemylevel=int(Enemy)
 		NumerofRepeats=int(Level / Enemylevel)
 		if NumerofRepeats > 10:
-			NumerofRepeats=0
+			NumerofRepeats=10
 		if not NumerofRepeats == 0:
 			for Item in range(1, NumerofRepeats):
 				Enemies.append(Enemylist[Counter])
@@ -493,6 +493,22 @@ while Level < 22:
 		wait()
 		return
 
+	def DoVictory ():
+		Status = myfont.render('Press enter', False, (255, 255, 0))		
+		text1 = myfont.render('Congratulations on beating Jumpwar!', False, (255, 255, 0))
+
+		logo = pygame.image.load('Galaxy.png')
+		pygame.display.set_icon(logo)
+		pygame.display.set_caption('Jumpwar')
+		Width=int(1000)
+		Heigth=int(1000)
+		screen = pygame.display.set_mode((Width, Heigth))
+		screen.blit(logo, (0,0))
+		screen.blit(text1,(300,300))
+		screen.blit(Status,(0,980))
+		pygame.display.flip()
+		wait()
+		return
 
 
 	def ScanEnemies (Enemies, PlayerX, PlayerY, Radar, ScanEnemy):
@@ -704,6 +720,24 @@ while Level < 22:
 				del Enemies[LaserTarget]
 				Counter=Counter+1
 		return(Enemies, Exp)
+
+	def ScanAsteroid (EnemyX, EnemyY):
+		Counter=0
+		MaxCounter=len(Asteroids)
+		while Counter < MaxCounter:
+			AsteroidX=int(Asteroids[Counter+1])
+			AsteroidY=int(Asteroids[Counter+2])
+			XDiff=AsteroidX-EnemyX
+			YDiff=AsteroidY-EnemyY
+			if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
+				AsteroidScan[0]=Counter
+				AsteroidScan[1]=int(Asteroids[Counter])
+				AsteroidScan[2]=AsteroidX
+				AsteroidScan[3]=AsteroidY
+				break
+			Counter=Counter+3
+		return (AsteroidScan)
+
 
 	NewLevel(Level)
 	Action=0
@@ -1230,6 +1264,40 @@ while Level < 22:
 									EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 									wait()
 									sys.exit()
+
+					if EnemyHull < (EnemyLevel*30):
+						AsteroidScan=[None]*4
+						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
+						if not AsteroidScan[0]==None:
+							AsteroidCounter=int(AsteroidScan[0])
+							CrashAsteroid=int(AsteroidScan[1])
+							EnemyX=int(AsteroidScan[2])
+							EnemyY=int(AsteroidScan[3])
+							if not CrashAsteroid==0:
+								if CrashAsteroid==1:	
+									Health=100
+									ExtraMissiles=1
+								elif CrashAsteroid==2:
+									Health=200
+									ExtraMissiles=2
+								elif CrashAsteroid==3:
+									Health=300
+									ExtraMissiles=3
+								EnemyHull=EnemyHull+Health
+								if EnemyHull > (EnemyLevel*100):
+									EnemyHull = (EnemyLevel*100)
+								EnemyMissiles=EnemyMissiles+ExtraMissiles
+								Enemies[Counter+6]=EnemyHull
+								Enemies[Counter+7]=EnemyMissiles
+								Enemies[Counter+8]=EnemyX
+								Enemies[Counter+9]=EnemyY
+								WipeCounter=0
+								while WipeCounter < 3:
+									del Asteroids[AsteroidCounter]
+									WipeCounter=WipeCounter+1
+								AsteroidMaxCounter=len(Asteroids)
+							EnemyAction=EnemyAction+1
+
 					if ((-1*EnemyScan) <= XDiff) and ( XDiff <= (EnemyScan)) and ((-1*EnemyScan) <= YDiff) and (YDiff <= (EnemyScan)):
 						EnemyActive=True
 						if (EnemyX < PlayerX) and (EnemyY < PlayerY):
@@ -1388,6 +1456,9 @@ while Level < 22:
 
 							EnemyMove=EnemyMove+1
 
+						
+					
+
 						Status='Enemy Turn'
 
 					if EnemyActive==True:
@@ -1435,8 +1506,8 @@ while Level < 22:
 			LoadList[SaveCounter]=SLevel
 			LoadList[SaveCounter+1]=SPlayerLevel
 			LoadList[SaveCounter+2]=SNexp
-			os.system('rm Jumpwar.sav')
-			Save=open('Jumpwar.sav', 'a')
+			os.system('rm Jumpwar.txt')
+			Save=open('Jumpwar.txt', 'a')
 			WriteCounter=0
 			while WriteCounter < len(LoadList):
 				Line=str(LoadList[WriteCounter]).strip()
@@ -1454,7 +1525,8 @@ while Level < 22:
 		DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 			
 
-os.system('zenity --info --no-wrap --text="Congratulations, you beat the game!"')
+DoVictory()
+sys.exit()
 
 
 
