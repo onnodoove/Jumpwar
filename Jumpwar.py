@@ -169,6 +169,10 @@ Stars=list()
 Asteroids=list()
 Enemies=list()
 ScreenRange=list()
+Beep = pygame.mixer.Sound('Beep.ogg')
+Blast = pygame.mixer.Sound('Boom.ogg')
+LevelUp=pygame.mixer.Sound('Applause.ogg')
+pygame.mixer.music.load('Boom.wav')
 while Level < 22:
 	PlayerDamage=PlayerLevel*10
 	PlayerHull=PlayerLevel*100
@@ -681,8 +685,7 @@ while Level < 22:
 			while Counter < 10:
 				del Enemies[MissileTarget]
 				Counter=Counter+1
-			pygame.mixer.music.load('Boom.wav')
-			pygame.mixer.music.play()
+			Blast.play()
 			Status=EnemyName.rstrip()+' destroyed by missile, press enter'
 			ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -691,8 +694,7 @@ while Level < 22:
 			DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 		else:
 			Enemies[MissileTarget+6]=EnemyHull
-			pygame.mixer.music.load('Beep.wav')
-			pygame.mixer.music.play()
+			Beep.play()
 			Status=EnemyName.rstrip()+' hit by missile for '+SPlayerMissileDamage+' damage'
 			ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -706,12 +708,9 @@ while Level < 22:
 		EnemyName=Enemies[LaserTarget+1]
 		EnemyHull=int(Enemies[LaserTarget+6])
 		EnemyHull=EnemyHull-PlayerLaserDamage
-		pygame.mixer.music.load('Beep.wav')
-		pygame.mixer.music.play()
 		Enemies[LaserTarget+6]=EnemyHull
 		if EnemyHull < 1:
-			pygame.mixer.music.load('Boom.wav')
-			pygame.mixer.music.play()
+			Blast.play()
 			EnemyXp=int(Enemies[LaserTarget])
 			Nexp=Nexp+EnemyXp
 			Exp[0]=Nexp
@@ -719,6 +718,8 @@ while Level < 22:
 			while Counter < 10:
 				del Enemies[LaserTarget]
 				Counter=Counter+1
+		else:
+			Beep.play()
 		return(Enemies, Exp)
 
 	def ScanAsteroid (EnemyX, EnemyY):
@@ -776,7 +777,6 @@ while Level < 22:
 		Action=0
 		ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 		Move=PlayerLevel
-		print('Player turn...')
 		while Action < 3:
 			SAction=str(Action+1)
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -1068,8 +1068,7 @@ while Level < 22:
 								Damage=300
 							PlayerHull=PlayerHull-Damage
 							if PlayerHull < 1:
-								pygame.mixer.music.load('Boom.wav')
-								pygame.mixer.music.play()
+								Blast.play()
 								Status='You Crashed into a Star, press enter'
 								ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 								EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -1126,7 +1125,6 @@ while Level < 22:
 		if len(Enemies) > 0:
 			EnemyDir=0
 			Status='Enemy Turn'
-			print('Enemy turn...')
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 			VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
 			DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
@@ -1151,9 +1149,6 @@ while Level < 22:
 						EnemyActive=True
 						EnemyLaserDamage=int(Enemies[Counter+3])
 						PlayerHull=PlayerHull-EnemyLaserDamage
-						pygame.mixer.music.load('Beep.wav')
-						pygame.mixer.music.play()
-						print(EnemyName, ' fires laser...')
 						SEnemyLaserDamage=str(EnemyLaserDamage)
 						EnemyAction=EnemyAction+1
 						MissileScreenX=MissilePosX-PlayerX
@@ -1169,20 +1164,20 @@ while Level < 22:
 						screen.blit(PlayerImage, (475,475))
 						pygame.display.flip()
 						if PlayerHull <= 0:
-							pygame.mixer.music.load('Boom.wav')
-							pygame.mixer.music.play()
+							Blast.play()
 							Status='Player destroyed by '+EnemyName+' laser'
 							VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
 							DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 							wait()
 							sys.exit()
+						else:
+							Beep.play()
 					if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
 						EnemyMissiles=int(Enemies[Counter+7])
 						if EnemyMissiles > 0:
 							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 							EnemyActive=True
 							if EnemyMissiles > random.randint(0, 19):
-								print(EnemyName, ' fires missile...')
 								MissileTargetX=PlayerX
 								MissileTargetY=PlayerY
 								MissilePosX=int(Enemies[Counter+8])
@@ -1254,12 +1249,9 @@ while Level < 22:
 								EnemyName=Enemies[Counter+1]
 								EnemyMissileDamage=int(Enemies[Counter+3])*1.5
 								PlayerHull=PlayerHull-EnemyMissileDamage
-								pygame.mixer.music.load('Beep.wav')
-								pygame.mixer.music.play()
 								SEnemyMissileDamage=str(EnemyMissileDamage)
 								if PlayerHull <= 0:
-									pygame.mixer.music.load('Boom.wav')
-									pygame.mixer.music.play()
+									Blast.play()
 									Status='Player destroyed by '+EnemyName+' missile'
 									EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 									VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
@@ -1268,7 +1260,8 @@ while Level < 22:
 									EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 									wait()
 									sys.exit()
-
+								else:
+									Beep.play()
 					if EnemyHull < (EnemyLevel*30):
 						AsteroidScan=[None]*4
 						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
@@ -1288,7 +1281,6 @@ while Level < 22:
 									Health=300
 									ExtraMissiles=3
 								EnemyHull=EnemyHull+Health
-								print(EnemyName, ' eats asteroid...')
 								if EnemyHull > (EnemyLevel*100):
 									EnemyHull = (EnemyLevel*100)
 								EnemyMissiles=EnemyMissiles+ExtraMissiles
@@ -1423,7 +1415,6 @@ while Level < 22:
 											Health=300
 											ExtraMissiles=3
 										EnemyHull=EnemyHull+Health
-										print(EnemyName, ' eats asteroid...')
 										if EnemyHull > EnemyLevel*100:
 											EnemyHull = EnemyLevel*100
 										EnemyMissiles=EnemyMissiles+ExtraMissiles
@@ -1446,9 +1437,7 @@ while Level < 22:
 									Damage=300
 								EnemyHull=EnemyHull-Damage
 								if EnemyHull < 1:
-									print(EnemyName, ' crashes into star...')
-									pygame.mixer.music.load('Boom.wav')
-									pygame.mixer.music.play()
+									Blast.play()
 									WipeCounter=0
 									while WipeCounter < 10:
 										del Enemies[Counter]
@@ -1492,8 +1481,7 @@ while Level < 22:
 			Exp[0]=Nexp
 			Move=PlayerLevel
 			PlayerHullMax=PlayerLevel*100
-			pygame.mixer.music.load('Applause.wav')
-			pygame.mixer.music.play()
+			LevelUp.play()
 			Status='Ship leveled up, press enter'
 			ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
