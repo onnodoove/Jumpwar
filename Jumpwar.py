@@ -6,11 +6,46 @@ import os
 import math
 
  
+pygame.mixer.pre_init()
 pygame.init()
 pygame.font.init()
+
 pygame.mixer.init()
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 Exp=[0]
+
+Beep = pygame.mixer.Sound('Beep.ogg')
+Blast = pygame.mixer.Sound('Boom.ogg')
+LevelUp=pygame.mixer.Sound('Applause.ogg')
+
+RedStar=pygame.image.load('RedStar.png')
+YellowStar=pygame.image.load('YellowStar.png')
+BlueStar=pygame.image.load('BlueStar.png')
+Asteroid=pygame.image.load('Asteroid.png')
+Wormhole=pygame.image.load('Wormhole.png')
+Drone=pygame.image.load('Drone.png')
+Drone2=pygame.image.load('Drone2.png')
+Drone3=pygame.image.load('Drone3.png')
+Drone4=pygame.image.load('Drone4.png')
+Drone5=pygame.image.load('Drone5.png')
+Interceptor=pygame.image.load('Interceptor.png')
+Interceptor3=pygame.image.load('Interceptor3.png')
+Interceptor4=pygame.image.load('Interceptor4.png')
+Interceptor5=pygame.image.load('Interceptor5.png')
+Frigat=pygame.image.load('Frigat.png')
+Frigat4=pygame.image.load('Frigat4.png')
+Frigat5=pygame.image.load('Frigat5.png')
+MissilePlatform=pygame.image.load('MissilePlatform.png')
+Liberator=pygame.image.load('Liberator.png')
+Mothership=pygame.image.load('Mothership.png')
+Bomb=pygame.image.load('Bomb.png')
+JGrid = pygame.image.load('JGrid.png')
+Galaxy=pygame.image.load('Galaxy.png')
+
+Happy=pygame.image.load('Happy.png')
+Sad=pygame.image.load('Sad.png')
+
+Explosion=pygame.image.load('Blast.png')
 
 Load=open('Jumpwar.txt', 'r')
 LoadList=list(Load)
@@ -46,14 +81,13 @@ Save4Text = myfont.render(Save4Status, False, (255, 255, 0))
 Save5Text = myfont.render(Save5Status, False, (255, 255, 0))
 Save6Text = myfont.render(Save6Status, False, (255, 255, 0))
 
-logo = pygame.image.load('Galaxy.png')
-pygame.display.set_icon(logo)
+pygame.display.set_icon(Galaxy)
 pygame.display.set_caption('Jumpwar')
 Width=int(1000)
 Heigth=int(1000)
 screen = pygame.display.set_mode((Width, Heigth))
 
-screen.blit(logo,(0,0))
+screen.blit(Galaxy,(0,0))
 screen.blit(Save1Text,(0,0))
 screen.blit(Save2Text,(0,50))
 screen.blit(Save3Text,(0,100))
@@ -120,8 +154,8 @@ def wait():
 def DoHelp ():
 	Status = myfont.render('Press enter', False, (255, 255, 0))		
 	text1 = myfont.render('Numpad Numbers: Jump direction:', False, (255, 255, 0))
-	text2 = myfont.render('Numpad /      : Fire Laser', False, (255, 255, 0))
-	text3 = myfont.render('Numpad 0      : Fire Missile', False, (255, 255, 0))
+	text2 = myfont.render('Numpad /      : Fire Laser -range 4-', False, (255, 255, 0))
+	text3 = myfont.render('Numpad 0      : Fire Missile -range 20-', False, (255, 255, 0))
 	text4 = myfont.render('Numpad + and -: Set Jump Distance', False, (255, 255, 0))
 	text5 = myfont.render('Numpad *      : Legend', False, (255, 255, 0))
 	text6 = myfont.render('Numpad 5      : Skip Turn', False, (255, 255, 0))
@@ -132,14 +166,13 @@ def DoHelp ():
 	text11 = myfont.render('- Kill enemies to get EXP and level up', False, (255, 255, 0))
 	text12 = myfont.render('- Enter=Numpad Enter', False, (255, 255, 0))
 
-	logo = pygame.image.load('Galaxy.png')
-	pygame.display.set_icon(logo)
+	pygame.display.set_icon(Galaxy)
 	pygame.display.set_caption('Jumpwar')
 	Width=int(1000)
 	Heigth=int(1000)
 	screen = pygame.display.set_mode((Width, Heigth))
 
-	screen.blit(logo,(0,0))
+	screen.blit(Galaxy,(0,0))
 	screen.blit(text1,(0,0))
 	screen.blit(text2,(0,50))
 	screen.blit(text3,(0,100))
@@ -169,10 +202,6 @@ Stars=list()
 Asteroids=list()
 Enemies=list()
 ScreenRange=list()
-Beep = pygame.mixer.Sound('Beep.ogg')
-Blast = pygame.mixer.Sound('Boom.ogg')
-LevelUp=pygame.mixer.Sound('Applause.ogg')
-pygame.mixer.music.load('Boom.wav')
 while Level < 22:
 	PlayerDamage=PlayerLevel*10
 	PlayerHull=PlayerLevel*100
@@ -329,19 +358,18 @@ while Level < 22:
 	def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus):
 		textsurface = myfont.render(Status, False, (255, 255, 0))
 		textsurface2 = myfont.render(EnemyStatus, False, (255, 255, 0))
-		logo = pygame.image.load('JGrid.png')
 		if PlayerHull > PlayerLevel*50:
-			PlayerImage=pygame.image.load('Happy.png')
+			PlayerImage=Happy
 		elif PlayerHull > 0:
-			PlayerImage=pygame.image.load('Sad.png')
+			PlayerImage=Sad
 		else:
-			PlayerImage=pygame.image.load('Blast.png')
-		pygame.display.set_icon(logo)
+			PlayerImage=Explosion
+		pygame.display.set_icon(JGrid)
 		pygame.display.set_caption('Jumpwar')
 		Width=int(1000)
 		Heigth=int(1000)
 		screen = pygame.display.set_mode((Width, Heigth))
-		screen.blit(logo, (0,0))
+		screen.blit(JGrid, (0,0))
 		screen.blit(PlayerImage, (475,475))
 		pygame.display.flip()
 		Counter=0
@@ -349,47 +377,47 @@ while Level < 22:
 		while Counter < MaxCounter:
 			ObjectImage=ScreenRange[Counter]
 			if ObjectImage == 'RedStar':
-				ScreenItem=pygame.image.load('RedStar.png')
+				ScreenItem=RedStar
 			elif ObjectImage == 'YellowStar':
-				ScreenItem=pygame.image.load('YellowStar.png')
+				ScreenItem=YellowStar
 			elif ObjectImage == 'BlueStar':
-				ScreenItem=pygame.image.load('BlueStar.png')
+				ScreenItem=BlueStar
 			elif ObjectImage == 'Asteroid':
-				ScreenItem=pygame.image.load('Asteroid.png')
+				ScreenItem=Asteroid
 			elif ObjectImage == 'Wormhole':
-				ScreenItem=pygame.image.load('Wormhole.png')
+				ScreenItem=Wormhole
 			elif ObjectImage == 'Drone\n':
-				ScreenItem=pygame.image.load('Drone.png')
+				ScreenItem=Drone
 			elif ObjectImage == 'Drone2\n':
-				ScreenItem=pygame.image.load('Drone2.png')
+				ScreenItem=Drone2
 			elif ObjectImage == 'Drone3\n':
-				ScreenItem=pygame.image.load('Drone3.png')
+				ScreenItem=Drone3
 			elif ObjectImage == 'Drone4\n':
-				ScreenItem=pygame.image.load('Drone4.png')
+				ScreenItem=Drone4
 			elif ObjectImage == 'Drone5\n':
-				ScreenItem=pygame.image.load('Drone5.png')
+				ScreenItem=Drone5
 			elif ObjectImage == 'Interceptor\n':
-				ScreenItem=pygame.image.load('Interceptor.png')
+				ScreenItem=Interceptor
 			elif ObjectImage == 'Interceptor3\n':
-				ScreenItem=pygame.image.load('Interceptor3.png')
+				ScreenItem=Interceptor
 			elif ObjectImage == 'Interceptor4\n':
-				ScreenItem=pygame.image.load('Interceptor4.png')
+				ScreenItem=Interceptor4
 			elif ObjectImage == 'Interceptor5\n':
-				ScreenItem=pygame.image.load('Interceptor5.png')
+				ScreenItem=Interceptor5
 			elif ObjectImage == 'Frigat\n':
-				ScreenItem=pygame.image.load('Frigat.png')
+				ScreenItem=Frigat
 			elif ObjectImage == 'Frigat4\n':
-				ScreenItem=pygame.image.load('Frigat4.png')
+				ScreenItem=Frigat4
 			elif ObjectImage == 'Frigat5\n':
-				ScreenItem=pygame.image.load('Frigat5.png')
+				ScreenItem=Frigat5
 			elif ObjectImage == 'MissilePlatform\n':
-				ScreenItem=pygame.image.load('MissilePlatform.png')
+				ScreenItem=MissilePlatform
 			elif ObjectImage == 'Liberator\n':
-				ScreenItem=pygame.image.load('Liberator.png')
+				ScreenItem=Liberator
 			elif ObjectImage == 'Mothership\n':
-				ScreenItem=pygame.image.load('Mothership.png')
+				ScreenItem=Mothership
 			elif ObjectImage == 'Bomb':
-				ScreenItem=pygame.image.load('Bomb.png')
+				ScreenItem=Bomb
 			XDiff=ScreenRange[Counter+1]
 			YDiff=ScreenRange[Counter+2]
 			ScreenX=(XDiff+10)*47.5
@@ -413,8 +441,7 @@ while Level < 22:
 		textMothership = myfont.render('Mothership:', False, (255, 255, 0))
 		textWormhole = myfont.render('Wormhole:', False, (255, 255, 0))
 
-		logo = pygame.image.load('JGrid.png')
-		pygame.display.set_icon(logo)
+		pygame.display.set_icon(JGrid)
 		pygame.display.set_caption('Jumpwar')
 		Width=int(1000)
 		Heigth=int(1000)
@@ -484,13 +511,12 @@ while Level < 22:
 		Status = myfont.render('Press enter', False, (255, 255, 0))		
 		text1 = myfont.render('Welcome to Level: '+str(Level), False, (255, 255, 0))
 
-		logo = pygame.image.load('Galaxy.png')
-		pygame.display.set_icon(logo)
+		pygame.display.set_icon(Galaxy)
 		pygame.display.set_caption('Jumpwar')
 		Width=int(1000)
 		Heigth=int(1000)
 		screen = pygame.display.set_mode((Width, Heigth))
-		screen.blit(logo, (0,0))
+		screen.blit(Galaxy, (0,0))
 		screen.blit(text1,(300,300))
 		screen.blit(Status,(0,980))
 		pygame.display.flip()
@@ -501,13 +527,12 @@ while Level < 22:
 		Status = myfont.render('Press enter', False, (255, 255, 0))		
 		text1 = myfont.render('Congratulations on beating Jumpwar!', False, (255, 255, 0))
 
-		logo = pygame.image.load('Galaxy.png')
-		pygame.display.set_icon(logo)
+		pygame.display.set_icon(Galaxy)
 		pygame.display.set_caption('Jumpwar')
 		Width=int(1000)
 		Heigth=int(1000)
 		screen = pygame.display.set_mode((Width, Heigth))
-		screen.blit(logo, (0,0))
+		screen.blit(Galaxy, (0,0))
 		screen.blit(text1,(300,300))
 		screen.blit(Status,(0,980))
 		pygame.display.flip()
@@ -686,6 +711,7 @@ while Level < 22:
 				del Enemies[MissileTarget]
 				Counter=Counter+1
 			Blast.play()
+#			print(str(EnemyName).rstrip(), 'destroyed by missile...')
 			Status=EnemyName.rstrip()+' destroyed by missile, press enter'
 			ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -695,6 +721,7 @@ while Level < 22:
 		else:
 			Enemies[MissileTarget+6]=EnemyHull
 			Beep.play()
+#			print(str(EnemyName).rstrip(), 'hit by missile for ', SPlayerMissileDamage, ' damage...')
 			Status=EnemyName.rstrip()+' hit by missile for '+SPlayerMissileDamage+' damage'
 			ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -711,6 +738,7 @@ while Level < 22:
 		Enemies[LaserTarget+6]=EnemyHull
 		if EnemyHull < 1:
 			Blast.play()
+#			print(str(EnemyName).rstrip(), 'destroyed by laser...')
 			EnemyXp=int(Enemies[LaserTarget])
 			Nexp=Nexp+EnemyXp
 			Exp[0]=Nexp
@@ -720,6 +748,7 @@ while Level < 22:
 				Counter=Counter+1
 		else:
 			Beep.play()
+#			print(str(EnemyName).rstrip(), 'hit by laser for ', PlayerLaserDamage, ' damage...')
 		return(Enemies, Exp)
 
 	def ScanAsteroid (EnemyX, EnemyY):
@@ -773,6 +802,8 @@ while Level < 22:
 
 	running=True
 	while running==True:
+#		print()
+#		print('--PLAYER TURN--')
 		SPlayerLevel=str(PlayerLevel)
 		Action=0
 		ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
@@ -916,24 +947,23 @@ while Level < 22:
 								MissilePosY=-50
 								ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 								EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
-								logo = pygame.image.load('JGrid.png')
-								pygame.display.set_icon(logo)
+								pygame.display.set_icon(JGrid)
 								pygame.display.set_caption('Jumpwar')
 								Width=int(1000)
 								Heigth=int(1000)
 								screen = pygame.display.set_mode((Width, Heigth))
-								screen.blit(logo, (0,0))
+								screen.blit(JGrid, (0,0))
 								if PlayerHull > PlayerLevel*50:
-									PlayerImage=pygame.image.load('Happy.png')
+									PlayerImage=Happy
 								else:
-									PlayerImage=pygame.image.load('Sad.png')
+									PlayerImage=Sad
 								
 								screen.blit(PlayerImage, (475,475))
 								pygame.display.flip()
 								ScreenX=(MissileScreenX+10)*47.5
 								YConvert=MissileScreenY*-1
 								ScreenY=(YConvert+10)*47.5
-								ScreenItem=pygame.image.load('Blast.png')
+								ScreenItem=Explosion
 								screen.blit(ScreenItem, (ScreenX,ScreenY))
 								pygame.display.flip()
 
@@ -978,23 +1008,22 @@ while Level < 22:
 							LaserTargetY=int(Enemies[LaserTarget+9])
 							LaserScreenX=LaserTargetX-PlayerX
 							LaserScreenY=LaserTargetY-PlayerY
-							logo = pygame.image.load('JGrid.png')
 							if PlayerHull > PlayerLevel*50:
-								PlayerImage=pygame.image.load('Happy.png')
+								PlayerImage=Happy
 							else:
-								PlayerImage=pygame.image.load('Sad.png')
-							pygame.display.set_icon(logo)
+								PlayerImage=Sad
+							pygame.display.set_icon(JGrid)
 							pygame.display.set_caption('Jumpwar')
 							Width=int(1000)
 							Heigth=int(1000)
 							screen = pygame.display.set_mode((Width, Heigth))
-							screen.blit(logo, (0,0))
+							screen.blit(JGrid, (0,0))
 							screen.blit(PlayerImage, (475,475))
 							pygame.display.flip()
 							ScreenX=(LaserScreenX+10)*47.5
 							YConvert=LaserScreenY*-1
 							ScreenY=(YConvert+10)*47.5
-							ScreenItem=pygame.image.load('Blast.png')
+							ScreenItem=Explosion
 							screen.blit(ScreenItem, (ScreenX,ScreenY))
 							pygame.display.flip()
 							FireLaser(Enemies, Stars, Asteroids, LaserTarget, PlayerLevel, Exp, Nexp)
@@ -1106,6 +1135,7 @@ while Level < 22:
 								ExtraMissiles=5
 							PlayerHull=PlayerHull+Health
 							PlayerMissiles=PlayerMissiles+ExtraMissiles
+#							print('Player harvests asteroid...')
 							if PlayerHull > (PlayerLevel*100):
 								PlayerHull = (PlayerLevel*100)
 							if PlayerMissiles > PlayerLevel:
@@ -1123,6 +1153,8 @@ while Level < 22:
 						MoveCounter=MoveCounter+1
 
 		if len(Enemies) > 0:
+#			print()
+#			print('--ENEMY TURN--')
 			EnemyDir=0
 			Status='Enemy Turn'
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -1153,14 +1185,13 @@ while Level < 22:
 						EnemyAction=EnemyAction+1
 						MissileScreenX=MissilePosX-PlayerX
 						MissileScreenY=MissilePosY-PlayerY
-						logo = pygame.image.load('JGrid.png')
-						PlayerImage=pygame.image.load('Blast.png')
-						pygame.display.set_icon(logo)
+						PlayerImage=Explosion
+						pygame.display.set_icon(JGrid)
 						pygame.display.set_caption('Jumpwar')
 						Width=int(1000)
 						Heigth=int(1000)
 						screen = pygame.display.set_mode((Width, Heigth))
-						screen.blit(logo, (0,0))
+						screen.blit(JGrid, (0,0))
 						screen.blit(PlayerImage, (475,475))
 						pygame.display.flip()
 						if PlayerHull <= 0:
@@ -1172,6 +1203,7 @@ while Level < 22:
 							sys.exit()
 						else:
 							Beep.play()
+#							print(str(EnemyName).rstrip(), 'fires laser...')
 					if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
 						EnemyMissiles=int(Enemies[Counter+7])
 						if EnemyMissiles > 0:
@@ -1218,25 +1250,24 @@ while Level < 22:
 								MissilePosY=-50
 								ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 								EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
-								logo = pygame.image.load('JGrid.png')
-								PlayerImage=pygame.image.load('Blast.png')
+								PlayerImage=Explosion
 						
-								pygame.display.set_icon(logo)
+								pygame.display.set_icon(JGrid)
 								pygame.display.set_caption('Jumpwar')
 								Width=int(1000)
 								Heigth=int(1000)
 								screen = pygame.display.set_mode((Width, Heigth))
-								screen.blit(logo, (0,0))
+								screen.blit(JGrid, (0,0))
 								if PlayerHull > PlayerLevel*50:
-									PlayerImage=pygame.image.load('Happy.png')
+									PlayerImage=Happy
 								else:
-									PlayerImage=pygame.image.load('Sad.png')
+									PlayerImage=Sad
 								screen.blit(PlayerImage, (475,475))
 								pygame.display.flip()
 								ScreenX=(MissileScreenX+10)*47.5
 								YConvert=MissileScreenY*-1
 								ScreenY=(YConvert+10)*47.5
-								ScreenItem=pygame.image.load('Blast.png')
+								ScreenItem=Explosion
 								screen.blit(ScreenItem, (ScreenX,ScreenY))
 								pygame.display.flip()
 													
@@ -1262,6 +1293,7 @@ while Level < 22:
 									sys.exit()
 								else:
 									Beep.play()
+#									print(str(EnemyName).rstrip(), 'fires missile...')
 					if EnemyHull < (EnemyLevel*30):
 						AsteroidScan=[None]*4
 						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
@@ -1289,6 +1321,7 @@ while Level < 22:
 								Enemies[Counter+8]=EnemyX
 								Enemies[Counter+9]=EnemyY
 								WipeCounter=0
+#								print(str(EnemyName).rstrip(), 'harvests asteroid')
 								while WipeCounter < 3:
 									del Asteroids[AsteroidCounter]
 									WipeCounter=WipeCounter+1
@@ -1297,6 +1330,10 @@ while Level < 22:
 
 					if ((-1*EnemyScan) <= XDiff) and ( XDiff <= (EnemyScan)) and ((-1*EnemyScan) <= YDiff) and (YDiff <= (EnemyScan)):
 						EnemyActive=True
+#						if EnemyHull > (EnemyLevel*30):
+#							print(str(EnemyName).rstrip(), 'hunts...')
+#						else:
+#							print(str(EnemyName).rstrip(), 'flees...')
 						if (EnemyX < PlayerX) and (EnemyY < PlayerY):
 							if EnemyHull > (EnemyLevel*30):
 								EnemyDir=9
@@ -1418,6 +1455,7 @@ while Level < 22:
 										if EnemyHull > EnemyLevel*100:
 											EnemyHull = EnemyLevel*100
 										EnemyMissiles=EnemyMissiles+ExtraMissiles
+#										print(str(EnemyName).rstrip(), 'harvests asteroid...')
 										Enemies[Counter+6]=EnemyHull
 										Enemies[Counter+7]=EnemyMissiles
 								AsteroidCounter=AsteroidCounter+3
@@ -1443,6 +1481,7 @@ while Level < 22:
 										del Enemies[Counter]
 										WipeCounter=WipeCounter+1
 										MaxCounter=len(Enemies)
+#										print(str(EnemyName).rstrip(), 'crashes into star')
 									break
 								else:
 									Enemies[Counter+6]=EnemyHull
@@ -1505,6 +1544,7 @@ while Level < 22:
 			LoadList[SaveCounter+2]=SNexp
 			os.system('rm Jumpwar.txt')
 			Save=open('Jumpwar.txt', 'a')
+#			print('WELCOME TO LEVEL ', SLevel)
 			WriteCounter=0
 			while WriteCounter < len(LoadList):
 				Line=str(LoadList[WriteCounter]).strip()
