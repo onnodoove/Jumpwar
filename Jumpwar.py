@@ -102,37 +102,37 @@ Selection=False
 while Selection==False:
 	for event in pygame.event.get():
 		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_KP1:
+			if event.key == pygame.K_KP1 or event.key == pygame.K_1:
 				SaveCounter=0
 				Level=int(LoadList[0].rstrip())
 				PlayerLevel=int(LoadList[1].rstrip())
 				Exp[0]=LoadList[2].rstrip()
 				Selection=True
-			if event.key == pygame.K_KP2:
+			if event.key == pygame.K_KP2 or event.key == pygame.K_2:
 				SaveCounter=3
 				Level=int(LoadList[3].rstrip())
 				PlayerLevel=int(LoadList[4].rstrip())
 				Exp[0]=LoadList[5].rstrip()
 				Selection=True
-			if event.key == pygame.K_KP3:
+			if event.key == pygame.K_KP3 or event.key == pygame.K_3:
 				SaveCounter=6
 				Level=int(LoadList[6].rstrip())
 				PlayerLevel=int(LoadList[7].rstrip())
 				Exp[0]=LoadList[8].rstrip()
 				Selection=True
-			if event.key == pygame.K_KP4:
+			if event.key == pygame.K_KP4 or event.key == pygame.K_4:
 				SaveCounter=9
 				Level=int(LoadList[9].rstrip())
 				PlayerLevel=int(LoadList[10].rstrip())
 				Exp[0]=LoadList[11].rstrip()
 				Selection=True
-			if event.key == pygame.K_KP5:
+			if event.key == pygame.K_KP5 or event.key == pygame.K_5:
 				SaveCounter=12
 				Level=int(LoadList[12].rstrip())
 				PlayerLevel=int(LoadList[13].rstrip())
 				Exp[0]=LoadList[14].rstrip()
 				Selection=True
-			if event.key == pygame.K_KP3:
+			if event.key == pygame.K_KP6 or event.key == pygame.K_6:
 				SaveCounter=15
 				Level=int(LoadList[15].rstrip())
 				PlayerLevel=int(LoadList[16].rstrip())
@@ -148,17 +148,17 @@ def wait():
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_KP_ENTER:
+				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
 	                		return
 	
 def DoHelp ():
 	Status = myfont.render('Press enter', False, (255, 255, 0))		
-	text1 = myfont.render('Numpad Numbers: Jump direction:', False, (255, 255, 0))
-	text2 = myfont.render('Numpad /      : Fire Laser -range 4-', False, (255, 255, 0))
-	text3 = myfont.render('Numpad 0      : Fire Missile -range 20-', False, (255, 255, 0))
-	text4 = myfont.render('Numpad + and -: Set Jump Distance', False, (255, 255, 0))
-	text5 = myfont.render('Numpad *      : Legend', False, (255, 255, 0))
-	text6 = myfont.render('Numpad 5      : Skip Turn', False, (255, 255, 0))
+	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, (255, 255, 0))
+	text2 = myfont.render('Numpad / or left ctrl            : Fire Laser -range 4-', False, (255, 255, 0))
+	text3 = myfont.render('Numpad 0 or space                : Fire Missile -range 20-', False, (255, 255, 0))
+	text4 = myfont.render('Numpad + and - or r and t        : Set Jump Distance', False, (255, 255, 0))
+	text5 = myfont.render('Numpad * or l                    : Legend', False, (255, 255, 0))
+	text6 = myfont.render('Numpad 5 or s                    : Skip Turn', False, (255, 255, 0))
 	text7 = myfont.render('ESC           : Quit Game', False, (255, 255, 0))
 	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turns to progress', False, (255, 255, 0))
 	text9 = myfont.render('- Avoid stars', False, (255, 255, 0))
@@ -633,14 +633,14 @@ while Level < 22:
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
 					LaserTarget=LaserTargetList[0]
-					if event.key == pygame.K_KP1:
+					if event.key == pygame.K_KP1 or event.key == pygame.K_1:
 						LaserTarget=LaserTargetList[0]
 						Selection=True
-					if event.key == pygame.K_KP2:
+					if event.key == pygame.K_KP2 or event.key == pygame.K_2:
 						if len(LaserTargetList) > 1:
 							LaserTarget=LaserTargetList[1]
 						Selection=True
-					if event.key == pygame.K_KP3:
+					if event.key == pygame.K_KP3 or event.key == pygame.K_3:
 						if len(LaserTargetList) > 2:
 							LaserTarget=LaserTargetList[2]
 						Selection=True
@@ -676,18 +676,18 @@ while Level < 22:
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
 					MissileTarget=MissileTargetList[0]
-					if event.key == pygame.K_KP1:
+					if event.key == pygame.K_KP1 or event.key == pygame.K_1:
 						MissileTarget=MissileTargetList[0]
 						Selection=True
-					if event.key == pygame.K_KP2:
+					if event.key == pygame.K_KP2 or event.key == pygame.K_2:
 						if len(MissileTargetList) > 3:
 							MissileTarget=MissileTargetList[3]
 						Selection=True
-					if event.key == pygame.K_KP3:
+					if event.key == pygame.K_KP3 or event.key == pygame.K_3:
 						if len(MissileTargetList) > 6:
 							MissileTarget=MissileTargetList[6]
 						Selection=True
-					if event.key == pygame.K_KP_MULTIPLY:
+					if event.key == pygame.K_KP_MULTIPLY or event.key == pygame.K_l:
 						DoLegend()
 						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 		return(MissileTarget)
@@ -815,52 +815,52 @@ while Level < 22:
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
 					Direction=5
-					if event.key == pygame.K_KP1:
+					if event.key == pygame.K_KP1 or event.key == pygame.K_z:
 						Direction=1
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP2:
+					elif event.key == pygame.K_KP2 or event.key == pygame.K_x:
 						Direction=2
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP3:
+					elif event.key == pygame.K_KP3 or event.key == pygame.K_c:
 						Direction=3
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP4:
+					elif event.key == pygame.K_KP4 or event.key == pygame.K_a:
 						Direction=4
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP5:
+					elif event.key == pygame.K_KP5 or event.key == pygame.K_s:
 						Direction=5
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP6:
+					elif event.key == pygame.K_KP6 or event.key == pygame.K_d:
 						Direction=6
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP7:
+					elif event.key == pygame.K_KP7 or event.key == pygame.K_q:
 						Direction=7
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP8:
+					elif event.key == pygame.K_KP8 or event.key == pygame.K_w:
 						Direction=8
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP9:
+					elif event.key == pygame.K_KP9 or event.key == pygame.K_e:
 						Direction=9
 						Action=Action+1
 						SAction=str(Action+1)
 						ScreenAction=True
-					elif event.key == pygame.K_KP_PLUS:
+					elif event.key == pygame.K_KP_PLUS or event.key == pygame.K_t:
 						Move=Move+1
 						if Move > PlayerLevel:
 							Move=PlayerLevel
@@ -880,7 +880,7 @@ while Level < 22:
 						EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 						VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
 						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-					elif event.key == pygame.K_KP_MINUS:
+					elif event.key == pygame.K_KP_MINUS or event.key == pygame.K_r:
 						Move=Move-1
 						if Move < 1:
 							Move=1
@@ -899,7 +899,7 @@ while Level < 22:
 						EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 						VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
 						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-					elif event.key == pygame.K_KP0:
+					elif event.key == pygame.K_KP0 or event.key == pygame.K_SPACE:
 						if not PlayerMissiles < 1:
 							MissileTarget=20000000
 							PlayerScan=PlayerLevel*2
@@ -998,7 +998,7 @@ while Level < 22:
 							EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 							VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
 							DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-					elif event.key == pygame.K_KP_DIVIDE:
+					elif event.key == pygame.K_KP_DIVIDE or event.key == pygame.K_LCTRL:
 						LaserTarget=20000000
 						LaserScan(Enemies, LaserTargetList)
 						if len(LaserTargetList) > 0:
@@ -1043,7 +1043,7 @@ while Level < 22:
 							EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
 							VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
 							DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-					elif event.key == pygame.K_KP_MULTIPLY:
+					elif event.key == pygame.K_KP_MULTIPLY or event.key == pygame.K_l:
 						DoLegend()
 						Status='Level: '+str(Level)+' Player Level: '+str(PlayerLevel)+' Jump Distance: '+str(Move)+'/'+str(PlayerLevel)+' Hull: '+str(PlayerHull)+'/'\
 +str(PlayerHullMax)+' Missiles: '+str(PlayerMissiles)+' Exp: '+str(Exp[0])+'/'+str(ExpNeeded)+' Turn: '+str(Action+1)
