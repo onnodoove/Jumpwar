@@ -1315,6 +1315,7 @@ while Level < 22:
 								EnemyHull=EnemyHull+Health
 								if EnemyHull > (EnemyLevel*100):
 									EnemyHull = (EnemyLevel*100)
+								EnemyMissiles=int(Enemies[Counter+7])
 								EnemyMissiles=EnemyMissiles+ExtraMissiles
 								Enemies[Counter+6]=EnemyHull
 								Enemies[Counter+7]=EnemyMissiles
