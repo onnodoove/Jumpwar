@@ -14,14 +14,6 @@ Drone
 12
 200
 1
-1
-Suppressor Drone
-Drone
-100
-4
-12
-100
-2
 2
 Bomber Drone
 Drone
@@ -46,14 +38,6 @@ Drone2
 12
 300
 1
-1
-Drone Scout
-Drone2
-60
-5
-15
-100
-4
 3
 Fast Drone
 Drone2
@@ -86,14 +70,6 @@ Drone3
 12
 600
 4
-1
-Missile Drone
-Drone4
-80
-4
-12
-100
-10
 5
 Torpedo Drone
 Drone4
@@ -126,14 +102,6 @@ Interceptor
 30
 400
 2
-2
-Missile Interceptor
-Interceptor
-20
-12
-36
-200
-4
 4
 Fast Interceptor
 Interceptor
