@@ -22,6 +22,8 @@ RedStar=pygame.image.load('RedStar.png')
 YellowStar=pygame.image.load('YellowStar.png')
 BlueStar=pygame.image.load('BlueStar.png')
 Asteroid=pygame.image.load('Asteroid.png')
+Asteroid2=pygame.image.load('Asteroid2.png')
+Asteroid3=pygame.image.load('Asteroid3.png')
 Wormhole=pygame.image.load('Wormhole.png')
 Drone=pygame.image.load('Drone.png')
 Drone2=pygame.image.load('Drone2.png')
@@ -304,13 +306,18 @@ while Level < 22:
 		Counter=0
 		MaxCounter=len(Asteroids)
 		while Counter < MaxCounter:
-			AsteroidsType=Asteroids[Counter]
+			AsteroidsType=int(Asteroids[Counter])
+			if AsteroidsType==1:
+				AsteroidsImage='Asteroid'
+			elif AsteroidsType==2:
+				AsteroidsImage='Asteroid2'
+			if AsteroidsType==3:
+				AsteroidsImage='Asteroid3'
 			AsteroidsX=Asteroids[Counter+1]
 			AsteroidsY=Asteroids[Counter+2]
 			XDiff=AsteroidsX-PlayerX
 			YDiff=AsteroidsY-PlayerY
 			if (-10 <= XDiff) and ( XDiff <= 10) and (-10 <= YDiff) and (YDiff <= 10):
-				AsteroidsImage='Asteroid'
 				ScreenRange.append(AsteroidsImage)
 				ScreenRange.append(XDiff)
 				ScreenRange.append(YDiff)
@@ -384,6 +391,10 @@ while Level < 22:
 				ScreenItem=BlueStar
 			elif ObjectImage == 'Asteroid':
 				ScreenItem=Asteroid
+			elif ObjectImage == 'Asteroid2':
+				ScreenItem=Asteroid2
+			elif ObjectImage == 'Asteroid3':
+				ScreenItem=Asteroid3
 			elif ObjectImage == 'Wormhole':
 				ScreenItem=Wormhole
 			elif ObjectImage == 'Drone\n':
