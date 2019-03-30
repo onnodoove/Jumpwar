@@ -1152,6 +1152,26 @@ while Level < 22:
 
 						MoveCounter=MoveCounter+1
 
+		Nexp=int(Exp[0])
+		if Nexp >= ExpNeeded:
+			Nexp=Nexp-ExpNeeded
+			PlayerLevel=PlayerLevel+1
+			ExpNeeded=PlayerLevel*4
+			if PlayerLevel > 20:
+				PlayerLevel=20
+			if Nexp < 0:
+				NExp=0
+			Exp[0]=Nexp
+			Move=PlayerLevel
+			PlayerHullMax=PlayerLevel*100
+			LevelUp.play()
+			Status='Ship leveled up, press enter'
+			ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
+			VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
+			DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+			wait()
+
 		if len(Enemies) > 0:
 #			print()
 #			print('--ENEMY TURN--')
@@ -1394,6 +1414,9 @@ while Level < 22:
 							EnemyDir=8
 
 						EnemyMoveCounter=int(Enemies[Counter+4])
+						if (-1*EnemyMoveCounter <= XDiff) and ( XDiff <= EnemyMoveCounter) and (-1*EnemyMoveCounter <= YDiff) and (YDiff <= EnemyMoveCounter):
+							if EnemyHull > (EnemyLevel*30):
+								EnemyMoveCounter=10
 						if (-10 <= XDiff) and ( XDiff <= 10) and (-10 <= YDiff) and (YDiff <= 10):
 							if EnemyHull > (EnemyLevel*30):
 								EnemyMoveCounter=4
@@ -1509,26 +1532,6 @@ while Level < 22:
 
 				Counter=Counter+10
 
-		Nexp=int(Exp[0])
-		if Nexp >= ExpNeeded:
-			Nexp=Nexp-ExpNeeded
-			PlayerLevel=PlayerLevel+1
-			ExpNeeded=PlayerLevel*4
-			if PlayerLevel > 20:
-				PlayerLevel=20
-			if Nexp < 0:
-				NExp=0
-			Exp[0]=Nexp
-			Move=PlayerLevel
-			PlayerHullMax=PlayerLevel*100
-			LevelUp.play()
-			Status='Ship leveled up, press enter'
-			ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
-			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
-			VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY)
-			DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-			wait()
-		
 
 
 
