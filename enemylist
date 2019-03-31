@@ -8,7 +8,7 @@ Drone
 1
 2
 Assassin Drone
-Drone
+Drone2
 80
 4
 12
@@ -16,7 +16,7 @@ Drone
 1
 2
 Bomber Drone
-Drone
+Drone2
 120
 4
 12
@@ -32,7 +32,7 @@ Drone2
 2
 3
 Beefed Drone
-Drone2
+Drone3
 50
 4
 12
@@ -40,7 +40,7 @@ Drone2
 1
 3
 Fast Drone
-Drone2
+Drone3
 70
 6
 18
@@ -48,7 +48,7 @@ Drone2
 3
 8
 Armored Drone
-Drone3
+Drone4
 60
 4
 12
@@ -56,7 +56,7 @@ Drone3
 1
 5
 Grenade Drone
-Drone3
+Drone4
 70
 4
 12
@@ -64,7 +64,7 @@ Drone3
 4
 6
 Heavy Drone
-Drone3
+Drone4
 80
 4
 12
@@ -96,7 +96,7 @@ Interceptor
 2
 4
 Armored Interceptor
-Interceptor
+Interceptor3
 20
 10
 30
@@ -104,7 +104,7 @@ Interceptor
 2
 4
 Fast Interceptor
-Interceptor
+Interceptor3
 40
 14
 42
@@ -112,7 +112,7 @@ Interceptor
 4
 10
 Beefed Interceptor
-Interceptor3
+Interceptor5
 20
 6
 18
@@ -120,7 +120,7 @@ Interceptor3
 2
 6
 Torpedo Interceptor
-Interceptor3
+Interceptor4
 20
 7
 21
@@ -128,7 +128,7 @@ Interceptor3
 5
 7
 Heavy Interceptor
-Interceptor3
+Interceptor4
 50
 8
 24
@@ -136,7 +136,7 @@ Interceptor3
 5
 2
 Assault Interceptor
-Interceptor4
+Interceptor
 20
 8
 24
@@ -160,7 +160,7 @@ Interceptor5
 14
 18
 Frigat
-Frigat
+Frigat4
 30
 4
 12
@@ -168,7 +168,7 @@ Frigat
 3
 14
 Grenade Frigat
-Frigat
+Frigat4
 30
 4
 12
@@ -176,7 +176,7 @@ Frigat
 6
 16
 Heavy Frigat
-Frigat
+Frigat4
 60
 6
 18
@@ -184,7 +184,7 @@ Frigat
 6
 8
 Missile Frigat
-Frigat4
+Frigat
 30
 4
 12
@@ -192,7 +192,7 @@ Frigat4
 14
 9
 Torpedo Frigat
-Frigat4
+Frigat
 70
 7
 21

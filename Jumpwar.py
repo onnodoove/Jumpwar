@@ -584,6 +584,15 @@ while Level < 22:
 			ScanEnemy[3]=WdiffY
 		return (ScanEnemy)
 
+	def PlayerDistance (EnemyX, EnemyY, PlayerX, PlayerY):
+		XDiff=PlayerX-EnemyX
+		YDiff=PlayerY-EnemyY
+		if (XDiff==0) and (YDiff==0):
+			PlayerDist=0
+		else:
+			PlayerDist=math.sqrt((XDiff**2+YDiff**2))
+		return (PlayerDist)
+
 	def MissileScan (Enemies, MissileTargetList, PlayerScan):
 		Counter=0
 		NumberofTargets=0
@@ -1425,10 +1434,11 @@ while Level < 22:
 							EnemyDir=8
 
 						EnemyMoveCounter=int(Enemies[Counter+4])
-						if (-1*EnemyMoveCounter <= XDiff) and ( XDiff <= EnemyMoveCounter) and (-1*EnemyMoveCounter <= YDiff) and (YDiff <= EnemyMoveCounter):
+						PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
+						if PDist < EnemyMoveCounter:
 							if EnemyHull > (EnemyLevel*30):
 								EnemyMoveCounter=10
-						if (-10 <= XDiff) and ( XDiff <= 10) and (-10 <= YDiff) and (YDiff <= 10):
+						if PDist < 10:
 							if EnemyHull > (EnemyLevel*30):
 								EnemyMoveCounter=4
 						EnemyMove=0
