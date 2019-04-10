@@ -53,11 +53,11 @@ Load=open('Jumpwar.txt', 'r')
 LoadList=list(Load)
 Load.close()
 LevelSave1=int(LoadList[0].rstrip())
-LevelSave2=int(LoadList[3].rstrip())
-LevelSave3=int(LoadList[6].rstrip())
-LevelSave4=int(LoadList[9].rstrip())
-LevelSave5=int(LoadList[12].rstrip())
-LevelSave6=int(LoadList[15].rstrip())
+LevelSave2=int(LoadList[5].rstrip())
+LevelSave3=int(LoadList[10].rstrip())
+LevelSave4=int(LoadList[15].rstrip())
+LevelSave5=int(LoadList[20].rstrip())
+LevelSave6=int(LoadList[25].rstrip())
 
 
 SLevelSave1=str(LevelSave1)
@@ -108,38 +108,51 @@ while Selection==False:
 				SaveCounter=0
 				Level=int(LoadList[0].rstrip())
 				PlayerLevel=int(LoadList[1].rstrip())
-				Exp[0]=LoadList[2].rstrip()
+				PlayerHull=int(LoadList[2].rstrip())
+				PlayerMissiles=int(LoadList[3].rstrip())
+				Exp[0]=LoadList[4].rstrip()
 				Selection=True
 			if event.key == pygame.K_KP2 or event.key == pygame.K_2:
-				SaveCounter=3
-				Level=int(LoadList[3].rstrip())
-				PlayerLevel=int(LoadList[4].rstrip())
-				Exp[0]=LoadList[5].rstrip()
+				SaveCounter=5
+				Level=int(LoadList[5].rstrip())
+				PlayerLevel=int(LoadList[6].rstrip())
+				PlayerHull=int(LoadList[7].rstrip())
+				PlayerMissiles=int(LoadList[8].rstrip())
+				Exp[0]=LoadList[9].rstrip()
 				Selection=True
 			if event.key == pygame.K_KP3 or event.key == pygame.K_3:
-				SaveCounter=6
-				Level=int(LoadList[6].rstrip())
-				PlayerLevel=int(LoadList[7].rstrip())
-				Exp[0]=LoadList[8].rstrip()
-				Selection=True
-			if event.key == pygame.K_KP4 or event.key == pygame.K_4:
-				SaveCounter=9
-				Level=int(LoadList[9].rstrip())
-				PlayerLevel=int(LoadList[10].rstrip())
-				Exp[0]=LoadList[11].rstrip()
-				Selection=True
-			if event.key == pygame.K_KP5 or event.key == pygame.K_5:
-				SaveCounter=12
-				Level=int(LoadList[12].rstrip())
-				PlayerLevel=int(LoadList[13].rstrip())
+				SaveCounter=10
+				Level=int(LoadList[10].rstrip())
+				PlayerLevel=int(LoadList[11].rstrip())
+				PlayerHull=int(LoadList[12].rstrip())
+				PlayerMissiles=int(LoadList[13].rstrip())
 				Exp[0]=LoadList[14].rstrip()
 				Selection=True
-			if event.key == pygame.K_KP6 or event.key == pygame.K_6:
+			if event.key == pygame.K_KP4 or event.key == pygame.K_4:
 				SaveCounter=15
 				Level=int(LoadList[15].rstrip())
 				PlayerLevel=int(LoadList[16].rstrip())
-				Exp[0]=LoadList[17].rstrip()
+				PlayerHull=int(LoadList[17].rstrip())
+				PlayerMissiles=int(LoadList[18].rstrip())
+				Exp[0]=LoadList[19].rstrip()
 				Selection=True
+			if event.key == pygame.K_KP5 or event.key == pygame.K_5:
+				SaveCounter=20
+				Level=int(LoadList[20].rstrip())
+				PlayerLevel=int(LoadList[21].rstrip())
+				PlayerHull=int(LoadList[22].rstrip())
+				PlayerMissiles=int(LoadList[23].rstrip())
+				Exp[0]=LoadList[24].rstrip()
+				Selection=True
+			if event.key == pygame.K_KP6 or event.key == pygame.K_6:
+				SaveCounter=25
+				Level=int(LoadList[25].rstrip())
+				PlayerLevel=int(LoadList[26].rstrip())
+				PlayerHull=int(LoadList[27].rstrip())
+				PlayerMissiles=int(LoadList[28].rstrip())
+				Exp[0]=LoadList[29].rstrip()
+				Selection=True
+
 
 ScreenRange=list()
 MissileTargetList=list()
@@ -206,8 +219,6 @@ Enemies=list()
 ScreenRange=list()
 while Level < 26:
 	PlayerDamage=PlayerLevel*10
-	PlayerHull=PlayerLevel*100
-	PlayerMissiles=PlayerLevel
 	ExpNeeded=PlayerLevel*4
 	Spawn=random.randint(1,4)
 	if Spawn==1:
@@ -837,7 +848,6 @@ while Level < 26:
 		SPlayerLevel=str(PlayerLevel)
 		Action=0
 		ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
-		Move=PlayerLevel
 		while Action < 3:
 			SAction=str(Action+1)
 			EnemyStatus=str(ClosestEnemy[0]).rstrip()+' at: '+str(ClosestEnemy[2])+' '+str(ClosestEnemy[3])+' Hull: '+str(ClosestEnemy[1]).rstrip()
@@ -1571,15 +1581,26 @@ while Level < 26:
 
 		if PlayerX==WormholeX and PlayerY==WormholeY:
 			Level=Level+1
-			SLevel=str(Level)
-			SPlayerLevel=str(PlayerLevel)
-			Nexp=int(Exp[0])
-			SNexp=str(Nexp)
+			if Level < 26:
+				SLevel=str(Level)
+				SPlayerLevel=str(PlayerLevel)
+				SPlayerHull=str(int(PlayerHull))
+				SPlayerMissiles=str(PlayerMissiles)
+				Nexp=int(Exp[0])
+				SNexp=str(Nexp)
+			else:
+				SLevel='1'
+				SPlayerLevel='4'
+				SPlayerHull='400'
+				SPlayerMissiles='4'
+				SNexp='0'
 			Action=3
 			running=False
 			LoadList[SaveCounter]=SLevel
 			LoadList[SaveCounter+1]=SPlayerLevel
-			LoadList[SaveCounter+2]=SNexp
+			LoadList[SaveCounter+2]=SPlayerHull
+			LoadList[SaveCounter+3]=SPlayerMissiles
+			LoadList[SaveCounter+4]=SNexp
 			os.system('rm Jumpwar.txt')
 			Save=open('Jumpwar.txt', 'a')
 #			print('WELCOME TO LEVEL ', SLevel)
@@ -1591,7 +1612,6 @@ while Level < 26:
 				WriteCounter=WriteCounter+1
 			Save.close()
 			
-		Move=PlayerLevel
 		Action=0
 		Status='Level: '+str(Level)+' Player Level: '+str(PlayerLevel)+' Jump Distance: '+str(Move)+'/'+str(PlayerLevel)+' Hull: '+str(PlayerHull)+'/'+str(PlayerHullMax)+' Missiles: '\
 +str(PlayerMissiles)+' Exp: '+str(Exp[0])+'/'+str(ExpNeeded)+' Turn: '+str(Action+1)
