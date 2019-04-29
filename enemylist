@@ -16,7 +16,7 @@ Drone2
 1
 2
 Bomber Drone
-Drone2
+Drone3
 120
 4
 12
@@ -24,7 +24,7 @@ Drone2
 2
 2
 Support Drone
-Drone2
+Drone4
 40
 6
 18
@@ -32,7 +32,7 @@ Drone2
 2
 3
 Shielded Drone
-Drone3
+Drone5
 50
 4
 12
@@ -40,7 +40,7 @@ Drone3
 1
 3
 Fast Drone
-Drone3
+Drone6
 70
 6
 18
@@ -48,7 +48,7 @@ Drone3
 3
 8
 Armored Drone
-Drone4
+Drone7
 60
 4
 12
@@ -56,7 +56,7 @@ Drone4
 1
 5
 Grenade Drone
-Drone4
+Drone8
 70
 4
 12
@@ -64,7 +64,7 @@ Drone4
 4
 6
 Heavy Drone
-Drone4
+Drone9
 80
 4
 12
@@ -72,7 +72,7 @@ Drone4
 4
 5
 Torpedo Drone
-Drone4
+Drone10
 90
 5
 15
@@ -80,7 +80,7 @@ Drone4
 6
 12
 Master Drone
-Drone5
+Drone11
 100
 12
 36
@@ -96,7 +96,7 @@ Interceptor
 2
 4
 Shielded Interceptor
-Interceptor3
+Interceptor2
 20
 10
 30
@@ -112,7 +112,7 @@ Interceptor3
 4
 10
 Armored Interceptor
-Interceptor5
+Interceptor4
 20
 6
 18
@@ -120,7 +120,7 @@ Interceptor5
 2
 6
 Torpedo Interceptor
-Interceptor4
+Interceptor5
 20
 7
 21
@@ -128,7 +128,7 @@ Interceptor4
 5
 7
 Heavy Interceptor
-Interceptor4
+Interceptor6
 50
 8
 24
@@ -136,7 +136,7 @@ Interceptor4
 5
 2
 Assault Interceptor
-Interceptor
+Interceptor7
 20
 8
 24
@@ -144,7 +144,7 @@ Interceptor
 12
 6
 Destroyer
-Interceptor4
+Interceptor8
 60
 9
 27
@@ -152,7 +152,7 @@ Interceptor4
 7
 14
 Terminator
-Interceptor5
+Interceptor9
 140
 10
 30
@@ -160,7 +160,7 @@ Interceptor5
 14
 18
 Frigat
-Frigat4
+Frigat
 30
 4
 12
@@ -168,7 +168,7 @@ Frigat4
 3
 14
 Grenade Frigat
-Frigat4
+Frigat2
 30
 4
 12
@@ -176,7 +176,7 @@ Frigat4
 6
 16
 Heavy Frigat
-Frigat4
+Frigat3
 60
 6
 18
@@ -184,7 +184,7 @@ Frigat4
 6
 8
 Missile Frigat
-Frigat
+Frigat4
 30
 4
 12
@@ -192,7 +192,7 @@ Frigat
 14
 9
 Torpedo Frigat
-Frigat
+Friga5
 70
 7
 21
@@ -200,14 +200,14 @@ Frigat
 8
 10
 USS Enterprise
-Frigat5
+Frigat6
 160
 16
 48
 1000
 16
 4
-Missile-Platform
+Missile Launcher
 MissilePlatform
 40
 4
@@ -215,8 +215,8 @@ MissilePlatform
 400
 24
 9
-Heavy Missile-Platform
-MissilePlatform
+Missile Platform
+MissilePlatform2
 80
 8
 24
