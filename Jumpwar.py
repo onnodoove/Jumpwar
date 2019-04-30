@@ -62,6 +62,7 @@ Frigat2=pygame.image.load('Frigat2.png')
 Frigat3=pygame.image.load('Frigat3.png')
 Frigat4=pygame.image.load('Frigat4.png')
 Frigat5=pygame.image.load('Frigat5.png')
+Frigat6=pygame.image.load('Frigat6.png')
 
 MissilePlatform=pygame.image.load('MissilePlatform.png')
 MissilePlatform2=pygame.image.load('MissilePlatform2.png')
@@ -81,39 +82,11 @@ Sad=pygame.image.load('Sad.png')
 
 Explosion=pygame.image.load('Blast.png')
 
-Load=open('Jumpwar.txt', 'r')
-LoadList=list(Load)
-Load.close()
-LevelSave1=int(LoadList[0].rstrip())
-LevelSave2=int(LoadList[5].rstrip())
-LevelSave3=int(LoadList[10].rstrip())
-LevelSave4=int(LoadList[15].rstrip())
-LevelSave5=int(LoadList[20].rstrip())
-LevelSave6=int(LoadList[25].rstrip())
-
-
-SLevelSave1=str(LevelSave1)
-SLevelSave2=str(LevelSave2)
-SLevelSave3=str(LevelSave3)
-SLevelSave4=str(LevelSave4)
-SLevelSave5=str(LevelSave5)
-SLevelSave6=str(LevelSave6)
-
-
-Save1Status='Save slot 1, level: '+SLevelSave1
-Save2Status='Save slot 2, level: '+SLevelSave2
-Save3Status='Save slot 3, level: '+SLevelSave3
-Save4Status='Save slot 4, level: '+SLevelSave4
-Save5Status='Save slot 5, level: '+SLevelSave5
-Save6Status='Save slot 6, level: '+SLevelSave6
-
-
-Save1Text = myfont.render(Save1Status, False, (255, 255, 0))
-Save2Text = myfont.render(Save2Status, False, (255, 255, 0))
-Save3Text = myfont.render(Save3Status, False, (255, 255, 0))
-Save4Text = myfont.render(Save4Status, False, (255, 255, 0))
-Save5Text = myfont.render(Save5Status, False, (255, 255, 0))
-Save6Text = myfont.render(Save6Status, False, (255, 255, 0))
+Level=0
+PlayerLevel=0
+PlayerHull=0
+PlayerMissiles=0
+Exp=list()
 
 pygame.display.set_icon(Galaxy)
 pygame.display.set_caption('Jumpwar')
@@ -121,71 +94,120 @@ Width=int(1000)
 Heigth=int(1000)
 screen = pygame.display.set_mode((Width, Heigth))
 
-screen.blit(Galaxy,(0,0))
-screen.blit(Save1Text,(0,0))
-screen.blit(Save2Text,(0,50))
-screen.blit(Save3Text,(0,100))
-screen.blit(Save4Text,(0,150))
-screen.blit(Save5Text,(0,200))
-screen.blit(Save6Text,(0,250))
+Load=open('Jumpwar', 'r')
+LoadList=list(Load)
+Load.close()
+SaveCounter=0
+
+def LoadGame ():
+	global Level
+	global PlayerLevel
+	global PlayerHull
+	global PlayerMissiles
+	global Exp
+	global SaveCounter
+
+	LevelSave1=int(LoadList[0].rstrip())
+	LevelSave2=int(LoadList[5].rstrip())
+	LevelSave3=int(LoadList[10].rstrip())
+	LevelSave4=int(LoadList[15].rstrip())
+	LevelSave5=int(LoadList[20].rstrip())
+	LevelSave6=int(LoadList[25].rstrip())
+
+	SLevelSave1=str(LevelSave1)
+	SLevelSave2=str(LevelSave2)
+	SLevelSave3=str(LevelSave3)
+	SLevelSave4=str(LevelSave4)
+	SLevelSave5=str(LevelSave5)
+	SLevelSave6=str(LevelSave6)
 
 
-pygame.display.flip()
-
-Selection=False
-while Selection==False:
-	for event in pygame.event.get():
-		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_KP1 or event.key == pygame.K_1:
-				SaveCounter=0
-				Level=int(LoadList[0].rstrip())
-				PlayerLevel=int(LoadList[1].rstrip())
-				PlayerHull=int(LoadList[2].rstrip())
-				PlayerMissiles=int(LoadList[3].rstrip())
-				Exp[0]=LoadList[4].rstrip()
-				Selection=True
-			if event.key == pygame.K_KP2 or event.key == pygame.K_2:
-				SaveCounter=5
-				Level=int(LoadList[5].rstrip())
-				PlayerLevel=int(LoadList[6].rstrip())
-				PlayerHull=int(LoadList[7].rstrip())
-				PlayerMissiles=int(LoadList[8].rstrip())
-				Exp[0]=LoadList[9].rstrip()
-				Selection=True
-			if event.key == pygame.K_KP3 or event.key == pygame.K_3:
-				SaveCounter=10
-				Level=int(LoadList[10].rstrip())
-				PlayerLevel=int(LoadList[11].rstrip())
-				PlayerHull=int(LoadList[12].rstrip())
-				PlayerMissiles=int(LoadList[13].rstrip())
-				Exp[0]=LoadList[14].rstrip()
-				Selection=True
-			if event.key == pygame.K_KP4 or event.key == pygame.K_4:
-				SaveCounter=15
-				Level=int(LoadList[15].rstrip())
-				PlayerLevel=int(LoadList[16].rstrip())
-				PlayerHull=int(LoadList[17].rstrip())
-				PlayerMissiles=int(LoadList[18].rstrip())
-				Exp[0]=LoadList[19].rstrip()
-				Selection=True
-			if event.key == pygame.K_KP5 or event.key == pygame.K_5:
-				SaveCounter=20
-				Level=int(LoadList[20].rstrip())
-				PlayerLevel=int(LoadList[21].rstrip())
-				PlayerHull=int(LoadList[22].rstrip())
-				PlayerMissiles=int(LoadList[23].rstrip())
-				Exp[0]=LoadList[24].rstrip()
-				Selection=True
-			if event.key == pygame.K_KP6 or event.key == pygame.K_6:
-				SaveCounter=25
-				Level=int(LoadList[25].rstrip())
-				PlayerLevel=int(LoadList[26].rstrip())
-				PlayerHull=int(LoadList[27].rstrip())
-				PlayerMissiles=int(LoadList[28].rstrip())
-				Exp[0]=LoadList[29].rstrip()
-				Selection=True
+	Save1Status='Save slot 1, level: '+SLevelSave1
+	Save2Status='Save slot 2, level: '+SLevelSave2
+	Save3Status='Save slot 3, level: '+SLevelSave3
+	Save4Status='Save slot 4, level: '+SLevelSave4
+	Save5Status='Save slot 5, level: '+SLevelSave5
+	Save6Status='Save slot 6, level: '+SLevelSave6
 
 
+	Save1Text = myfont.render(Save1Status, False, (255, 255, 0))
+	Save2Text = myfont.render(Save2Status, False, (255, 255, 0))
+	Save3Text = myfont.render(Save3Status, False, (255, 255, 0))
+	Save4Text = myfont.render(Save4Status, False, (255, 255, 0))
+	Save5Text = myfont.render(Save5Status, False, (255, 255, 0))
+	Save6Text = myfont.render(Save6Status, False, (255, 255, 0))
+	Status = myfont.render('Or press ESC to quit', False, (255, 255, 0))
+	
+	screen.blit(Galaxy,(0,0))
+	screen.blit(Save1Text,(0,0))
+	screen.blit(Save2Text,(0,50))
+	screen.blit(Save3Text,(0,100))
+	screen.blit(Save4Text,(0,150))
+	screen.blit(Save5Text,(0,200))
+	screen.blit(Save6Text,(0,250))
+	screen.blit(Status,(0,980))
+
+	pygame.display.flip()
+
+	Selection=False
+	while Selection==False:
+		for event in pygame.event.get():
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_KP1 or event.key == pygame.K_1:
+					SaveCounter=0
+					Level=int(LoadList[0].rstrip())
+					PlayerLevel=int(LoadList[1].rstrip())
+					PlayerHull=int(LoadList[2].rstrip())
+					PlayerMissiles=int(LoadList[3].rstrip())
+					Exp.append(LoadList[4].rstrip())
+					Selection=True
+				if event.key == pygame.K_KP2 or event.key == pygame.K_2:
+					SaveCounter=5
+					Level=int(LoadList[5].rstrip())
+					PlayerLevel=int(LoadList[6].rstrip())
+					PlayerHull=int(LoadList[7].rstrip())
+					PlayerMissiles=int(LoadList[8].rstrip())
+					Exp.append(LoadList[9].rstrip())
+					Selection=True
+				if event.key == pygame.K_KP3 or event.key == pygame.K_3:
+					SaveCounter=10
+					Level=int(LoadList[10].rstrip())
+					PlayerLevel=int(LoadList[11].rstrip())
+					PlayerHull=int(LoadList[12].rstrip())
+					PlayerMissiles=int(LoadList[13].rstrip())
+					Exp.appens(LoadList[14].rstrip())
+					Selection=True
+				if event.key == pygame.K_KP4 or event.key == pygame.K_4:
+					SaveCounter=15
+					Level=int(LoadList[15].rstrip())
+					PlayerLevel=int(LoadList[16].rstrip())
+					PlayerHull=int(LoadList[17].rstrip())
+					PlayerMissiles=int(LoadList[18].rstrip())
+					Exp.append(LoadList[19].rstrip())
+					Selection=True
+				if event.key == pygame.K_KP5 or event.key == pygame.K_5:
+					SaveCounter=20
+					Level=int(LoadList[20].rstrip())
+					PlayerLevel=int(LoadList[21].rstrip())
+					PlayerHull=int(LoadList[22].rstrip())
+					PlayerMissiles=int(LoadList[23].rstrip())
+					Exp.append(LoadList[24].rstrip())
+					Selection=True
+				if event.key == pygame.K_KP6 or event.key == pygame.K_6:
+					SaveCounter=25
+					Level=int(LoadList[25].rstrip())
+					PlayerLevel=int(LoadList[26].rstrip())
+					PlayerHull=int(LoadList[27].rstrip())
+					PlayerMissiles=int(LoadList[28].rstrip())
+					Exp.append(LoadList[29].rstrip())
+					Selection=True
+				if event.key == pygame.K_ESCAPE:
+					sys.exit()
+
+	return
+
+	
+LoadGame()
 Action=0
 ScreenRange=list()
 MissileTargetList=list()
@@ -397,12 +419,13 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	WXdiff=100-PlayerX
 	WYdiff=100-PlayerY
 	global WormholeOpenPlayed
+	PlayerHealth=str(int((PlayerHull/(PlayerLevel*100))*100))+'%'
 	if EnemyKills >= EnemyKillTarget:
 		WormholeText='Wormhole open at: '+str(WXdiff)+' '+str(WYdiff)
 	else:
-		WormholeText='Progress: '+str(int((EnemyKills/EnemyKillTarget)*100))+'%'
-	if PlayerHull > PlayerLevel*50 and PlayerMissiles >0:
-		AsteroidText='Player healthy'
+		WormholeText='Progress until wormhole open: '+str(int((EnemyKills/EnemyKillTarget)*100))+'%'
+	if PlayerHull >= PlayerLevel*50 and PlayerMissiles >0:
+		AsteroidText='Ship hull '+PlayerHealth
 	else:
 		AsteroidText=ScanClosestAsteroid(PlayerX, PlayerY)
 	textsurface3 = myfont.render(WormholeText, False, (255, 255, 0))
@@ -563,6 +586,7 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
 	Mood=str(Enemies[ClosestEnemy+10]).rstrip()
 	ObjectImage=str(Enemies[ClosestEnemy+2])
+	EnemyHealth=str(int((EnemyHull/(EnemyLevel*100))*100))+'%'
 	if ObjectImage == 'Drone\n':
 		ScreenItem=Drone
 	elif ObjectImage == 'Drone2\n':
@@ -634,7 +658,7 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	text04 = myfont.render(textEnemySpeed, False, (255, 255, 0))
 	textEnemyScan='Scan Range: '+str(EnemyScan)
 	text05 = myfont.render(textEnemyScan, False, (255, 255, 0))
-	textEnemyHull='Hull             : '+str(EnemyHull)
+	textEnemyHull='Hull             : '+EnemyHealth
 	text06 = myfont.render(textEnemyHull, False, (255, 255, 0))
 	textEnemyMissiles='Missiles      : '+EnemyMissiles
 	text07 = myfont.render(textEnemyMissiles, False, (255, 255, 0))
@@ -669,7 +693,7 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	return
 
 def NewLevel (Level):
-	Status = myfont.render('Press enter', False, (255, 255, 0))		
+	Status = myfont.render('Press enter to continue - ESC to quit', False, (255, 255, 0))		
 	text1 = myfont.render('Welcome to Level: '+str(Level), False, (255, 255, 0))
 
 #	pygame.display.set_icon(Galaxy)
@@ -681,7 +705,13 @@ def NewLevel (Level):
 	screen.blit(text1,(300,300))
 	screen.blit(Status,(0,980))
 	pygame.display.flip()
-	wait()
+	while True:
+		for event in pygame.event.get():
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
+	                		return
+				elif event.key == pygame.K_ESCAPE:
+					sys.exit()
 	return
 
 def DoVictory ():
@@ -811,9 +841,6 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 					if len(LaserTargetList) > 6:
 						LaserTarget=LaserTargetList[6]
 						Selection=True
-				if event.key == pygame.K_KP_MULTIPLY:
-					DoLegend()
-					DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 	return(LaserTarget)
 
 
@@ -867,14 +894,14 @@ def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 		YDiff=EnemyY-PlayerY
 		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
 			if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
-				EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' Hull: '+str(Enemies[ClosestEnemy+6]).rstrip()+' LASER LOCK'
+				EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)
 			else:
 				if PlayerMissiles > 0:
-					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' Hull: '+str(Enemies[ClosestEnemy+6]).rstrip()+' MISSILE LOCK'
+					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' MISSILE LOCK'
 				else:
-					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' Hull: '+str(Enemies[ClosestEnemy+6]).rstrip()+' NO MISSILES'
+					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' NO MISSILES'
 		else:
-			EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' Hull: '+str(Enemies[ClosestEnemy+6]).rstrip()+' OUT OF RANGE'
+			EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' OUT OF RANGE'
 	return(EnemyStatus)
 
 def FireMissile (Enemies, Stars, Asteroids, MissileTarget, PlayerLevel, Exp, Nexp):
@@ -953,20 +980,18 @@ def ScanAsteroid (EnemyX, EnemyY):
 		Counter=Counter+3
 	return (AsteroidScan)
 
-
-
 DoHelp()
-SpeedSetting=3
-CXdiff=200
-CYdiff=200
-ClosestAsteroid=[200, 200]
-CollideStar=list()
-ClosestEnemy=1000
-Stars=list()
-Asteroids=list()
-Enemies=list()
-ScreenRange=list()
 while Level < 21:
+	SpeedSetting=3
+	CXdiff=200
+	CYdiff=200
+	ClosestAsteroid=[200, 200]
+	CollideStar=list()
+	ClosestEnemy=1000
+	Stars=list()
+	Asteroids=list()
+	Enemies=list()
+	ScreenRange=list()
 	PlayerDamage=PlayerLevel*10
 	ExpNeeded=PlayerLevel*4
 	Spawn=random.randint(1,4)
@@ -1347,7 +1372,8 @@ while Level < 21:
 								VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 								DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 								wait()
-								sys.exit()
+								running=False
+								LoadGame()
 							else:
 								if PlayerHull<(PlayerLevel*50):
 									Hurt.play()
@@ -1431,7 +1457,7 @@ while Level < 21:
 
 #		print(EnemyKills, ' of ', EnemyKillTarget)
 
-		if len(Enemies) > 0:
+		if len(Enemies) > 0 and running==True:
 #			print()
 #			print('--ENEMY TURN--')
 			EnemyDir=0
@@ -1442,7 +1468,7 @@ while Level < 21:
 			Counter=0
 			EnemyName='Enemy'
 			MaxCounter=len(Enemies)
-			while Counter < MaxCounter:
+			while Counter < MaxCounter and running==True:
 				EnemyActive=False
 				Fleeing=False
 				MissileFired=False
@@ -1459,7 +1485,9 @@ while Level < 21:
 					EnemyY=int(Enemies[Counter+9])
 					XDiff=PlayerX-EnemyX
 					YDiff=PlayerY-EnemyY
-					if (-4 <= XDiff) and ( XDiff <= 4) and (-4 <= YDiff) and (YDiff <= 4):
+					if EnemyHull < (EnemyLevel*30):
+						Enemies[Counter+10]='Scared'
+					if (-4 <= XDiff) and ( XDiff <= 4) and (-4 <= YDiff) and (YDiff <= 4) and running==True:
 						ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 						EnemyActive=True
 						EnemyLaserDamage=int(Enemies[Counter+3])
@@ -1489,14 +1517,15 @@ while Level < 21:
 							VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 							DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 							wait()
-							sys.exit()
+							running=False
+							LoadGame()
 						else:
 							if PlayerHull<(PlayerLevel*50):
 								Hurt.play()
 							else:
 								Laser.play()
 #							print(str(EnemyName).rstrip(), 'fires laser...')
-					if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+					if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20) and running==True:
 						EnemyMissiles=int(Enemies[Counter+7])
 						if EnemyMissiles > 0:
 							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
@@ -1575,7 +1604,8 @@ while Level < 21:
 									DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 									EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
 									wait()
-									sys.exit()
+									running=False
+									LoadGame()
 								else:
 									if PlayerHull<(PlayerLevel*50):
 										Hurt.play()
@@ -1583,7 +1613,7 @@ while Level < 21:
 										Beep.play()
 								MissileFired=True
 #									print(str(EnemyName).rstrip(), 'fires missile...')
-					if EnemyHull < (EnemyLevel*30):
+					if EnemyHull < (EnemyLevel*30) and running==True:
 						Fleeing=True
 						AsteroidScan=[None]*4
 						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
@@ -1622,7 +1652,7 @@ while Level < 21:
 							EnemyAction=EnemyAction+1
 
 					PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
-					if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan):
+					if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==True:
 						if EnemyHull < (EnemyLevel*30):
 							Enemies[Counter+10]='Running away'
 						EnemyActive=True
@@ -1851,8 +1881,8 @@ while Level < 21:
 				LoadList[SaveCounter+2]=SPlayerHull
 				LoadList[SaveCounter+3]=SPlayerMissiles
 				LoadList[SaveCounter+4]=SNexp
-				os.system('rm Jumpwar.txt')
-				Save=open('Jumpwar.txt', 'a')
+				os.system('rm Jumpwar')
+				Save=open('Jumpwar', 'a')
 #				print('WELCOME TO LEVEL ', SLevel)
 				WriteCounter=0
 				while WriteCounter < len(LoadList):
