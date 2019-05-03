@@ -438,7 +438,7 @@ def SetStatus():
 		Levelup=' Healing: '
 	LevelUpProgress=str(int((ExpInt/NeededInt)*100))
 	Status='Level: '+str(Level)+' Ship Level: '+str(PlayerLevel)+' Jump Dist: '+str(Move)+'/'+str(PlayerLevel)+' Hull: '+str(int(PlayerHull))+'/'+\
-str(PlayerHullMax)+' Missiles: '+str(PlayerMissiles)+Levelup+LevelUpProgress+'% move: '+SAction+'3'
+str(PlayerHullMax)+' Missiles: '+str(PlayerMissiles)+Levelup+LevelUpProgress+'% move: '+SAction+'/3'
 	return (Status)
 
 def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus):
