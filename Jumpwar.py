@@ -99,6 +99,69 @@ LoadList=list(Load)
 Load.close()
 SaveCounter=0
 
+def DoHelp ():
+	global myfont
+	Status = myfont.render('Press W for Windows font, L for Linux font', False, (255, 255, 0))		
+	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, (255, 255, 0))
+	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser', False, (255, 255, 0))
+	text3 = myfont.render('Numpad 0 or space                          : Fire Missile', False, (255, 255, 0))
+	text4 = myfont.render('Numpad + and - or r and t                : Set Jump Distance', False, (255, 255, 0))
+	text5 = myfont.render('Numpad * or l                                   : Closest Enemy Info', False, (255, 255, 0))
+	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, (255, 255, 0))
+	text7 = myfont.render('ESC                                                  : Quit Game', False, (255, 255, 0))
+	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turns to progress', False, (255, 255, 0))
+	text9 = myfont.render('- Avoid stars', False, (255, 255, 0))
+	text10 = myfont.render('- Move over asteroids to regain health and missiles', False, (255, 255, 0))
+	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, (255, 255, 0))
+	text12 = myfont.render('Stars (cool/medium/hot)             :', False, (255, 255, 0))
+	text13 = myfont.render('Asteroids (Small/medium/large):', False, (255, 255, 0))
+	text14 = myfont.render('- Player has 3 moves before it is the enemies turn, use this to your advantage... :)', False, (255, 255, 0))
+
+#	pygame.display.set_icon(Galaxy)
+#	pygame.display.set_caption('Jumpwar')
+#	Width=int(1000)
+#	Heigth=int(1000)
+#	screen = pygame.display.set_mode((Width, Heigth))
+
+	screen.blit(Galaxy,(0,0))
+	screen.blit(text1,(0,0))
+	screen.blit(text2,(0,50))
+	screen.blit(text3,(0,100))
+	screen.blit(text4,(0,150))
+	screen.blit(text5,(0,200))
+	screen.blit(text6,(0,250))
+	screen.blit(text7,(0,300))
+	screen.blit(text8,(0,400))
+	screen.blit(text9,(0,450))
+	screen.blit(text10,(0,500))
+	screen.blit(text11,(0,550))
+	screen.blit(text12,(0,600))
+	screen.blit(text13,(0,650))
+	screen.blit(text14,(0,700))
+
+	screen.blit(RedStar,(500,600))
+	screen.blit(YellowStar,(560,600))
+	screen.blit(BlueStar,(620,600))
+
+	screen.blit(Asteroid,(500,650))
+	screen.blit(Asteroid2,(560,650))
+	screen.blit(Asteroid3,(620,650))
+
+	screen.blit(Status,(0,960))
+	pygame.display.flip()
+	Selection=False
+	while Selection==False:
+		for event in pygame.event.get():
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_w:
+					myfont = pygame.font.SysFont('Comic Sans MS', 20)
+					Selection=True
+				if event.key == pygame.K_l:
+					myfont = pygame.font.SysFont('Comic Sans MS', 30)
+					Selection=True
+	return
+
+
 def LoadGame ():
 	global Level
 	global PlayerLevel
@@ -203,7 +266,7 @@ def LoadGame ():
 					Selection=True
 				if event.key == pygame.K_ESCAPE:
 					sys.exit()
-
+	DoHelp()
 	return
 
 	
@@ -221,43 +284,6 @@ def wait():
 				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
 	                		return
 	
-def DoHelp ():
-	Status = myfont.render('Press enter', False, (255, 255, 0))		
-	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, (255, 255, 0))
-	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser', False, (255, 255, 0))
-	text3 = myfont.render('Numpad 0 or space                          : Fire Missile', False, (255, 255, 0))
-	text4 = myfont.render('Numpad + and - or r and t                : Set Jump Distance', False, (255, 255, 0))
-	text5 = myfont.render('Numpad * or l                                   : Closest Enemy Info', False, (255, 255, 0))
-	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, (255, 255, 0))
-	text7 = myfont.render('ESC                                                  : Quit Game', False, (255, 255, 0))
-	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turns to progress', False, (255, 255, 0))
-	text9 = myfont.render('- Avoid stars', False, (255, 255, 0))
-	text10 = myfont.render('- Move over asteroids to regain health and missiles', False, (255, 255, 0))
-	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, (255, 255, 0))
-
-#	pygame.display.set_icon(Galaxy)
-#	pygame.display.set_caption('Jumpwar')
-#	Width=int(1000)
-#	Heigth=int(1000)
-#	screen = pygame.display.set_mode((Width, Heigth))
-
-	screen.blit(Galaxy,(0,0))
-	screen.blit(text1,(0,0))
-	screen.blit(text2,(0,50))
-	screen.blit(text3,(0,100))
-	screen.blit(text4,(0,150))
-	screen.blit(text5,(0,200))
-	screen.blit(text6,(0,250))
-	screen.blit(text7,(0,300))
-	screen.blit(text8,(0,400))
-	screen.blit(text9,(0,450))
-	screen.blit(text10,(0,500))
-	screen.blit(text11,(0,550))
-
-	screen.blit(Status,(0,980))
-	pygame.display.flip()
-	wait()
-	return
 
 def VisualScan (Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY):
 	del ScreenRange[:]
@@ -412,7 +438,7 @@ def SetStatus():
 		Levelup=' Healing: '
 	LevelUpProgress=str(int((ExpInt/NeededInt)*100))
 	Status='Level: '+str(Level)+' Ship Level: '+str(PlayerLevel)+' Jump Dist: '+str(Move)+'/'+str(PlayerLevel)+' Hull: '+str(int(PlayerHull))+'/'+\
-str(PlayerHullMax)+' Missiles: '+str(PlayerMissiles)+Levelup+LevelUpProgress+'% Turn: '+SAction
+str(PlayerHullMax)+' Missiles: '+str(PlayerMissiles)+Levelup+LevelUpProgress+'% move: '+SAction+'3'
 	return (Status)
 
 def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus):
@@ -539,8 +565,8 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 		Counter=Counter+3
 	screen.blit(textsurface3,(0,0))
 	screen.blit(textsurface4,(0,20))
-	screen.blit(textsurface,(0,980))
-	screen.blit(textsurface2,(0,960))
+	screen.blit(textsurface,(0,960))
+	screen.blit(textsurface2,(0,940))
 	if EnemyKills >= EnemyKillTarget:
 		if WormholeOpenPlayed==False:
 			screen.blit(GalaxySmall,(300,300))
@@ -995,7 +1021,6 @@ def ScanAsteroid (EnemyX, EnemyY):
 		Counter=Counter+3
 	return (AsteroidScan)
 
-DoHelp()
 while Level < 21:
 	SpeedSetting=3
 	CXdiff=200
