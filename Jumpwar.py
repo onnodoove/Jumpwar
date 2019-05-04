@@ -115,7 +115,7 @@ def DoHelp ():
 	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, (255, 255, 0))
 	text12 = myfont.render('Stars (cool/medium/hot)             :', False, (255, 255, 0))
 	text13 = myfont.render('Asteroids (Small/medium/large):', False, (255, 255, 0))
-	text14 = myfont.render('- Player has 3 moves before it is the enemies turn, use this to your advantage... :)', False, (255, 255, 0))
+	text14 = myfont.render("- Player has 3 moves before it is the enemie's turn, use this to your advantage... :)", False, (255, 255, 0))
 
 #	pygame.display.set_icon(Galaxy)
 #	pygame.display.set_caption('Jumpwar')
@@ -1685,8 +1685,8 @@ while Level < 21:
 									EnemyMissiles = EnemyMaxMissiles
 								Enemies[Counter+6]=EnemyHull
 								Enemies[Counter+7]=EnemyMissiles
-								Enemies[Counter+8]=EnemyX
-								Enemies[Counter+9]=EnemyY
+								Enemies[Counter+9]=EnemyX
+								Enemies[Counter+10]=EnemyY
 								WipeCounter=0
 #								print(str(EnemyName).rstrip(), 'harvests asteroid')
 								while WipeCounter < 3:
