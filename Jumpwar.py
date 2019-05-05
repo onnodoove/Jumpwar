@@ -115,7 +115,8 @@ def DoHelp ():
 	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, (255, 255, 0))
 	text12 = myfont.render('Stars (cool/medium/hot)             :', False, (255, 255, 0))
 	text13 = myfont.render('Asteroids (Small/medium/large):', False, (255, 255, 0))
-	text14 = myfont.render("- Player has 3 moves before it is the enemie's turn, use this to your advantage... :)", False, (255, 255, 0))
+	text14 = myfont.render("- When ship severely damaged, closest asteroid will be shown upper left corner", False, (255, 255, 0))
+	text15 = myfont.render("- Player has 3 moves before it is the enemie's turn, use this to your advantage... :)", False, (255, 255, 0))
 
 #	pygame.display.set_icon(Galaxy)
 #	pygame.display.set_caption('Jumpwar')
@@ -138,6 +139,7 @@ def DoHelp ():
 	screen.blit(text12,(0,600))
 	screen.blit(text13,(0,650))
 	screen.blit(text14,(0,700))
+	screen.blit(text15,(0,750))
 
 	screen.blit(RedStar,(500,600))
 	screen.blit(YellowStar,(560,600))
@@ -1513,7 +1515,8 @@ while Level < 21:
 				EnemyActive=False
 				Fleeing=False
 				MissileFired=False
-				EnemyName=Enemies[Counter+1]
+				EnemyName=str(Enemies[Counter+1]).rstrip()
+				#print(EnemyName)
 				Enemies[Counter+11]='On patrol'
 				EnemyAction=0
 				while EnemyAction < 2:
@@ -1566,95 +1569,114 @@ while Level < 21:
 								Hurt.play()
 							else:
 								Laser.play()
-#							print(str(EnemyName).rstrip(), 'fires laser...')
+						Status=str(EnemyName).rstrip()+' fires laser...'
 					if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20) and running==True:
 						EnemyMissiles=int(Enemies[Counter+7])
 						if EnemyMissiles > 0:
 							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 							EnemyActive=True
 							if MissileFired==False:
-								MissileTargetX=PlayerX
-								MissileTargetY=PlayerY
-								MissilePosX=int(Enemies[Counter+9])
-								MissilePosY=int(Enemies[Counter+10])
-								ScreenItem=Bomb
-								MissileCounter=0
-								while MissileCounter < 20:
-									if (MissilePosX < MissileTargetX) and (MissilePosY < MissileTargetY):
-										MissilePosX=MissilePosX+1
-										MissilePosY=MissilePosY+1
-									if (MissilePosX < MissileTargetX) and (MissilePosY == MissileTargetY):
-										MissilePosX=MissilePosX+1
-									if (MissilePosX < MissileTargetX) and (MissilePosY > MissileTargetY):
-										MissilePosX=MissilePosX+1
-										MissilePosY=MissilePosY-1
-									if (MissilePosX ==MissileTargetX) and (MissilePosY > MissileTargetY):
-										MissilePosY=MissilePosY-1
-									if (MissilePosX > MissileTargetX) and (MissilePosY > MissileTargetY):
-										MissilePosX=MissilePosX-1
-										MissilePosY=MissilePosY-1
-									if (MissilePosX > MissileTargetX) and (MissilePosY == MissileTargetY):
-										MissilePosX=MissilePosX-1
-									if (MissilePosX > MissileTargetX) and (MissilePosY < MissileTargetY):
-										MissilePosX=MissilePosX-1
-										MissilePosY=MissilePosY+1
-									if (MissilePosX == MissileTargetX) and (MissilePosY < MissileTargetY):
-										MissilePosY=MissilePosY+1
-									MissileScreenX=MissilePosX-PlayerX
-									MissileScreenY=MissilePosY-PlayerY
-									ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
-									EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
-									VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
-									DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-									if (MissilePosX == MissileTargetX) and (MissilePosY == MissileTargetY):
-										break
-								
-								MissilePosX=-50
-								MissilePosY=-50
-								ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
-								EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
-						
-								ExplosionX=PlayerX
-								ExplosionY=PlayerY
-								ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
-								EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
-								VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
-								Status=SetStatus()
-								DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-								MissilePosX=-50
-								MissilePosY=-50
-								ExplosionX=-50
-								ExplosionY=-50
-													
-								VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
-								DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-
-								EnemyAction=EnemyAction+1
-								EnemyMissiles=EnemyMissiles-1
-								Enemies[Counter+7]=EnemyMissiles
-								EnemyName=Enemies[Counter+1]
-								EnemyMissileDamage=int(Enemies[Counter+3])*1.5
-								PlayerHull=PlayerHull-EnemyMissileDamage
-								Enemies[Counter+11]='Fired a missile'
-								SEnemyMissileDamage=str(EnemyMissileDamage)
-								if PlayerHull <= 0:
-									Blast.play()
-									Status='Player destroyed by '+EnemyName+' missile'
-									EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
-									VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
-									ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
-									DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-									EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
-									wait()
-									running=False
-									LoadGame()
+								if EnemyName=='Mothership A':
+									#print('enemy appended')
+									Enemies.append('2')
+									Enemies.append('Light Fighter\n')
+									Enemies.append('Interceptor\n')
+									Enemies.append('20')
+									Enemies.append('12')
+									Enemies.append('28')
+									Enemies.append('200')
+									Enemies.append('2')
+									Enemies.append('2')
+									OffSetX=EnemyY+random.randint(-1,1)
+									OffSetY=EnemyY+random.randint(-1,1)
+									Enemies.append(EnemyX)
+									Enemies.append(OffSetY)
+									Enemies.append('On patrol')
+									MaxCounter=len(Enemies)
+									Status='Mothership A launches Light Fighter...'
 								else:
-									if PlayerHull<(PlayerLevel*50):
-										Hurt.play()
+									MissileTargetX=PlayerX
+									MissileTargetY=PlayerY
+									MissilePosX=int(Enemies[Counter+9])
+									MissilePosY=int(Enemies[Counter+10])
+									ScreenItem=Bomb
+									MissileCounter=0
+									while MissileCounter < 20:
+										if (MissilePosX < MissileTargetX) and (MissilePosY < MissileTargetY):
+											MissilePosX=MissilePosX+1
+											MissilePosY=MissilePosY+1
+										if (MissilePosX < MissileTargetX) and (MissilePosY == MissileTargetY):
+											MissilePosX=MissilePosX+1
+										if (MissilePosX < MissileTargetX) and (MissilePosY > MissileTargetY):
+											MissilePosX=MissilePosX+1
+											MissilePosY=MissilePosY-1
+										if (MissilePosX ==MissileTargetX) and (MissilePosY > MissileTargetY):
+											MissilePosY=MissilePosY-1
+										if (MissilePosX > MissileTargetX) and (MissilePosY > MissileTargetY):
+											MissilePosX=MissilePosX-1
+											MissilePosY=MissilePosY-1
+										if (MissilePosX > MissileTargetX) and (MissilePosY == MissileTargetY):
+											MissilePosX=MissilePosX-1
+										if (MissilePosX > MissileTargetX) and (MissilePosY < MissileTargetY):
+											MissilePosX=MissilePosX-1
+											MissilePosY=MissilePosY+1
+										if (MissilePosX == MissileTargetX) and (MissilePosY < MissileTargetY):
+											MissilePosY=MissilePosY+1
+										MissileScreenX=MissilePosX-PlayerX
+										MissileScreenY=MissilePosY-PlayerY
+										ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+										EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
+										VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
+										DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+										if (MissilePosX == MissileTargetX) and (MissilePosY == MissileTargetY):
+											break
+									
+									MissilePosX=-50
+									MissilePosY=-50
+									ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+									EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
+							
+									ExplosionX=PlayerX
+									ExplosionY=PlayerY
+									ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+									EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
+									VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
+									Status=SetStatus()
+									DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+									MissilePosX=-50
+									MissilePosY=-50
+									ExplosionX=-50
+									ExplosionY=-50
+													
+									VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
+									DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+
+									EnemyAction=EnemyAction+1
+									EnemyMissiles=EnemyMissiles-1
+									Enemies[Counter+7]=EnemyMissiles
+									EnemyName=Enemies[Counter+1]
+									EnemyMissileDamage=int(Enemies[Counter+3])*1.5
+									PlayerHull=PlayerHull-EnemyMissileDamage
+									Enemies[Counter+11]='Fired a missile'
+									SEnemyMissileDamage=str(EnemyMissileDamage)
+									if PlayerHull <= 0:
+										Blast.play()
+										Status='Player destroyed by '+EnemyName+' missile'
+										EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
+										VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
+										ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+										DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+										EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
+										wait()
+										running=False
+										LoadGame()
 									else:
-										Beep.play()
+										if PlayerHull<(PlayerLevel*50):
+											Hurt.play()
+										else:
+											Beep.play()
 								MissileFired=True
-#									print(str(EnemyName).rstrip(), 'fires missile...')
+								Status=str(EnemyName).rstrip()+' fires missile...'
 					if EnemyHull < (EnemyLevel*30) and running==True:
 						Fleeing=True
 						AsteroidScan=[None]*4
@@ -1688,7 +1710,7 @@ while Level < 21:
 								Enemies[Counter+9]=EnemyX
 								Enemies[Counter+10]=EnemyY
 								WipeCounter=0
-#								print(str(EnemyName).rstrip(), 'harvests asteroid')
+								Status=str(EnemyName).rstrip()+' ate asteroid'
 								while WipeCounter < 3:
 									del Asteroids[AsteroidCounter]
 									WipeCounter=WipeCounter+1
@@ -1700,10 +1722,10 @@ while Level < 21:
 						if EnemyHull < (EnemyLevel*30):
 							Enemies[Counter+11]='Running away'
 						EnemyActive=True
-#						if EnemyHull > (EnemyLevel*30):
-#							print(str(EnemyName).rstrip(), 'hunts...')
-#						else:
-#							print(str(EnemyName).rstrip(), 'flees...')
+						if EnemyHull > (EnemyLevel*30):
+							Status=str(EnemyName).rstrip()+' hunts...'
+						else:
+							Status=str(EnemyName).rstrip()+' flees...'
 						if (EnemyX < PlayerX) and (EnemyY < PlayerY):
 							if EnemyHull > (EnemyLevel*30):
 								EnemyDir=9
@@ -1834,7 +1856,7 @@ while Level < 21:
 										EnemyMissiles=EnemyMissiles+ExtraMissiles
 										if EnemyMissiles > EnemyMaxMissiles:
 											EnemyMissiles = EnemyMaxMissiles
-	#									print(str(EnemyName).rstrip(), 'harvests asteroid...')
+										Status=str(EnemyName).rstrip()+' ate asteroid...'
 										Enemies[Counter+6]=EnemyHull
 										Enemies[Counter+7]=EnemyMissiles
 								AsteroidCounter=AsteroidCounter+3
@@ -1872,11 +1894,12 @@ while Level < 21:
 										del Enemies[Counter]
 										WipeCounter=WipeCounter+1
 										MaxCounter=len(Enemies)
-	#									print(str(EnemyName).rstrip(), 'crashes into star')
+										Status=str(EnemyName).rstrip()+' crashes into star'
 									break
 								else:
 									Sizzle.play()
 									Enemies[Counter+6]=EnemyHull
+									Status=str(EnemyName).rstrip()+' hurt by star'
 	
 							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 							EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
