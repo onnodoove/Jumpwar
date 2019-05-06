@@ -26,6 +26,7 @@ Teleport=pygame.mixer.Sound('Teleport.ogg')
 Victory=pygame.mixer.Sound('Victory.ogg')
 Hurt=pygame.mixer.Sound('Hurt.ogg')
 Yeah=pygame.mixer.Sound('Yeah.ogg')
+Launch=pygame.mixer.Sound('Launch.ogg')
 
 RedStar=pygame.image.load('RedStar.png')
 YellowStar=pygame.image.load('YellowStar.png')
@@ -1597,6 +1598,7 @@ while Level < 21:
 									Enemies.append(OffSetY)
 									Enemies.append('On patrol')
 									MaxCounter=len(Enemies)
+									Launch.play()
 									Status='Mothership A launches Light Fighter...'
 								else:
 									MissileTargetX=PlayerX
@@ -1891,7 +1893,7 @@ while Level < 21:
 										WipeCounter=0
 										while WipeCounter < 12:
 											del Enemies[Counter]
-										WipeCounter=WipeCounter+1
+											WipeCounter=WipeCounter+1
 										MaxCounter=len(Enemies)
 										Status=str(EnemyName).rstrip()+' crashes into star'
 										break
