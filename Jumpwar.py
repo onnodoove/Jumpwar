@@ -14,6 +14,33 @@ pygame.mixer.init()
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 Exp=[0]
 
+white = ((255,255,255))
+blue = ((0,0,255))
+green = ((0,255,0))
+red = ((255,0,0))
+black = ((0,0,0))
+orange = ((255,100,10))
+yellow = ((255,255,0))
+blue_green = ((0,255,170))
+marroon = ((115,0,0))
+lime = ((180,255,100))
+pink = ((255,100,180))
+purple = ((240,0,255))
+gray = ((127,127,127))
+magenta = ((255,0,230))
+brown = ((100,40,0))
+forest_green = ((0,50,0))
+navy_blue = ((0,0,100))
+rust = ((210,150,75))
+dandilion_yellow = ((255,200,0))
+highlighter = ((255,255,100))
+sky_blue = ((0,255,255))
+light_grey = ((200,200,200))
+dark_grey = ((50,50,50))
+tan = ((230,220,170))
+coffee_brown =((200,190,140))
+moon_glow = ((235,245,255))
+
 Beep = pygame.mixer.Sound('Beep.ogg')
 Blast = pygame.mixer.Sound('Boom.ogg')
 LevelUp=pygame.mixer.Sound('Applause.ogg')
@@ -102,22 +129,22 @@ SaveCounter=0
 
 def DoHelp ():
 	global myfont
-	Status = myfont.render('Press W for Windows font, L for Linux font', False, (255, 255, 0))		
-	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, (255, 255, 0))
-	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser', False, (255, 255, 0))
-	text3 = myfont.render('Numpad 0 or space                          : Fire Missile', False, (255, 255, 0))
-	text4 = myfont.render('Numpad + and - or r and t                : Set Jump Distance', False, (255, 255, 0))
-	text5 = myfont.render('Numpad * or l                                   : Closest Enemy Info', False, (255, 255, 0))
-	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, (255, 255, 0))
-	text7 = myfont.render('ESC                                                  : Quit Game', False, (255, 255, 0))
-	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turns to progress', False, (255, 255, 0))
-	text9 = myfont.render('- Avoid stars', False, (255, 255, 0))
-	text10 = myfont.render('- Move over asteroids to regain health and missiles', False, (255, 255, 0))
-	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, (255, 255, 0))
-	text12 = myfont.render('Stars (cool/medium/hot)             :', False, (255, 255, 0))
-	text13 = myfont.render('Asteroids (Small/medium/large):', False, (255, 255, 0))
-	text14 = myfont.render("- When ship severely damaged, closest asteroid will be shown upper left corner", False, (255, 255, 0))
-	text15 = myfont.render("- Player has 3 moves before it is the enemie's turn, use this to your advantage... :)", False, (255, 255, 0))
+	Status = myfont.render('Press W for Windows font, L for Linux font', False, yellow)		
+	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, green)
+	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser', False, green)
+	text3 = myfont.render('Numpad 0 or space                          : Fire Missile', False, green)
+	text4 = myfont.render('Numpad + and - or r and t                : Set Jump Distance', False, green)
+	text5 = myfont.render('Numpad * or l                                   : Closest Enemy Info', False, green)
+	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, green)
+	text7 = myfont.render('ESC                                                  : Quit Game', False, green)
+	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turns to progress', False, green)
+	text9 = myfont.render('- Avoid stars', False, green)
+	text10 = myfont.render('- Move over asteroids to regain health and missiles', False, green)
+	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, green)
+	text12 = myfont.render('Stars (cool/medium/hot)             :', False, green)
+	text13 = myfont.render('Asteroids (Small/medium/large):', False, green)
+	text14 = myfont.render("- When ship severely damaged, closest asteroid will be shown upper left corner", False, green)
+	text15 = myfont.render("- Player has 3 moves before it is the enemie's turn, use this to your advantage... :)", False, green)
 
 #	pygame.display.set_icon(Galaxy)
 #	pygame.display.set_caption('Jumpwar')
@@ -196,13 +223,13 @@ def LoadGame ():
 	Save6Status='Save slot 6, level: '+SLevelSave6
 
 
-	Save1Text = myfont.render(Save1Status, False, (255, 255, 0))
-	Save2Text = myfont.render(Save2Status, False, (255, 255, 0))
-	Save3Text = myfont.render(Save3Status, False, (255, 255, 0))
-	Save4Text = myfont.render(Save4Status, False, (255, 255, 0))
-	Save5Text = myfont.render(Save5Status, False, (255, 255, 0))
-	Save6Text = myfont.render(Save6Status, False, (255, 255, 0))
-	Status = myfont.render('Or press ESC to quit', False, (255, 255, 0))
+	Save1Text = myfont.render(Save1Status, False, green)
+	Save2Text = myfont.render(Save2Status, False, green)
+	Save3Text = myfont.render(Save3Status, False, green)
+	Save4Text = myfont.render(Save4Status, False, green)
+	Save5Text = myfont.render(Save5Status, False, green)
+	Save6Text = myfont.render(Save6Status, False, green)
+	Status = myfont.render('Or press ESC to quit', False, yellow)
 	
 	screen.blit(Galaxy,(0,0))
 	screen.blit(Save1Text,(0,0))
@@ -454,13 +481,15 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	else:
 		WormholeText='Progress until wormhole open: '+str(int((EnemyKills/EnemyKillTarget)*100))+'%'
 	if PlayerHull > PlayerLevel*50 and PlayerMissiles >0:
+		StatusColor=green
 		AsteroidText='Ship hull '+PlayerHealth
 	else:
+		StatusColor=red
 		AsteroidText=ScanClosestAsteroid(PlayerX, PlayerY)
-	textsurface3 = myfont.render(WormholeText, False, (255, 255, 0))
-	textsurface4 = myfont.render(AsteroidText, False, (255, 255, 0))
-	textsurface = myfont.render(Status, False, (255, 255, 0))
-	textsurface2 = myfont.render(EnemyStatus, False, (255, 255, 0))
+	textsurface3 = myfont.render(WormholeText, False, StatusColor)
+	textsurface4 = myfont.render(AsteroidText, False, StatusColor)
+	textsurface = myfont.render(Status, False, StatusColor)
+	textsurface2 = myfont.render(EnemyStatus, False, yellow)
 	if PlayerHull > PlayerLevel*50:
 		PlayerImage=Happy
 	elif PlayerHull > 0:
@@ -610,14 +639,19 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	EnemyDamage=(EnemyDamageMissile/PlayerHull)
 	if EnemyDamage < 0.1:
 		EnemyDanger='Very low'
+		EnemyColor=green
 	elif EnemyDamage < 0.2:
 		EnemyDanger='Low'
+		EnemyColor=light_grey
 	elif EnemyDamage < 0.3:
 		EnemyDanger='Medium'
+		EnemyColor=yellow
 	elif EnemyDamage <= 0.4:
 		EnemyDanger='High'
+		EnemyColor=orange
 	elif EnemyDamage > 0.4:
 		EnemyDanger='Very high'
+		EnemyColor=red
 
 	EnemySpeed=str(Enemies[ClosestEnemy+4]).rstrip()
 	EnemyScan=int(Enemies[ClosestEnemy+5])
@@ -693,24 +727,24 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 		ScreenItem=Mothership
 
 	textEnemyPic='Enemy        : '
-	text01 = myfont.render(textEnemyPic, False, (255, 255, 0))
+	text01 = myfont.render(textEnemyPic, False, EnemyColor)
 	textEnemyName='Name          : '+EnemyName
-	text02 = myfont.render(textEnemyName, False, (255, 255, 0))
+	text02 = myfont.render(textEnemyName, False, EnemyColor)
 	textEnemyDamage='Damage      : '+EnemyDanger
-	text03 = myfont.render(textEnemyDamage, False, (255, 255, 0))
+	text03 = myfont.render(textEnemyDamage, False, EnemyColor)
 	textEnemySpeed='Speed         : '+EnemySpeed
-	text04 = myfont.render(textEnemySpeed, False, (255, 255, 0))
+	text04 = myfont.render(textEnemySpeed, False, EnemyColor)
 	textEnemyScan='Scan Range: '+str(EnemyScan)
-	text05 = myfont.render(textEnemyScan, False, (255, 255, 0))
+	text05 = myfont.render(textEnemyScan, False, EnemyColor)
 	textEnemyHull='Hull             : '+Armor+' '+EnemyHealth
-	text06 = myfont.render(textEnemyHull, False, (255, 255, 0))
+	text06 = myfont.render(textEnemyHull, False, EnemyColor)
 	textEnemyMissiles='Missiles      : '+EnemyMissiles
-	text07 = myfont.render(textEnemyMissiles, False, (255, 255, 0))
+	text07 = myfont.render(textEnemyMissiles, False, EnemyColor)
 	textEnemyPosition='Position      : '+str(XDiff)+' '+str(YDiff)
-	text08 = myfont.render(textEnemyPosition, False, (255, 255, 0))
+	text08 = myfont.render(textEnemyPosition, False, EnemyColor)
 	textEnemyMood='Status         : '+Mood
-	text09 = myfont.render(textEnemyMood, False, (255, 255, 0))
-	text10 = myfont.render('Press enter', False, (255, 255, 0))
+	text09 = myfont.render(textEnemyMood, False, EnemyColor)
+	text10 = myfont.render('Press enter', False, yellow)
 
 	Width=int(1000)
 	Heigth=int(1000)
@@ -737,8 +771,8 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	return
 
 def NewLevel (Level):
-	Status = myfont.render('Press enter to continue - ESC to quit', False, (255, 255, 0))		
-	text1 = myfont.render('Welcome to Level: '+str(Level), False, (255, 255, 0))
+	Status = myfont.render('Press enter to continue - ESC to quit', False, yellow)		
+	text1 = myfont.render('Welcome to Level: '+str(Level), False, green)
 
 #	pygame.display.set_icon(Galaxy)
 #	pygame.display.set_caption('Jumpwar')
@@ -1024,7 +1058,7 @@ def ScanAsteroid (EnemyX, EnemyY):
 		Counter=Counter+3
 	return (AsteroidScan)
 
-while Level < 21:
+while Level < 31:
 	SpeedSetting=3
 	CXdiff=200
 	CYdiff=200
@@ -1930,7 +1964,7 @@ while Level < 21:
 			if EnemyKills >= EnemyKillTarget:
 				Teleport.play()
 				Level=Level+1
-				if Level < 21:
+				if Level < 31:
 					SLevel=str(Level)
 					SPlayerLevel=str(PlayerLevel)
 					SPlayerHull=str(int(PlayerHull))
