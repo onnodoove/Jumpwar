@@ -484,7 +484,10 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 		StatusColor=green
 		AsteroidText='Ship hull '+PlayerHealth
 	else:
-		StatusColor=red
+		if PlayerHull > PlayerLevel*50:
+			StatusColor=green
+		else:
+			StatusColor=red
 		AsteroidText=ScanClosestAsteroid(PlayerX, PlayerY)
 	textsurface3 = myfont.render(WormholeText, False, StatusColor)
 	textsurface4 = myfont.render(AsteroidText, False, StatusColor)
@@ -1634,6 +1637,8 @@ while Level < 31:
 									MaxCounter=len(Enemies)
 									Launch.play()
 									Status='Mothership A launches Light Fighter...'
+									EnemyMissiles=EnemyMissiles-1
+									Enemies[Counter+7]=EnemyMissiles
 								else:
 									MissileTargetX=PlayerX
 									MissileTargetY=PlayerY
