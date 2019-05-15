@@ -11,7 +11,7 @@ pygame.init()
 pygame.font.init()
 
 pygame.mixer.init()
-myfont = pygame.font.SysFont('Comic Sans MS', 30)
+myfont = pygame.font.SysFont('Arial', 20)
 Exp=[0]
 
 white = ((255,255,255))
@@ -74,6 +74,7 @@ Drone8=pygame.image.load('Drone8.png')
 Drone9=pygame.image.load('Drone9.png')
 Drone10=pygame.image.load('Drone10.png')
 Drone11=pygame.image.load('Drone11.png')
+HunterDrone=pygame.image.load('HunterDrone.png')
 
 Interceptor=pygame.image.load('Interceptor.png')
 Interceptor2=pygame.image.load('Interceptor2.png')
@@ -122,14 +123,21 @@ Width=int(1000)
 Heigth=int(1000)
 screen = pygame.display.set_mode((Width, Heigth))
 
-Load=open('Jumpwar', 'r')
+Load=open('Jumpwar.sav', 'r')
 LoadList=list(Load)
 Load.close()
 SaveCounter=0
 
+def wait():
+	while True:
+		for event in pygame.event.get():
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
+	                		return
+	
 def DoHelp ():
 	global myfont
-	Status = myfont.render('Press W for Windows font, L for Linux font', False, yellow)		
+	Status = myfont.render('Press enter', False, yellow)		
 	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, green)
 	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser', False, green)
 	text3 = myfont.render('Numpad 0 or space                          : Fire Missile', False, green)
@@ -180,15 +188,7 @@ def DoHelp ():
 	screen.blit(Status,(0,960))
 	pygame.display.flip()
 	Selection=False
-	while Selection==False:
-		for event in pygame.event.get():
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_w:
-					myfont = pygame.font.SysFont('Comic Sans MS', 20)
-					Selection=True
-				if event.key == pygame.K_l:
-					myfont = pygame.font.SysFont('Comic Sans MS', 30)
-					Selection=True
+	wait()
 	return
 
 
@@ -306,14 +306,6 @@ ScreenRange=list()
 MissileTargetList=list()
 LaserTargetList=list()
 
-
-def wait():
-	while True:
-		for event in pygame.event.get():
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
-	                		return
-	
 
 def VisualScan (Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY):
 	del ScreenRange[:]
@@ -549,6 +541,8 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 			ScreenItem=Drone10
 		elif ObjectImage == 'Drone11\n':
 			ScreenItem=Drone11
+		elif ObjectImage == 'HunterDrone\n':
+			ScreenItem=HunterDrone
 		elif ObjectImage == 'Interceptor\n':
 			ScreenItem=Interceptor
 		elif ObjectImage == 'Interceptor2\n':
@@ -1454,7 +1448,7 @@ while Level < 31:
 								DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 								wait()
 								running=False
-								LoadGame()
+								sys.exit()
 							else:
 								if PlayerHull<(PlayerLevel*50):
 									Hurt.play()
@@ -1604,7 +1598,7 @@ while Level < 31:
 								DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 								wait()
 								running=False
-								LoadGame()
+								sys.exit()
 							else:
 								if PlayerHull<(PlayerLevel*50):
 									Hurt.play()
@@ -1620,25 +1614,27 @@ while Level < 31:
 							if MissileFired==False:
 								if EnemyName=='Mothership A':
 									#print('enemy appended')
-									Enemies.append('2')
-									Enemies.append('Light Fighter\n')
-									Enemies.append('Interceptor\n')
-									Enemies.append('20')
+									Enemies.append('3')
+									Enemies.append('Hunter Drone\n')
+									Enemies.append('HunterDrone\n')
+									Enemies.append('70')
 									Enemies.append('12')
-									Enemies.append('28')
-									Enemies.append('200')
-									Enemies.append('2')
-									Enemies.append('2')
+									Enemies.append('30')
+									Enemies.append('300')
+									Enemies.append('3')
+									Enemies.append('3')
 									OffSetX=EnemyY+random.randint(-1,1)
 									OffSetY=EnemyY+random.randint(-1,1)
-									Enemies.append(EnemyX)
+									Enemies.append(OffSetX)
 									Enemies.append(OffSetY)
 									Enemies.append('On patrol')
 									MaxCounter=len(Enemies)
 									Launch.play()
-									Status='Mothership A launches Light Fighter...'
+									Status='Mothership A launches Hunter Drone...'
+									Enemies[Counter+11]='Launched a drone'
 									EnemyMissiles=EnemyMissiles-1
 									Enemies[Counter+7]=EnemyMissiles
+									EnemyAction=EnemyAction+1
 								else:
 									MissileTargetX=PlayerX
 									MissileTargetY=PlayerY
@@ -1714,7 +1710,7 @@ while Level < 31:
 										EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
 										wait()
 										running=False
-										LoadGame()
+										sys.exit()
 									else:
 										if PlayerHull<(PlayerLevel*50):
 											Hurt.play()
@@ -1989,8 +1985,8 @@ while Level < 31:
 				LoadList[SaveCounter+2]=SPlayerHull
 				LoadList[SaveCounter+3]=SPlayerMissiles
 				LoadList[SaveCounter+4]=SNexp
-				os.system('rm Jumpwar')
-				Save=open('Jumpwar', 'a')
+				os.system('rm Jumpwar.sav')
+				Save=open('Jumpwar.sav', 'a')
 #				print('WELCOME TO LEVEL ', SLevel)
 				WriteCounter=0
 				while WriteCounter < len(LoadList):

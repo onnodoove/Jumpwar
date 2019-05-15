@@ -215,7 +215,7 @@ MissilePlatform
 400
 24
 8
-Missile Platform
+Missile Gunship
 MissilePlatform2
 80
 8
@@ -230,11 +230,11 @@ Liberator
 72
 1800
 18
-20
+30
 Mothership
 Mothership
-200
+300
 30
 120
-2000
+3000
 30
