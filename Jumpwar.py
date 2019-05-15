@@ -615,113 +615,130 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	return
 
 def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
-	EnemyLevel=int(Enemies[ClosestEnemy])
-	EnemyName=str(Enemies[ClosestEnemy+1]).rstrip()
-	EnemyDamageLaser=int(Enemies[ClosestEnemy+3])
-	EnemyDamageMissile=int(EnemyDamageLaser*1.5)
+	if len(Enemies)>0:
+		EnemyLevel=int(Enemies[ClosestEnemy])
+		EnemyName=str(Enemies[ClosestEnemy+1]).rstrip()
+		EnemyDamageLaser=int(Enemies[ClosestEnemy+3])
+		EnemyDamageMissile=int(EnemyDamageLaser*1.5)
+	
+		EnemyArmor=EnemyLevel*100
+		PlayerDamage=PlayerLevel*15
+		if EnemyArmor >= PlayerDamage*5:
+			Armor='Very heavy'
+		elif EnemyArmor >= PlayerDamage*4:
+			Armor='Heavy'
+		elif EnemyArmor >= PlayerDamage*3:
+			Armor='Medium'
+		elif EnemyArmor >= PlayerDamage*2:
+			Armor='Light'
+		else:
+			Armor='Very light'
+	
+		EnemyDamage=(EnemyDamageMissile/PlayerHull)
+		if EnemyDamage < 0.1:
+			EnemyDanger='Very low'
+			EnemyColor=green
+		elif EnemyDamage < 0.2:
+			EnemyDanger='Low'
+			EnemyColor=light_grey
+		elif EnemyDamage < 0.3:
+			EnemyDanger='Medium'
+			EnemyColor=yellow
+		elif EnemyDamage <= 0.4:
+			EnemyDanger='High'
+			EnemyColor=orange
+		elif EnemyDamage > 0.4:
+			EnemyDanger='Very high'
+			EnemyColor=red
 
-	EnemyArmor=EnemyLevel*100
-	PlayerDamage=PlayerLevel*15
-	if EnemyArmor >= PlayerDamage*5:
-		Armor='Very heavy'
-	elif EnemyArmor >= PlayerDamage*4:
-		Armor='Heavy'
-	elif EnemyArmor >= PlayerDamage*3:
-		Armor='Medium'
-	elif EnemyArmor >= PlayerDamage*2:
-		Armor='Light'
-	else:
-		Armor='Very light'
-
-	EnemyDamage=(EnemyDamageMissile/PlayerHull)
-	if EnemyDamage < 0.1:
-		EnemyDanger='Very low'
-		EnemyColor=green
-	elif EnemyDamage < 0.2:
-		EnemyDanger='Low'
-		EnemyColor=light_grey
-	elif EnemyDamage < 0.3:
-		EnemyDanger='Medium'
-		EnemyColor=yellow
-	elif EnemyDamage <= 0.4:
-		EnemyDanger='High'
-		EnemyColor=orange
-	elif EnemyDamage > 0.4:
-		EnemyDanger='Very high'
-		EnemyColor=red
-
-	EnemySpeed=str(Enemies[ClosestEnemy+4]).rstrip()
-	EnemyScan=int(Enemies[ClosestEnemy+5])
-	EnemyHull=int(Enemies[ClosestEnemy+6])
-	EnemyMissiles=str(Enemies[ClosestEnemy+7]).rstrip()
-	EnemyX=int(Enemies[ClosestEnemy+9])
-	EnemyY=int(Enemies[ClosestEnemy+10])
-	XDiff=EnemyX-PlayerX
-	YDiff=EnemyY-PlayerY
-	PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
-	Mood=str(Enemies[ClosestEnemy+11]).rstrip()
-	ObjectImage=str(Enemies[ClosestEnemy+2])
-	EnemyHealth=str(int((EnemyHull/(EnemyLevel*100))*100))+'%'
-	if ObjectImage == 'Drone\n':
-		ScreenItem=Drone
-	elif ObjectImage == 'Drone2\n':
-		ScreenItem=Drone2
-	elif ObjectImage == 'Drone3\n':
-		ScreenItem=Drone3
-	elif ObjectImage == 'Drone4\n':
-		ScreenItem=Drone4
-	elif ObjectImage == 'Drone5\n':
-		ScreenItem=Drone5
-	elif ObjectImage == 'Drone6\n':
-		ScreenItem=Drone6
-	elif ObjectImage == 'Drone7\n':
+		EnemySpeed=str(Enemies[ClosestEnemy+4]).rstrip()
+		EnemyScan=int(Enemies[ClosestEnemy+5])
+		EnemyHull=int(Enemies[ClosestEnemy+6])
+		EnemyMissiles=str(Enemies[ClosestEnemy+7]).rstrip()
+		EnemyX=int(Enemies[ClosestEnemy+9])
+		EnemyY=int(Enemies[ClosestEnemy+10])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
+		Mood=str(Enemies[ClosestEnemy+11]).rstrip()
+		ObjectImage=str(Enemies[ClosestEnemy+2])
+		EnemyHealth=str(int((EnemyHull/(EnemyLevel*100))*100))+'%'
+		if ObjectImage == 'Drone\n':
+			ScreenItem=Drone
+		elif ObjectImage == 'Drone2\n':
+			ScreenItem=Drone2
+		elif ObjectImage == 'Drone3\n':
+			ScreenItem=Drone3
+		elif ObjectImage == 'Drone4\n':
+			ScreenItem=Drone4
+		elif ObjectImage == 'Drone5\n':
+			ScreenItem=Drone5
+		elif ObjectImage == 'Drone6\n':
+			ScreenItem=Drone6
+		elif ObjectImage == 'Drone7\n':
 			ScreenItem=Drone7
-	elif ObjectImage == 'Drone8\n':
-		ScreenItem=Drone8
-	elif ObjectImage == 'Drone9\n':
-		ScreenItem=Drone9
-	elif ObjectImage == 'Drone10\n':
-		ScreenItem=Drone10
-	elif ObjectImage == 'Drone11\n':
-		ScreenItem=Drone11
-	elif ObjectImage == 'Interceptor\n':
-		ScreenItem=Interceptor
-	elif ObjectImage == 'Interceptor2\n':
-		ScreenItem=Interceptor2
-	elif ObjectImage == 'Interceptor3\n':
-		ScreenItem=Interceptor3
-	elif ObjectImage == 'Interceptor4\n':
-		ScreenItem=Interceptor4
-	elif ObjectImage == 'Interceptor5\n':
-		ScreenItem=Interceptor5
-	elif ObjectImage == 'Interceptor6\n':
-		ScreenItem=Interceptor6
-	elif ObjectImage == 'Interceptor7\n':
-		ScreenItem=Interceptor7
-	elif ObjectImage == 'Interceptor8\n':
-		ScreenItem=Interceptor8
-	elif ObjectImage == 'Interceptor9\n':
-		ScreenItem=Interceptor9
-	elif ObjectImage == 'Frigat\n':
-		ScreenItem=Frigat
-	elif ObjectImage == 'Frigat2\n':
-		ScreenItem=Frigat2
-	elif ObjectImage == 'Frigat3\n':
-		ScreenItem=Frigat3
-	elif ObjectImage == 'Frigat4\n':
-		ScreenItem=Frigat4
-	elif ObjectImage == 'Frigat5\n':
-		ScreenItem=Frigat5
-	elif ObjectImage == 'Frigat6\n':
-		ScreenItem=Frigat6
-	elif ObjectImage == 'MissilePlatform\n':
-		ScreenItem=MissilePlatform
-	elif ObjectImage == 'MissilePlatform2\n':
-		ScreenItem=MissilePlatform2
-	elif ObjectImage == 'Liberator\n':
-		ScreenItem=Liberator
-	elif ObjectImage == 'Mothership\n':
-		ScreenItem=Mothership
+		elif ObjectImage == 'Drone8\n':
+			ScreenItem=Drone8
+		elif ObjectImage == 'Drone9\n':
+			ScreenItem=Drone9
+		elif ObjectImage == 'Drone10\n':
+			ScreenItem=Drone10
+		elif ObjectImage == 'Drone11\n':
+			ScreenItem=Drone11
+		elif ObjectImage == 'Interceptor\n':
+			ScreenItem=Interceptor
+		elif ObjectImage == 'Interceptor2\n':
+			ScreenItem=Interceptor2
+		elif ObjectImage == 'Interceptor3\n':
+			ScreenItem=Interceptor3
+		elif ObjectImage == 'Interceptor4\n':
+			ScreenItem=Interceptor4
+		elif ObjectImage == 'Interceptor5\n':
+			ScreenItem=Interceptor5
+		elif ObjectImage == 'Interceptor6\n':
+			ScreenItem=Interceptor6
+		elif ObjectImage == 'Interceptor7\n':
+			ScreenItem=Interceptor7
+		elif ObjectImage == 'Interceptor8\n':
+			ScreenItem=Interceptor8
+		elif ObjectImage == 'Interceptor9\n':
+			ScreenItem=Interceptor9
+		elif ObjectImage == 'Frigat\n':
+			ScreenItem=Frigat
+		elif ObjectImage == 'Frigat2\n':
+			ScreenItem=Frigat2
+		elif ObjectImage == 'Frigat3\n':
+			ScreenItem=Frigat3
+		elif ObjectImage == 'Frigat4\n':
+			ScreenItem=Frigat4
+		elif ObjectImage == 'Frigat5\n':
+			ScreenItem=Frigat5
+		elif ObjectImage == 'Frigat6\n':
+			ScreenItem=Frigat6
+		elif ObjectImage == 'MissilePlatform\n':
+			ScreenItem=MissilePlatform
+		elif ObjectImage == 'MissilePlatform2\n':
+			ScreenItem=MissilePlatform2
+		elif ObjectImage == 'Liberator\n':
+			ScreenItem=Liberator
+		elif ObjectImage == 'Mothership\n':
+			ScreenItem=Mothership
+	else:
+		EnemyLevel='NVT'
+		EnemyName='Wormhole'
+		EnemyDanger='NVT'
+		EnemySpeed='NVT'
+		EnemyScan='NVT'
+		Armor='NVT'
+		EnemyMissiles='NVT'
+		EnemyX='NVT'
+		EnemyY='NVT'
+		XDiff=100-PlayerX
+		YDiff=100-PlayerY
+		Mood='Open'
+		ScreenItem=Wormhole
+		EnemyHealth='100%'
+		EnemyColor=green
 
 	textEnemyPic='Enemy        : '
 	text01 = myfont.render(textEnemyPic, False, EnemyColor)
