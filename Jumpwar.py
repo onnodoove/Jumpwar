@@ -1381,11 +1381,6 @@ while Level < 31:
 							FireLaser(Enemies, Stars, Asteroids, LaserTarget, PlayerLevel, Exp, Nexp)
 							Action=Action+1
 							SAction=str(Action+1)
-							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
-							EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
-							Status=SetStatus()
-							VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
-							DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 							ScreenAction=True
 						else:
 							Status='No Laser Targets'
