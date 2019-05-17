@@ -725,6 +725,8 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 			ScreenItem=Liberator
 		elif ObjectImage == 'Mothership\n':
 			ScreenItem=Mothership
+		elif ObjectImage == 'HunterDrone\n':
+			ScreenItem=HunterDrone
 	else:
 		EnemyLevel='NVT'
 		EnemyName='Wormhole'
