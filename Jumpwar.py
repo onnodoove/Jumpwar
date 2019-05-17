@@ -581,6 +581,8 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 			ScreenItem=Liberator
 		elif ObjectImage == 'Mothership\n':
 			ScreenItem=Mothership
+		elif ObjectImage == 'HunterDrone\n':
+			ScreenItem=HunterDrone
 		elif ObjectImage == 'Bomb':
 			ScreenItem=Bomb
 		elif ObjectImage == 'Explosion':
@@ -740,23 +742,23 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 		EnemyHealth='100%'
 		EnemyColor=green
 
-	textEnemyPic='Enemy        : '
+	textEnemyPic='Enemy         : '
 	text01 = myfont.render(textEnemyPic, False, EnemyColor)
-	textEnemyName='Name          : '+EnemyName
+	textEnemyName='Name           : '+EnemyName
 	text02 = myfont.render(textEnemyName, False, EnemyColor)
-	textEnemyDamage='Damage      : '+EnemyDanger
+	textEnemyDamage='Damage       : '+EnemyDanger
 	text03 = myfont.render(textEnemyDamage, False, EnemyColor)
-	textEnemySpeed='Speed         : '+EnemySpeed
+	textEnemySpeed='Speed          : '+EnemySpeed
 	text04 = myfont.render(textEnemySpeed, False, EnemyColor)
 	textEnemyScan='Scan Range: '+str(EnemyScan)
 	text05 = myfont.render(textEnemyScan, False, EnemyColor)
-	textEnemyHull='Hull             : '+Armor+' '+EnemyHealth
+	textEnemyHull='Hull              : '+Armor+' '+EnemyHealth
 	text06 = myfont.render(textEnemyHull, False, EnemyColor)
-	textEnemyMissiles='Missiles      : '+EnemyMissiles
+	textEnemyMissiles='Missiles       : '+EnemyMissiles
 	text07 = myfont.render(textEnemyMissiles, False, EnemyColor)
-	textEnemyPosition='Position      : '+str(XDiff)+' '+str(YDiff)
+	textEnemyPosition='Position       : '+str(XDiff)+' '+str(YDiff)
 	text08 = myfont.render(textEnemyPosition, False, EnemyColor)
-	textEnemyMood='Status         : '+Mood
+	textEnemyMood='Status          : '+Mood
 	text09 = myfont.render(textEnemyMood, False, EnemyColor)
 	text10 = myfont.render('Press enter', False, yellow)
 
@@ -1381,6 +1383,11 @@ while Level < 31:
 							FireLaser(Enemies, Stars, Asteroids, LaserTarget, PlayerLevel, Exp, Nexp)
 							Action=Action+1
 							SAction=str(Action+1)
+							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+							EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
+							Status=SetStatus()
+							VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
+							DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 							ScreenAction=True
 						else:
 							Status='No Laser Targets'
