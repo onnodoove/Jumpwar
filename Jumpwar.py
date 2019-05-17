@@ -1787,25 +1787,24 @@ while Level < 31:
 					PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
 					if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==True:
 						if EnemyHull <= (EnemyLevel*30):
-							if (-30 <= XDiff) and ( XDiff <= 30) and (-30 <= YDiff) and (YDiff <= 30) and running==True:
-								Status=str(EnemyName).rstrip()+' flees...'
-								Enemies[Counter+11]='Running away'
-								if (EnemyX < PlayerX) and (EnemyY < PlayerY):
-									EnemyDir=1
-								if (EnemyX < PlayerX) and (EnemyY == PlayerY):
-									EnemyDir=4
-								if (EnemyX < PlayerX) and (EnemyY > PlayerY):
-									EnemyDir=7
-								if (EnemyX == PlayerX) and (EnemyY > PlayerY):
-									EnemyDir=8
-								if (EnemyX > PlayerX) and (EnemyY > PlayerY):
-									EnemyDir=9
-								if (EnemyX > PlayerX) and (EnemyY == PlayerY):
-									EnemyDir=6
-								if (EnemyX > PlayerX) and (EnemyY < PlayerY):
-									EnemyDir=3
-								if (EnemyX == PlayerX) and (EnemyY < PlayerY):
-									EnemyDir=2
+							Status=str(EnemyName).rstrip()+' flees...'
+							Enemies[Counter+11]='Running away'
+							if (EnemyX < PlayerX) and (EnemyY < PlayerY):
+								EnemyDir=1
+							if (EnemyX < PlayerX) and (EnemyY == PlayerY):
+								EnemyDir=4
+							if (EnemyX < PlayerX) and (EnemyY > PlayerY):
+								EnemyDir=7
+							if (EnemyX == PlayerX) and (EnemyY > PlayerY):
+								EnemyDir=8
+							if (EnemyX > PlayerX) and (EnemyY > PlayerY):
+								EnemyDir=9
+							if (EnemyX > PlayerX) and (EnemyY == PlayerY):
+								EnemyDir=6
+							if (EnemyX > PlayerX) and (EnemyY < PlayerY):
+								EnemyDir=3
+							if (EnemyX == PlayerX) and (EnemyY < PlayerY):
+								EnemyDir=2
 						else:
 							if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==True:
 								Status=str(EnemyName).rstrip()+' hunts...'
