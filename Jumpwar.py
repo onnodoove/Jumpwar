@@ -1649,7 +1649,7 @@ while Level < 31:
 									Enemies.append('300')
 									Enemies.append('3')
 									Enemies.append('3')
-									OffSetX=EnemyY+random.randint(-1,1)
+									OffSetX=EnemyX+random.randint(-1,1)
 									OffSetY=EnemyY+random.randint(-1,1)
 									Enemies.append(OffSetX)
 									Enemies.append(OffSetY)
