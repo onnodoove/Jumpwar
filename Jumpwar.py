@@ -139,8 +139,8 @@ def DoHelp ():
 	global myfont
 	Status = myfont.render('Press enter', False, yellow)		
 	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, green)
-	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser', False, green)
-	text3 = myfont.render('Numpad 0 or space                          : Fire Missile', False, green)
+	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser (range 4)', False, green)
+	text3 = myfont.render('Numpad 0 or space                          : Fire Missile (range 20)', False, green)
 	text4 = myfont.render('Numpad + and - or r and t                : Set Jump Distance', False, green)
 	text5 = myfont.render('Numpad * or l                                   : Closest Enemy Info', False, green)
 	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, green)
