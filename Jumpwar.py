@@ -779,7 +779,6 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 
 	DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 
-	screen.blit(GalaxySmall,(300,300))
 	screen.blit(text00,(300,320))
 	screen.blit(text01,(300,380))
 	screen.blit(ScreenItem, (450,370))
@@ -955,7 +954,6 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 
 	DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 
-	screen.blit(GalaxySmall,(300,300))
 	screen.blit(text00,(300,320))	
 	screen.blit(text01,(300,380))
 	screen.blit(ScreenItem, (450,370))
@@ -1185,23 +1183,27 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 			
 def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	EnemyDistance=1000000
-	if ClosestEnemy > (len(Enemies)*10):
+	if ClosestEnemy > (len(Enemies)*13):
 		EnemyStatus='No enemies'
 	else:
+		EnemyMaxHull=int(Enemies[ClosestEnemy])*100
+		EnemyHull=int(Enemies[ClosestEnemy+6])
 		EnemyX=int(Enemies[ClosestEnemy+10])
 		EnemyY=int(Enemies[ClosestEnemy+11])
+		EnemyMood=Enemies[ClosestEnemy+12].rstrip()
+		HullPercentage=int((EnemyHull/EnemyMaxHull)*100)
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
 		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
 			if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
-				EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' LASER LOCK'
+				EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% LASER LOCK'
 			else:
 				if PlayerMissiles > 0:
-					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' MISSILE LOCK'
+					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% MISSILE LOCK'
 				else:
-					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' NO MISSILES'
+					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% NO MISSILES'
 		else:
-			EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' OUT OF RANGE'
+			EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% OUT OF RANGE'
 	return(EnemyStatus)
 
 def FireMissile (Enemies, Stars, Asteroids, MissileTarget, PlayerLevel, Exp, Nexp):
@@ -2003,6 +2005,11 @@ while Level < 31:
 							EnemyAction=EnemyAction+1
 
 					PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
+					if EnemyHull <= (EnemyLevel*EnemyDef):
+						Status=str(EnemyName).rstrip()+' Looking for asteroids'
+						Enemies[Counter+12]='Looking for asteroids'
+						EnemyDir=random.randint(1, 9)
+
 					if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==1:
 						if EnemyHull <= (EnemyLevel*EnemyDef):
 							if (-40 <= XDiff) and ( XDiff <= 40) and (-40 <= YDiff) and (YDiff <= 40) and running==1:
