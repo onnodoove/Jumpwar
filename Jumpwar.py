@@ -1962,7 +1962,7 @@ while Level < 31:
 											Beep.play()
 								MissileFired=1
 								Status=str(EnemyName).rstrip()+' fires missile...'
-					if EnemyHull < (EnemyLevel*50) and running==1:
+					if EnemyHull < (EnemyLevel*50) or EnemyHull < (EnemyLevel*EnemyDef) and running==1:
 						Fleeing=1
 						AsteroidScan=[None]*4
 						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
