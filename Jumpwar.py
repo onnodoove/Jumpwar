@@ -1345,15 +1345,15 @@ while Level < 31:
 		while  NumberofRepeats > EnemyCounter:
 			Enemies.append(Enemylist[Counter])
 			if EnemyCounter==0:
-				Suffix=' A'
+				Suffix=' Alpha'
 			elif EnemyCounter==1:
-				Suffix=' B'
+				Suffix=' Beta'
 			elif EnemyCounter==2:
-				Suffix=' C'
+				Suffix=' Gamma'
 			elif EnemyCounter==3:
-				Suffix=' D'
+				Suffix=' Theta'
 			elif EnemyCounter==4:
-				Suffix=' E'
+				Suffix=' Zheta'
 			EnemyName=Enemylist[Counter+1].rstrip()+Suffix
 			Enemies.append(EnemyName)
 			Enemies.append(Enemylist[Counter+2])
@@ -2027,7 +2027,7 @@ while Level < 31:
 							else:
 								Status=str(EnemyName).rstrip()+' scared'
 								Enemies[Counter+12]='scared'
-								EnemyDir=5
+								EnemyDir=random.randint(1, 9)
 						else:
 							if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==1:
 								Status=str(EnemyName).rstrip()+' hunts...'
