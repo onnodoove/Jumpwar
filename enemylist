@@ -6,6 +6,7 @@ Drone
 10
 100
 1
+20
 2
 Assassin Drone
 Drone2
@@ -14,6 +15,7 @@ Drone2
 10
 200
 1
+20
 2
 Bomber Drone
 Drone3
@@ -22,6 +24,7 @@ Drone3
 12
 200
 2
+20
 2
 Support Drone
 Drone4
@@ -30,6 +33,7 @@ Drone4
 16
 200
 2
+20
 3
 Shielded Drone
 Drone5
@@ -38,6 +42,7 @@ Drone5
 10
 300
 1
+20
 3
 Fast Drone
 Drone6
@@ -46,6 +51,7 @@ Drone6
 18
 300
 3
+20
 8
 Armored Drone
 Drone7
@@ -54,6 +60,7 @@ Drone7
 10
 800
 1
+20
 5
 Grenade Drone
 Drone8
@@ -62,6 +69,7 @@ Drone8
 16
 500
 4
+20
 6
 Heavy Drone
 Drone9
@@ -70,6 +78,7 @@ Drone9
 16
 600
 4
+20
 5
 Torpedo Drone
 Drone10
@@ -78,6 +87,7 @@ Drone10
 22
 500
 6
+20
 12
 Master Drone
 Drone11
@@ -86,6 +96,7 @@ Drone11
 24
 1200
 12
+20
 2
 Light Fighter
 Interceptor
@@ -94,6 +105,7 @@ Interceptor
 28
 200
 2
+50
 4
 Shielded Fighter
 Interceptor2
@@ -102,6 +114,7 @@ Interceptor2
 24
 400
 2
+40
 4
 Fast Fighter
 Interceptor3
@@ -110,6 +123,7 @@ Interceptor3
 36
 400
 4
+40
 10
 Armored Fighter
 Interceptor4
@@ -118,6 +132,7 @@ Interceptor4
 16
 1000
 2
+40
 6
 Interceptor
 Interceptor5
@@ -126,6 +141,7 @@ Interceptor5
 24
 600
 5
+40
 7
 Heavy Interceptor
 Interceptor6
@@ -134,6 +150,7 @@ Interceptor6
 26
 700
 5
+40
 2
 Assault Fighter
 Interceptor7
@@ -142,6 +159,7 @@ Interceptor7
 40
 200
 12
+40
 6
 Gunship
 Interceptor8
@@ -150,6 +168,7 @@ Interceptor8
 36
 600
 7
+40
 14
 Warthog
 Interceptor9
@@ -158,6 +177,7 @@ Interceptor9
 56
 1400
 14
+40
 18
 Frigat
 Frigat
@@ -166,6 +186,7 @@ Frigat
 14
 1800
 3
+60
 14
 Grenade Frigat
 Frigat2
@@ -174,6 +195,7 @@ Frigat2
 20
 1400
 6
+60
 16
 Heavy Frigat
 Frigat3
@@ -182,6 +204,7 @@ Frigat3
 24
 1600
 6
+60
 8
 Missile Frigat
 Frigat4
@@ -190,6 +213,7 @@ Frigat4
 36
 800
 14
+60
 9
 Torpedo Frigat
 Frigat5
@@ -198,6 +222,7 @@ Frigat5
 21
 900
 8
+60
 10
 USS Enterprise
 Frigat6
@@ -206,6 +231,7 @@ Frigat6
 64
 1000
 16
+60
 4
 Missile Launcher
 MissilePlatform
@@ -214,6 +240,7 @@ MissilePlatform
 56
 400
 24
+40
 8
 Missile Gunship
 MissilePlatform2
@@ -222,6 +249,7 @@ MissilePlatform2
 52
 800
 18
+40
 18
 Liberator
 Liberator
@@ -230,6 +258,7 @@ Liberator
 72
 1800
 18
+40
 30
 Mothership
 Mothership
@@ -238,3 +267,4 @@ Mothership
 120
 3000
 30
+20
