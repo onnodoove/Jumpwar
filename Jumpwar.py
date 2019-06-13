@@ -489,7 +489,6 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	textsurface3 = myfont.render(WormholeText, False, StatusColor)
 	textsurface4 = myfont.render(AsteroidText, False, StatusColor)
 	textsurface = myfont.render(Status, False, StatusColor)
-	textsurface2 = myfont.render(EnemyStatus, False, yellow)
 	if PlayerHull > PlayerLevel*50:
 		PlayerImage=Happy
 	elif PlayerHull > 0:
@@ -602,7 +601,7 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	screen.blit(textsurface3,(0,0))
 	screen.blit(textsurface4,(0,20))
 	screen.blit(textsurface,(0,960))
-	screen.blit(textsurface2,(0,940))
+	screen.blit(EnemyStatus,(0,940))
 	if EnemyKills >= EnemyKillTarget:
 		if WormholeOpenPlayed==0:
 			screen.blit(GalaxySmall,(300,300))
@@ -1184,7 +1183,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	EnemyDistance=1000000
 	if ClosestEnemy > (len(Enemies)*13):
-		EnemyStatus='No enemies'
+		EnemyStat = 'No enemies'
+		EnemyColor=green
 	else:
 		EnemyMaxHull=int(Enemies[ClosestEnemy])*100
 		EnemyHull=int(Enemies[ClosestEnemy+6])
@@ -1195,16 +1195,30 @@ def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 		HullPercentage=int((EnemyHull/EnemyMaxHull)*100)
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		EnemyDamageLaser=int(Enemies[ClosestEnemy+3])
+		EnemyDamageMissile=int(EnemyDamageLaser*1.5)
+		EnemyDamage=(EnemyDamageMissile/PlayerHull)
+		if EnemyDamage < 0.1:
+			EnemyColor=green
+		elif EnemyDamage < 0.2:
+			EnemyColor=light_grey
+		elif EnemyDamage < 0.3:
+			EnemyColor=yellow
+		elif EnemyDamage <= 0.4:
+			EnemyColor=orange
+		elif EnemyDamage > 0.4:
+			EnemyColor=red
 		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
 			if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
-				EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' LASER LOCK'
+				EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' LASER LOCK'
 			else:
 				if PlayerMissiles > 0:
-					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' MISSILE LOCK'
+					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' MISSILE LOCK'
 				else:
-					EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' NO MISSILES'
+					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' NO MISSILES'
 		else:
-			EnemyStatus=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' OUT OF RANGE'
+			EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' OUT OF RANGE'
+	EnemyStatus = myfont.render(EnemyStat, False, EnemyColor)
 	return(EnemyStatus)
 
 def FireMissile (Enemies, Stars, Asteroids, MissileTarget, PlayerLevel, Exp, Nexp):
