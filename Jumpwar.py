@@ -1034,19 +1034,23 @@ def ScanEnemies (Enemies, PlayerX, PlayerY, Radar, ScanEnemy):
 
 def GetEnemyXL (Enemies):
 	Counter=0
-	SetEnemyDamage=0
+	SetEnemyDanger=0
 	MaxCounter=len(Enemies)
 	while Counter < MaxCounter:
 		EnemyLevel=int(Enemies[Counter])
 		EnemyName=Enemies[Counter+1]
 		EnemyDamageLaser=int(Enemies[Counter+3])
-		EnemyHealth=Enemies[Counter+6]
+		EnemySpeed=int(Enemies[Counter+4])
+		EnemyScan=int(Enemies[Counter+5])
+		EnemyDef=int(Enemies[Counter+8])
+		EnemyHealth=int(Enemies[Counter+6])
 		EnemyX=int(Enemies[Counter+10])
 		EnemyY=int(Enemies[Counter+11])
 		Xdiff=EnemyX-PlayerX
 		Ydiff=EnemyY-PlayerY
-		if EnemyDamageLaser >= SetEnemyDamage:
-			SetEnemyDamage=EnemyDamageLaser
+		EnemyDanger=int((EnemyDamageLaser+(EnemyHealth/10)+EnemySpeed+EnemyScan)/EnemyDef)
+		if EnemyDanger >= SetEnemyDanger:
+			SetEnemyDanger=EnemyDanger
 			EnemyXL=Counter
 		Counter=Counter+13
 	return (EnemyXL)
