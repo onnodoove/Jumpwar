@@ -1132,6 +1132,8 @@ def CollectEnemies (Enemies,CollectedEnemies, PlayerX, PlayerY):
 		if PlayerScan < 20:
 			PlayerScan=20
 		while Counter < MaxCounter:
+			if CounterCollected > 6:
+				break
 			EnemyX=int(Enemies[Counter+10])
 			EnemyY=int(Enemies[Counter+11])
 			XDiff=EnemyX-PlayerX
@@ -1139,8 +1141,6 @@ def CollectEnemies (Enemies,CollectedEnemies, PlayerX, PlayerY):
 			if ((-1*PlayerScan) <= XDiff) and ( XDiff <= PlayerScan) and ((-1*PlayerScan) <= YDiff) and (YDiff <= PlayerScan):
 				CollectedEnemies[CounterCollected]=Counter
 				CounterCollected=CounterCollected+1
-			if CounterCollected==6:
-				break
 			Counter=Counter+13
 	return (CollectedEnemies)
 
