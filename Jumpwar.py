@@ -1160,7 +1160,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[0]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[0]])*100
-		HealthPercentage=str((EnemyHealth/EnemyMaxhealth)*100)+'% '
+		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
 		Text=Pos+HealthPercentage+Mood
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,300))
@@ -1176,7 +1176,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[1]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[1]])*100
-		HealthPercentage=str((EnemyHealth/EnemyMaxhealth)*100)+'% '
+		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
 		Text=Pos+HealthPercentage+Mood
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,350))
@@ -1192,7 +1192,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[2]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[2]])*100
-		HealthPercentage=str((EnemyHealth/EnemyMaxhealth)*100)+'% '
+		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
 		Text=Pos+HealthPercentage+Mood
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,400))
@@ -1208,7 +1208,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[3]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[3]])*100
-		HealthPercentage=str((EnemyHealth/EnemyMaxhealth)*100)+'% '
+		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
 		Text=Pos+HealthPercentage+Mood
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,450))
@@ -1224,7 +1224,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[4]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[4]])*100
-		HealthPercentage=str((EnemyHealth/EnemyMaxhealth)*100)+'% '
+		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
 		Text=Pos+HealthPercentage+Mood
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,500))
@@ -1240,7 +1240,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[5]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[5]])*100
-		HealthPercentage=str((EnemyHealth/EnemyMaxhealth)*100)+'% '
+		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
 		Text=Pos+HealthPercentage+Mood
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,550))
@@ -1256,7 +1256,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[6]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[6]])*100
-		HealthPercentage=str((EnemyHealth/EnemyMaxhealth)*100)+'% '
+		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
 		Text=Pos+HealthPercentage+Mood
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,600))
