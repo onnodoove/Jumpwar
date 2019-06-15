@@ -122,6 +122,7 @@ pygame.display.set_caption('Jumpwar')
 Width=int(1000)
 Heigth=int(1000)
 screen = pygame.display.set_mode((Width, Heigth))
+CollectedEnemies=[None]*7
 
 Load=open('Jumpwar.sav', 'r')
 LoadList=list(Load)
@@ -144,6 +145,7 @@ def DoHelp ():
 	text4 = myfont.render('Numpad + and - or r and t                : Set Jump Distance', False, green)
 	text5 = myfont.render('Numpad * or l                                    : Closest Enemy Info', False, green)
 	text16 = myfont.render('Del                                                     : Most dangerous Enemy Info', False, green)
+	text17 = myfont.render('End                                                     : Local enemy scan', False, green)
 	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, green)
 	text7 = myfont.render('ESC                                                  : Quit Game', False, green)
 	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turns to progress', False, green)
@@ -152,8 +154,6 @@ def DoHelp ():
 	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, green)
 	text12 = myfont.render('Stars (cool/medium/hot)             :', False, green)
 	text13 = myfont.render('Asteroids (Small/medium/large):', False, green)
-	text14 = myfont.render("- When ship severely damaged, closest asteroid will be shown upper left corner", False, green)
-	text15 = myfont.render("- Player has 3 moves before it is the enemie's turn, use this to your advantage... :)", False, green)
 
 #	pygame.display.set_icon(Galaxy)
 #	pygame.display.set_caption('Jumpwar')
@@ -168,24 +168,23 @@ def DoHelp ():
 	screen.blit(text4,(0,150))
 	screen.blit(text5,(0,200))
 	screen.blit(text16,(0,250))
-	screen.blit(text6,(0,300))
-	screen.blit(text7,(0,350))
-	screen.blit(text8,(0,400))
-	screen.blit(text9,(0,450))
-	screen.blit(text10,(0,500))
-	screen.blit(text11,(0,550))
-	screen.blit(text12,(0,600))
-	screen.blit(text13,(0,650))
-	screen.blit(text14,(0,700))
-	screen.blit(text15,(0,750))
+	screen.blit(text17,(0,300))
+	screen.blit(text6,(0,350))
+	screen.blit(text7,(0,400))
+	screen.blit(text8,(0,450))
+	screen.blit(text9,(0,500))
+	screen.blit(text10,(0,550))
+	screen.blit(text11,(0,600))
+	screen.blit(text12,(0,650))
+	screen.blit(text13,(0,700))
 
-	screen.blit(RedStar,(500,600))
-	screen.blit(YellowStar,(560,600))
-	screen.blit(BlueStar,(620,600))
+	screen.blit(RedStar,(500,650))
+	screen.blit(YellowStar,(560,650))
+	screen.blit(BlueStar,(620,650))
 
-	screen.blit(Asteroid,(500,650))
-	screen.blit(Asteroid2,(560,650))
-	screen.blit(Asteroid3,(620,650))
+	screen.blit(Asteroid,(500,700))
+	screen.blit(Asteroid2,(560,700))
+	screen.blit(Asteroid3,(620,700))
 
 	screen.blit(Status,(0,960))
 	pygame.display.flip()
@@ -307,6 +306,73 @@ Action=0
 ScreenRange=list()
 MissileTargetList=list()
 LaserTargetList=list()
+
+
+def GetScreenItem (ObjectImage):
+	if ObjectImage == 'Drone\n':
+		ScreenItem=Drone
+	elif ObjectImage == 'Drone2\n':
+		ScreenItem=Drone2
+	elif ObjectImage == 'Drone3\n':
+		ScreenItem=Drone3
+	elif ObjectImage == 'Drone4\n':
+		ScreenItem=Drone4
+	elif ObjectImage == 'Drone5\n':
+		ScreenItem=Drone5
+	elif ObjectImage == 'Drone6\n':
+		ScreenItem=Drone6
+	elif ObjectImage == 'Drone7\n':
+		ScreenItem=Drone7
+	elif ObjectImage == 'Drone8\n':
+		ScreenItem=Drone8
+	elif ObjectImage == 'Drone9\n':
+		ScreenItem=Drone9
+	elif ObjectImage == 'Drone10\n':
+		ScreenItem=Drone10
+	elif ObjectImage == 'Drone11\n':
+		ScreenItem=Drone11
+	elif ObjectImage == 'Interceptor\n':
+		ScreenItem=Interceptor
+	elif ObjectImage == 'Interceptor2\n':
+		ScreenItem=Interceptor2
+	elif ObjectImage == 'Interceptor3\n':
+		ScreenItem=Interceptor3
+	elif ObjectImage == 'Interceptor4\n':
+		ScreenItem=Interceptor4
+	elif ObjectImage == 'Interceptor5\n':
+		ScreenItem=Interceptor5
+	elif ObjectImage == 'Interceptor6\n':
+		ScreenItem=Interceptor6
+	elif ObjectImage == 'Interceptor7\n':
+		ScreenItem=Interceptor7
+	elif ObjectImage == 'Interceptor8\n':
+		ScreenItem=Interceptor8
+	elif ObjectImage == 'Interceptor9\n':
+		ScreenItem=Interceptor9
+	elif ObjectImage == 'Frigat\n':
+		ScreenItem=Frigat
+	elif ObjectImage == 'Frigat2\n':
+		ScreenItem=Frigat2
+	elif ObjectImage == 'Frigat3\n':
+		ScreenItem=Frigat3
+	elif ObjectImage == 'Frigat4\n':
+		ScreenItem=Frigat4
+	elif ObjectImage == 'Frigat5\n':
+		ScreenItem=Frigat5
+	elif ObjectImage == 'Frigat6\n':
+		ScreenItem=Frigat6
+	elif ObjectImage == 'MissilePlatform\n':
+		ScreenItem=MissilePlatform
+	elif ObjectImage == 'MissilePlatform2\n':
+		ScreenItem=MissilePlatform2
+	elif ObjectImage == 'Liberator\n':
+		ScreenItem=Liberator
+	elif ObjectImage == 'Mothership\n':
+		ScreenItem=Mothership
+	elif ObjectImage == 'HunterDrone\n':
+		ScreenItem=HunterDrone
+
+	return (ScreenItem)
 
 
 def VisualScan (Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY):
@@ -778,6 +844,7 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 
 	DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 
+	screen.blit(GalaxySmall,(300,300))
 	screen.blit(text00,(300,320))
 	screen.blit(text01,(300,380))
 	screen.blit(ScreenItem, (450,370))
@@ -953,6 +1020,7 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 
 	DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 
+	screen.blit(GalaxySmall,(300,300))
 	screen.blit(text00,(300,320))	
 	screen.blit(text01,(300,380))
 	screen.blit(ScreenItem, (450,370))
@@ -1048,12 +1116,134 @@ def GetEnemyXL (Enemies):
 		EnemyY=int(Enemies[Counter+11])
 		Xdiff=EnemyX-PlayerX
 		Ydiff=EnemyY-PlayerY
-		EnemyDanger=int((EnemyDamageLaser+(EnemyHealth/10)+EnemySpeed+EnemyScan)/EnemyDef)
+		EnemyDanger=EnemyDamageLaser+(EnemySpeed*10)+(EnemyScan*10)
 		if EnemyDanger >= SetEnemyDanger:
 			SetEnemyDanger=EnemyDanger
 			EnemyXL=Counter
 		Counter=Counter+13
 	return (EnemyXL)
+
+def CollectEnemies (Enemies,CollectedEnemies, PlayerX, PlayerY):
+	if len(Enemies)>0:
+		Counter=0
+		MaxCounter=len(Enemies)
+		CounterCollected=0
+		PlayerScan=PlayerLevel*2
+		if PlayerScan < 20:
+			PlayerScan=20
+		while Counter < MaxCounter:
+			EnemyX=int(Enemies[Counter+10])
+			EnemyY=int(Enemies[Counter+11])
+			XDiff=EnemyX-PlayerX
+			YDiff=EnemyY-PlayerY
+			if ((-1*PlayerScan) <= XDiff) and ( XDiff <= PlayerScan) and ((-1*PlayerScan) <= YDiff) and (YDiff <= PlayerScan):
+				CollectedEnemies[CounterCollected]=Counter
+				CounterCollected=CounterCollected+1
+			if CounterCollected==6:
+				break
+			Counter=Counter+13
+	return (CollectedEnemies)
+
+def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
+	CollectEnemies(Enemies,CollectedEnemies, PlayerX, PlayerY)
+	screen.blit(GalaxySmall,(300,300))
+	text10 = myfont.render('Press enter', False, yellow)
+	if not CollectedEnemies[0]==None:
+		ObjectImage=Enemies[CollectedEnemies[0]+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(300,300))
+		EnemyX=int(Enemies[CollectedEnemies[0]+10])
+		EnemyY=int(Enemies[CollectedEnemies[0]+11])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		Mood=str(Enemies[CollectedEnemies[0]+12]).rstrip()
+		Pos=str(XDiff)+' '+str(YDiff)+' '
+		Text=Pos+Mood
+		EnemyText=myfont.render(Text, False, green)
+		screen.blit(EnemyText,(350,300))
+	if not CollectedEnemies[1]==None:
+		ObjectImage=Enemies[CollectedEnemies[1]+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(300,350))
+		EnemyX=int(Enemies[CollectedEnemies[1]+10])
+		EnemyY=int(Enemies[CollectedEnemies[1]+11])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		Mood=str(Enemies[CollectedEnemies[1]+12]).rstrip()
+		Pos=str(XDiff)+' '+str(YDiff)+' '
+		Text=Pos+Mood
+		EnemyText=myfont.render(Text, False, green)
+		screen.blit(EnemyText,(350,350))
+	if not CollectedEnemies[2]==None:
+		ObjectImage=Enemies[CollectedEnemies[2]+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(300,400))
+		EnemyX=int(Enemies[CollectedEnemies[2]+10])
+		EnemyY=int(Enemies[CollectedEnemies[2]+11])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		Mood=str(Enemies[CollectedEnemies[2]+12]).rstrip()
+		Pos=str(XDiff)+' '+str(YDiff)+' '
+		Text=Pos+Mood
+		EnemyText=myfont.render(Text, False, green)
+		screen.blit(EnemyText,(350,400))
+	if not CollectedEnemies[3]==None:
+		ObjectImage=Enemies[CollectedEnemies[3]+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(300,450))
+		EnemyX=int(Enemies[CollectedEnemies[3]+10])
+		EnemyY=int(Enemies[CollectedEnemies[3]+11])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		Mood=str(Enemies[CollectedEnemies[3]+12]).rstrip()
+		Pos=str(XDiff)+' '+str(YDiff)+' '
+		Text=Pos+Mood
+		EnemyText=myfont.render(Text, False, green)
+		screen.blit(EnemyText,(350,450))
+	if not CollectedEnemies[4]==None:
+		ObjectImage=Enemies[CollectedEnemies[4]+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(300,500))
+		EnemyX=int(Enemies[CollectedEnemies[4]+10])
+		EnemyY=int(Enemies[CollectedEnemies[4]+11])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		Mood=str(Enemies[CollectedEnemies[4]+12]).rstrip()
+		Pos=str(XDiff)+' '+str(YDiff)+' '
+		Text=Pos+Mood
+		EnemyText=myfont.render(Text, False, green)
+		screen.blit(EnemyText,(350,500))
+	if not CollectedEnemies[5]==None:
+		ObjectImage=Enemies[CollectedEnemies[5]+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(300,550))
+		EnemyX=int(Enemies[CollectedEnemies[5]+10])
+		EnemyY=int(Enemies[CollectedEnemies[5]+11])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		Mood=str(Enemies[CollectedEnemies[5]+12]).rstrip()
+		Pos=str(XDiff)+' '+str(YDiff)+' '
+		Text=Pos+Mood
+		EnemyText=myfont.render(Text, False, green)
+		screen.blit(EnemyText,(350,550))
+	if not CollectedEnemies[6]==None:
+		ObjectImage=Enemies[CollectedEnemies[6]+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(300,600))
+		EnemyX=int(Enemies[CollectedEnemies[6]+10])
+		EnemyY=int(Enemies[CollectedEnemies[6]+11])
+		XDiff=EnemyX-PlayerX
+		YDiff=EnemyY-PlayerY
+		Mood=str(Enemies[CollectedEnemies[6]+12]).rstrip()
+		Pos=str(XDiff)+' '+str(YDiff)+' '
+		Text=Pos+Mood
+		EnemyText=myfont.render(Text, False, green)
+		screen.blit(EnemyText,(350,600))
+	screen.blit(text10,(300,650))
+	pygame.display.flip()
+	wait()
+	return
+
 
 def PlayerDistance (EnemyX, EnemyY, PlayerX, PlayerY):
 	XDiff=PlayerX-EnemyX
@@ -1642,6 +1832,14 @@ while Level < 31:
 						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 					elif event.key == pygame.K_KP_PERIOD or event.key == pygame.K_DELETE:
 						DoEnemyXL(Enemies, PlayerX, PlayerY)
+						ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+						EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
+						VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
+						Status=SetStatus()
+						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+					elif event.key == pygame.K_END:
+						CollectedEnemies=[None]*7
+						DoEnemyList(Enemies,CollectedEnemies, PlayerX, PlayerY)
 						ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 						EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
 						VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
