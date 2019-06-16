@@ -3,82 +3,82 @@ Drone
 Drone
 60
 4
-10
+20
 100
 1
-20
+12
 2
 Assassin Drone
 Drone2
 80
 4
-10
+20
 200
 1
-20
+12
 2
 Bomber Drone
 Drone3
 120
 4
-12
+20
 200
 2
-20
+12
 2
 Support Drone
 Drone4
 40
 6
-16
+20
 200
 2
-20
+12
 3
 Shielded Drone
 Drone5
 50
 4
-10
+20
 300
 1
-20
+12
 3
 Fast Drone
 Drone6
 70
 6
-18
+20
 300
 3
-20
+12
 8
 Armored Drone
 Drone7
 60
 4
-10
+20
 800
 1
-20
+12
 5
 Grenade Drone
 Drone8
 70
 4
-16
+20
 500
 4
-20
+12
 6
 Heavy Drone
 Drone9
 80
 4
-16
+20
 600
 4
-20
+12
 5
 Torpedo Drone
 Drone10
@@ -87,7 +87,7 @@ Drone10
 22
 500
 6
-20
+12
 12
 Master Drone
 Drone11
@@ -96,7 +96,7 @@ Drone11
 24
 1200
 12
-20
+12
 2
 Light Fighter
 Interceptor
@@ -105,7 +105,7 @@ Interceptor
 28
 200
 2
-50
+36
 4
 Shielded Fighter
 Interceptor2
@@ -114,7 +114,7 @@ Interceptor2
 24
 400
 2
-40
+36
 4
 Fast Fighter
 Interceptor3
@@ -123,16 +123,16 @@ Interceptor3
 36
 400
 4
-40
+36
 10
 Armored Fighter
 Interceptor4
 20
 6
-16
+20
 1000
 2
-40
+36
 6
 Interceptor
 Interceptor5
@@ -141,7 +141,7 @@ Interceptor5
 24
 600
 5
-40
+36
 7
 Heavy Interceptor
 Interceptor6
@@ -150,7 +150,7 @@ Interceptor6
 26
 700
 5
-40
+36
 2
 Assault Fighter
 Interceptor7
@@ -159,7 +159,7 @@ Interceptor7
 40
 200
 12
-40
+36
 6
 Gunship
 Interceptor8
@@ -168,7 +168,7 @@ Interceptor8
 36
 600
 7
-40
+36
 14
 Warthog
 Interceptor9
@@ -177,13 +177,13 @@ Interceptor9
 56
 1400
 14
-40
+36
 18
 Frigat
 Frigat
 30
 4
-14
+20
 1800
 3
 60
@@ -240,7 +240,7 @@ MissilePlatform
 56
 400
 24
-40
+48
 8
 Missile Gunship
 MissilePlatform2
@@ -249,7 +249,7 @@ MissilePlatform2
 52
 800
 18
-40
+48
 18
 Liberator
 Liberator
@@ -258,7 +258,7 @@ Liberator
 72
 1800
 18
-40
+48
 30
 Mothership
 Mothership
@@ -267,4 +267,4 @@ Mothership
 120
 3000
 30
-20
+24

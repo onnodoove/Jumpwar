@@ -2096,7 +2096,7 @@ while Level < 31:
 							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 							EnemyActive=1
 							if MissileFired==0:
-								if EnemyName=='Mothership A':
+								if EnemyLevel==30:
 									#print('enemy appended')
 									Enemies.append('3')
 									Enemies.append('Hunter Drone\n')
