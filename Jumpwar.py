@@ -1498,7 +1498,7 @@ while Level < 31:
 		Enemies.append(240)
 		Enemies.append(120)
 		Enemies.append(120)
-		Enemies.append(3000)
+		Enemies.append(2400)
 		Enemies.append(24)
 		Enemies.append(24)
 		Enemies.append(24)
@@ -2212,6 +2212,7 @@ while Level < 31:
 							if (-40 <= XDiff) and ( XDiff <= 40) and (-40 <= YDiff) and (YDiff <= 40) and running==1:
 								Status=str(EnemyName).rstrip()+' flees...'
 								Enemies[Counter+12]='Running away'
+								EnemyMoveCounter=EnemyMaxSpeed
 								if (EnemyX < PlayerX) and (EnemyY < PlayerY):
 									EnemyDir=1
 								if (EnemyX < PlayerX) and (EnemyY == PlayerY):
@@ -2232,7 +2233,10 @@ while Level < 31:
 								Status=str(EnemyName).rstrip()+' scared'
 								Enemies[Counter+12]='scared'
 								EnemyDir=random.randint(1, 9)
-								EnemyMoveCounter=EnemyMaxSpeed
+								if EnemyMaxSpeed >= 10:
+									EnemyMoveCounter=10
+								else:
+									EnemyMoveCounter=EnemyMaxSpeed
 						else:
 							if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==1:
 								Status=str(EnemyName).rstrip()+' hunts...'
