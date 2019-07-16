@@ -547,7 +547,7 @@ def ScanClosestAsteroid (PlayerX, PlayerY):
 					AsteroidName='Large asteroid at: '
 				ShowX=Xdiff
 				ShowY=Ydiff
-				AsteroidText=AsteroidName+str(ShowX)+' '+str(ShowY)
+				AsteroidText=AsteroidName+' x'+str(ShowX)+' y'+str(ShowY)
 		Counter=Counter+3
 
 	return (AsteroidText)
@@ -875,6 +875,11 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 def NewLevel (Level):
 	Status = myfont.render('Press enter to continue - ESC to quit', False, yellow)		
 	text1 = myfont.render('Welcome to Level: '+str(Level), False, green)
+	Teleportertext = myfont.render('Teleporter will move you all over the map!', False, red)
+	Eyetext = myfont.render('Cannot escapoe the Eye!', False, red)
+	Leechtext = myfont.render('Leech will suck you dry!', False, red)
+	Ramjettext = myfont.render('None are faster than the Ramjet!', False, red)
+	Mothershiptext = myfont.render('Meet the army of the Mothership!', False, red)
 
 #	pygame.display.set_icon(Galaxy)
 #	pygame.display.set_caption('Jumpwar')
@@ -883,6 +888,17 @@ def NewLevel (Level):
 #	screen = pygame.display.set_mode((Width, Heigth))
 	screen.blit(Galaxy, (0,0))
 	screen.blit(text1,(300,300))
+	if Level==6:
+		screen.blit(Teleportertext,(300,350))
+	if Level==12:
+		screen.blit(Eyetext,(300,350))
+	if Level==18:
+		screen.blit(Leechtext,(300,350))
+	if Level==24:
+		screen.blit(Ramjettext,(300,350))
+	if Level==30:
+		screen.blit(Mothershiptext,(300,350))
+
 	screen.blit(Status,(0,980))
 	pygame.display.flip()
 	while True:
@@ -1120,7 +1136,7 @@ def MissileScan (Enemies, MissileTargetList):
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
 		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			if NumberofTargets < 3:
+			if NumberofTargets < 5:
 				MissileTargetList.append(Counter)
 				MissileTargetList.append(XDiff)
 				MissileTargetList.append(YDiff)
@@ -1141,7 +1157,7 @@ def LaserScan (Enemies, laserTargetList):
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
 		if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
-			if NumberofTargets < 3:
+			if NumberofTargets < 5:
 				laserTargetList.append(Counter)
 				laserTargetList.append(XDiff)
 				laserTargetList.append(YDiff)
@@ -1152,26 +1168,76 @@ def LaserScan (Enemies, laserTargetList):
 	return (laserTargetList)
 
 def SelectLaserEnemy (LaserTargetList, Enemies):
+	text10 = myfont.render('Select Laser target', False, yellow)
+
 	EnemyOneName='empty'
 	EnemyTwoName='empty'
 	EnemyThreeName='empty'
+	EnemyFourName='empty'
+	EnemyFiveName='empty'
+
 	Loc1=''
 	Loc2=''
 	Loc3=''
-	FirstEnemy=LaserTargetList[0]
-	EnemyOneName=Enemies[FirstEnemy+1]
-	Loc1='x'+str(LaserTargetList[1])+' y'+str(LaserTargetList[2])
-	if len(LaserTargetList) > 3:
-		SecondEnemy=LaserTargetList[3]
-		EnemyTwoName=Enemies[SecondEnemy+1]
-		Loc2='x'+str(LaserTargetList[4])+' y'+str(LaserTargetList[5])
-		if len(LaserTargetList) > 6:
-			ThirdEnemy=LaserTargetList[6]
-			EnemyThreeName=Enemies[ThirdEnemy+1]
-			Loc3='x'+str(LaserTargetList[7])+' y'+str(LaserTargetList[8])
-	Status='Target: 1: '+EnemyOneName.rstrip()+' ('+Loc1+') 2: '+EnemyTwoName.rstrip()+' ('+Loc2+') 3: '+EnemyThreeName.rstrip()+' ('+Loc3+')'
+	Loc4=''
+	Loc5=''
+
 	VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 	DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+
+	screen.blit(GalaxySmall,(300,300))
+	screen.blit(text10,(300,300))
+
+	FirstEnemy=LaserTargetList[0]
+	Loc1=' x'+str(LaserTargetList[1])+' y'+str(LaserTargetList[2])
+	EnemyOneName='1: '+Enemies[FirstEnemy+1]+Loc1
+	text = myfont.render(EnemyOneName, False, yellow)
+	screen.blit(text,(300,350))
+	ObjectImage=Enemies[FirstEnemy+2]
+	ScreenItem=GetScreenItem(ObjectImage)
+	screen.blit(ScreenItem,(650,350))
+
+	if len(LaserTargetList) > 3:
+		SecondEnemy=LaserTargetList[3]
+		Loc2=' x'+str(LaserTargetList[4])+' y'+str(LaserTargetList[5])
+		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+Loc2
+		text = myfont.render(EnemyTwoName, False, yellow)
+		screen.blit(text,(300,400))
+		ObjectImage=Enemies[SecondEnemy+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(650,400))
+
+		if len(LaserTargetList) > 6:
+			ThirdEnemy=LaserTargetList[6]
+			Loc3=' x'+str(LaserTargetList[7])+' y'+str(LaserTargetList[8])
+			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+Loc3
+			text = myfont.render(EnemyThreeName, False, yellow)
+			screen.blit(text,(300,450))
+			ObjectImage=Enemies[ThirdEnemy+2]
+			ScreenItem=GetScreenItem(ObjectImage)
+			screen.blit(ScreenItem,(650,450))
+
+			if len(LaserTargetList) > 9:
+				FourthEnemy=LaserTargetList[9]
+				Loc4=' x'+str(LaserTargetList[10])+' y'+str(LaserTargetList[11])
+				EnemyFourName='4: '+Enemies[FourthEnemy+1]+Loc4
+				text = myfont.render(EnemyFourName, False, yellow)
+				screen.blit(text,(300,500))
+				ObjectImage=Enemies[FourthEnemy+2]
+				ScreenItem=GetScreenItem(ObjectImage)
+				screen.blit(ScreenItem,(650,500))
+
+				if len(LaserTargetList) > 12:
+					FifthEnemy=LaserTargetList[12]
+					Loc5=' x'+str(LaserTargetList[13])+' y'+str(LaserTargetList[14])
+					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+Loc5
+					text = myfont.render(EnemyFiveName, False, yellow)
+					screen.blit(text,(300,550))
+					ObjectImage=Enemies[FifthEnemy+2]
+					ScreenItem=GetScreenItem(ObjectImage)
+					screen.blit(ScreenItem,(650,550))
+
+	pygame.display.flip()
 	Selection=0
 	while Selection==0:
 		for event in pygame.event.get():
@@ -1187,30 +1253,88 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 					if len(LaserTargetList) > 6:
 						LaserTarget=LaserTargetList[6]
 						Selection=1
+				if event.key == pygame.K_KP4 or event.key == pygame.K_4:
+					if len(LaserTargetList) > 9:
+						LaserTarget=LaserTargetList[9]
+						Selection=1
+				if event.key == pygame.K_KP5 or event.key == pygame.K_5:
+					if len(LaserTargetList) > 12:
+						LaserTarget=LaserTargetList[12]
+						Selection=1
 	return(LaserTarget)
 
 
 def SelectMissileEnemy (MissileTargetList, Enemies):
+	text10 = myfont.render('Select Missile target', False, yellow)
+
 	EnemyOneName='empty'
 	EnemyTwoName='empty'
 	EnemyThreeName='empty'
+	EnemyFourName='empty'
+	EnemyFiveName='empty'
+
 	Loc1=''
 	Loc2=''
 	Loc3=''
-	FirstEnemy=MissileTargetList[0]
-	Loc1='x'+str(MissileTargetList[1])+' y'+str(MissileTargetList[2])
-	EnemyOneName=Enemies[FirstEnemy+1]
-	if len(MissileTargetList) > 3:
-		SecondEnemy=MissileTargetList[3]
-		EnemyTwoName=Enemies[SecondEnemy+1]
-		Loc2='x'+str(MissileTargetList[4])+' y'+str(MissileTargetList[5])
-		if len(MissileTargetList) > 6:
-			ThirdEnemy=MissileTargetList[6]
-			EnemyThreeName=Enemies[ThirdEnemy+1]
-			Loc3='x'+str(MissileTargetList[7])+' y'+str(MissileTargetList[8])
-	Status='Target: 1: '+EnemyOneName.rstrip()+' ('+Loc1+') 2: '+EnemyTwoName.rstrip()+' ('+Loc2+') 3: '+EnemyThreeName.rstrip()+' ('+Loc3+')'
+	Loc4=''
+	Loc5=''
+
 	VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 	DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+
+	screen.blit(GalaxySmall,(300,300))
+	screen.blit(text10,(300,300))
+
+	FirstEnemy=MissileTargetList[0]
+	Loc1=' x'+str(MissileTargetList[1])+' y'+str(MissileTargetList[2])
+	EnemyOneName='1: '+Enemies[FirstEnemy+1]+Loc1
+	text = myfont.render(EnemyOneName, False, yellow)
+	screen.blit(text,(300,350))
+	ObjectImage=Enemies[FirstEnemy+2]
+	ScreenItem=GetScreenItem(ObjectImage)
+	screen.blit(ScreenItem,(650,350))
+
+	if len(MissileTargetList) > 3:
+		SecondEnemy=MissileTargetList[3]
+		Loc2=' x'+str(MissileTargetList[4])+' y'+str(MissileTargetList[5])
+		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+Loc2
+		text = myfont.render(EnemyTwoName, False, yellow)
+		screen.blit(text,(300,400))
+		ObjectImage=Enemies[SecondEnemy+2]
+		ScreenItem=GetScreenItem(ObjectImage)
+		screen.blit(ScreenItem,(650,400))
+
+		if len(MissileTargetList) > 6:
+			ThirdEnemy=MissileTargetList[6]
+			Loc3=' x'+str(MissileTargetList[7])+' y'+str(MissileTargetList[8])
+			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+Loc3
+			text = myfont.render(EnemyThreeName, False, yellow)
+			screen.blit(text,(300,450))
+			ObjectImage=Enemies[ThirdEnemy+2]
+			ScreenItem=GetScreenItem(ObjectImage)
+			screen.blit(ScreenItem,(650,450))
+
+			if len(MissileTargetList) > 9:
+				FourthEnemy=MissileTargetList[9]
+				Loc4=' x'+str(MissileTargetList[10])+' y'+str(MissileTargetList[11])
+				EnemyFourName='4: '+Enemies[FourthEnemy+1]+Loc4
+				text = myfont.render(EnemyFourName, False, yellow)
+				screen.blit(text,(300,500))
+				ObjectImage=Enemies[FourthEnemy+2]
+				ScreenItem=GetScreenItem(ObjectImage)
+				screen.blit(ScreenItem,(650,500))
+
+				if len(MissileTargetList) > 12:
+					FifthEnemy=MissileTargetList[12]
+					Loc5=' x'+str(MissileTargetList[13])+' y'+str(MissileTargetList[14])
+					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+Loc5
+					text = myfont.render(EnemyFiveName, False, yellow)
+					screen.blit(text,(300,550))
+					ObjectImage=Enemies[FifthEnemy+2]
+					ScreenItem=GetScreenItem(ObjectImage)
+					screen.blit(ScreenItem,(650,550))
+
+	pygame.display.flip()
 	Selection=0
 	while Selection==0:
 		for event in pygame.event.get():
@@ -1225,6 +1349,14 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 				if event.key == pygame.K_KP3 or event.key == pygame.K_3:
 					if len(MissileTargetList) > 6:
 						MissileTarget=MissileTargetList[6]
+						Selection=1
+				if event.key == pygame.K_KP4 or event.key == pygame.K_4:
+					if len(MissileTargetList) > 9:
+						MissileTarget=MissileTargetList[9]
+						Selection=1
+				if event.key == pygame.K_KP5 or event.key == pygame.K_5:
+					if len(MissileTargetList) > 12:
+						MissileTarget=MissileTargetList[12]
 						Selection=1
 	return(MissileTarget)
 		
@@ -2051,17 +2183,18 @@ while Level < 31:
 									EnemyAction=EnemyAction+1
 									Steal.play()
 								elif EnemyName=='Eye':
-									Status='Eye jumps you...'
-									Enemies[Counter+12]='Eye jumps...'
-									EnemyMissiles=EnemyMissiles-1
-									PlayerHull=PlayerHull-EnemyLaserDamage
-									EnemyX=PlayerX+random.randint(-1,1)
-									EnemyY=PlayerY+random.randint(-1,1)
-									Enemies[Counter+7]=EnemyMissiles
-									Enemies[Counter+10]=EnemyX
-									Enemies[Counter+11]=EnemyY
-									EnemyAction=EnemyAction+1
-									Teleport.play()
+									if EnemyHull > (EnemyLevel*EnemyDef):
+										Status='Eye jumps you...'
+										Enemies[Counter+12]='Eye jumps...'
+										EnemyMissiles=EnemyMissiles-1
+										PlayerHull=PlayerHull-EnemyLaserDamage
+										EnemyX=PlayerX+random.randint(-1,1)
+										EnemyY=PlayerY+random.randint(-1,1)
+										Enemies[Counter+7]=EnemyMissiles
+										Enemies[Counter+10]=EnemyX
+										Enemies[Counter+11]=EnemyY
+										EnemyAction=EnemyAction+1
+										Teleport.play()
 								elif EnemyName=='Teleporter':
 									Status='Teleporter teleports you...'
 									Enemies[Counter+12]='Teleporter teleported you'
