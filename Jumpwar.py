@@ -959,6 +959,7 @@ def GetEnemyXL (Enemies):
 		EnemyName=Enemies[Counter+1]
 		EnemyDamageLaser=int(Enemies[Counter+3])
 		EnemySpeed=int(Enemies[Counter+4])
+		EnemyMissiles=int(Enemies[Counter+7])
 		EnemyScan=int(Enemies[Counter+5])
 		EnemyDef=int(Enemies[Counter+8])
 		EnemyHealth=int(Enemies[Counter+6])
@@ -966,7 +967,7 @@ def GetEnemyXL (Enemies):
 		EnemyY=int(Enemies[Counter+11])
 		Xdiff=EnemyX-PlayerX
 		Ydiff=EnemyY-PlayerY
-		EnemyDanger=EnemyDamageLaser+(EnemySpeed*10)+(EnemyScan*10)
+		EnemyDanger=int(((EnemyDamageLaser/10)+EnemySpeed+EnemyLevel+EnemyMissiles)/4)
 		if EnemyDanger >= SetEnemyDanger:
 			SetEnemyDanger=EnemyDanger
 			EnemyXL=Counter
@@ -1411,7 +1412,21 @@ def FireMissile (Enemies, Stars, Asteroids, MissileTarget, PlayerLevel, Exp, Nex
 	EnemyHull=int(Enemies[MissileTarget+6])
 	EnemyHull=EnemyHull-PlayerMissileDamage
 	if EnemyHull < 1:
-		EnemyXp=int(Enemies[MissileTarget])
+		EnemyLevel=int(Enemies[MissileTarget])
+		EnemyName=Enemies[MissileTarget+1]
+		EnemyDamageLaser=int(Enemies[MissileTarget+3])
+		EnemySpeed=int(Enemies[MissileTarget+4])
+		EnemyMissiles=int(Enemies[MissileTarget+7])
+		EnemyScan=int(Enemies[MissileTarget+5])
+		EnemyDef=int(Enemies[MissileTarget+8])
+		EnemyHealth=int(Enemies[MissileTarget+6])
+		EnemyX=int(Enemies[MissileTarget+10])
+		EnemyY=int(Enemies[MissileTarget+11])
+		Xdiff=EnemyX-PlayerX
+		Ydiff=EnemyY-PlayerY
+		EnemyDanger=int(((EnemyDamageLaser/10)+EnemySpeed+EnemyLevel+EnemyMissiles)/4)
+
+		EnemyXp=EnemyDanger
 		EnemyKills=EnemyKills+EnemyXp
 		Nexp=Nexp+EnemyXp
 		Exp[0]=Nexp
@@ -1448,7 +1463,21 @@ def FireLaser (Enemies, Stars, Asteroids, LaserTarget, PlayerLevel, Exp, Nexp):
 	if EnemyHull < 1:
 		Vaporize.play()
 #		print(str(EnemyName).rstrip(), 'destroyed by laser...')
-		EnemyXp=int(Enemies[LaserTarget])
+		EnemyLevel=int(Enemies[LaserTarget])
+		EnemyName=Enemies[LaserTarget+1]
+		EnemyDamageLaser=int(Enemies[LaserTarget+3])
+		EnemySpeed=int(Enemies[LaserTarget+4])
+		EnemyMissiles=int(Enemies[LaserTarget+7])
+		EnemyScan=int(Enemies[LaserTarget+5])
+		EnemyDef=int(Enemies[LaserTarget+8])
+		EnemyHealth=int(Enemies[LaserTarget+6])
+		EnemyX=int(Enemies[LaserTarget+10])
+		EnemyY=int(Enemies[LaserTarget+11])
+		Xdiff=EnemyX-PlayerX
+		Ydiff=EnemyY-PlayerY
+		EnemyDanger=int(((EnemyDamageLaser/10)+EnemySpeed+EnemyLevel+EnemyMissiles)/4)
+
+		EnemyXp=EnemyDanger
 		EnemyKills=EnemyKills+EnemyXp
 		Nexp=Nexp+EnemyXp
 		Exp[0]=Nexp
@@ -1490,7 +1519,7 @@ while Level < 31:
 	Enemies=list()
 	ScreenRange=list()
 	PlayerDamage=PlayerLevel*10
-	ExpNeeded=PlayerLevel*4
+	ExpNeeded=PlayerLevel*5
 	Spawn=random.randint(1,4)
 	if Spawn==1:
 		PlayerX=random.randint(1,200)
@@ -1543,15 +1572,15 @@ while Level < 31:
 		while  NumberofRepeats > EnemyCounter:
 			Enemies.append(Enemylist[Counter])
 			if EnemyCounter==0:
-				Suffix=' Alpha'
+				Suffix=' A'
 			elif EnemyCounter==1:
-				Suffix=' Beta'
+				Suffix=' B'
 			elif EnemyCounter==2:
-				Suffix=' Gamma'
+				Suffix=' C'
 			elif EnemyCounter==3:
-				Suffix=' Theta'
+				Suffix=' D'
 			elif EnemyCounter==4:
-				Suffix=' Zheta'
+				Suffix=' E'
 			EnemyName=Enemylist[Counter+1].rstrip()+Suffix
 			Enemies.append(EnemyName)
 			Enemies.append(Enemylist[Counter+2])
@@ -1621,7 +1650,7 @@ while Level < 31:
 		Enemies.append(EnemyX)
 		Enemies.append(EnemyY)
 		Enemies.append('On patrol')
-		GeneratedEnemies=GeneratedEnemies+30
+		GeneratedEnemies=GeneratedEnemies+18
 
 	elif Level == 24:
 		Enemies.append(24)
@@ -1639,7 +1668,7 @@ while Level < 31:
 		Enemies.append(EnemyX)
 		Enemies.append(EnemyY)
 		Enemies.append('On patrol')
-		GeneratedEnemies=GeneratedEnemies+30
+		GeneratedEnemies=GeneratedEnemies+24
 
 	elif Level == 30:
 		Enemies.append(30)
@@ -2418,7 +2447,7 @@ while Level < 31:
 							EnemyDir=8
 
 					
-					if EnemyMoves==0 and EnemyDir!=5:					
+					if EnemyDir!=5:					
 						EnemyMove=0
 						EnemyAction=EnemyAction+1
 						while EnemyMove <= EnemyMoveCounter:
@@ -2533,7 +2562,7 @@ while Level < 31:
 		
 							EnemyMove=EnemyMove+1
 						
-					EnemyMoves=1
+						
 						
 					
 
