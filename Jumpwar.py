@@ -155,12 +155,18 @@ def DoHelp ():
 	text17 = myfont.render('End                                                     : Local enemy scan', False, green)
 	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, green)
 	text7 = myfont.render('ESC                                                  : Quit Game', False, green)
-	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turns to progress', False, green)
+	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turn to continue to next level', False, green)
 	text9 = myfont.render('- Avoid stars', False, green)
 	text10 = myfont.render('- Move over asteroids to regain health and missiles', False, green)
 	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, green)
 	text12 = myfont.render('Stars (cool/medium/hot)             :', False, green)
 	text13 = myfont.render('Asteroids (Small/medium/large):', False, green)
+	text14 = myfont.render('When player hull below 50%, closets asteroid type and location will be shown', False, green)
+	text15 = myfont.render('When wormhole open, location will be shown', False, green)
+	text16 = myfont.render('Use info screens (*, Del, End) to play tactically', False, green)
+	text17 = myfont.render('Player has 3 moves per turn, use them wisely!', False, green)
+	text18 = myfont.render('Every 6th level has a special enemy', False, green)
+
 
 #	pygame.display.set_icon(Galaxy)
 #	pygame.display.set_caption('Jumpwar')
@@ -184,6 +190,11 @@ def DoHelp ():
 	screen.blit(text11,(0,600))
 	screen.blit(text12,(0,650))
 	screen.blit(text13,(0,700))
+	screen.blit(text14,(0,750))
+	screen.blit(text15,(0,800))
+	screen.blit(text16,(0,850))
+	screen.blit(text17,(0,900))
+	screen.blit(text18,(0,950))
 
 	screen.blit(RedStar,(500,650))
 	screen.blit(YellowStar,(560,650))
@@ -193,7 +204,7 @@ def DoHelp ():
 	screen.blit(Asteroid2,(560,700))
 	screen.blit(Asteroid3,(620,700))
 
-	screen.blit(Status,(0,960))
+	screen.blit(Status,(0,980))
 	pygame.display.flip()
 	Selection=0
 	wait()
@@ -876,7 +887,7 @@ def NewLevel (Level):
 	Status = myfont.render('Press enter to continue - ESC to quit', False, yellow)		
 	text1 = myfont.render('Welcome to Level: '+str(Level), False, green)
 	Teleportertext = myfont.render('Teleporter will move you all over the map!', False, red)
-	Eyetext = myfont.render('Cannot escapoe the Eye!', False, red)
+	Eyetext = myfont.render('Cannot escape the Eye!', False, red)
 	Leechtext = myfont.render('Leech will suck you dry!', False, red)
 	Ramjettext = myfont.render('None are faster than the Ramjet!', False, red)
 	Mothershiptext = myfont.render('Meet the army of the Mothership!', False, red)
@@ -1007,12 +1018,16 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		EnemyY=int(Enemies[CollectedEnemies[0]+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			Lock=' LOCK'
+		else:
+			Lock=''
 		Mood=str(Enemies[CollectedEnemies[0]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[0]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[0]])*100
 		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood
+		Text=Pos+HealthPercentage+Mood+Lock
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,300))
 	if not CollectedEnemies[1]==None:
@@ -1023,12 +1038,16 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		EnemyY=int(Enemies[CollectedEnemies[1]+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			Lock=' LOCK'
+		else:
+			Lock=''
 		Mood=str(Enemies[CollectedEnemies[1]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[1]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[1]])*100
 		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood
+		Text=Pos+HealthPercentage+Mood+Lock
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,350))
 	if not CollectedEnemies[2]==None:
@@ -1039,12 +1058,16 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		EnemyY=int(Enemies[CollectedEnemies[2]+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			Lock=' LOCK'
+		else:
+			Lock=''
 		Mood=str(Enemies[CollectedEnemies[2]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[2]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[2]])*100
 		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood
+		Text=Pos+HealthPercentage+Mood+Lock
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,400))
 	if not CollectedEnemies[3]==None:
@@ -1055,12 +1078,16 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		EnemyY=int(Enemies[CollectedEnemies[3]+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			Lock=' LOCK'
+		else:
+			Lock=''
 		Mood=str(Enemies[CollectedEnemies[3]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[3]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[3]])*100
 		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood
+		Text=Pos+HealthPercentage+Mood+Lock
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,450))
 	if not CollectedEnemies[4]==None:
@@ -1071,12 +1098,16 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		EnemyY=int(Enemies[CollectedEnemies[4]+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			Lock=' LOCK'
+		else:
+			Lock=''
 		Mood=str(Enemies[CollectedEnemies[4]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[4]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[4]])*100
 		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood
+		Text=Pos+HealthPercentage+Mood+Lock
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,500))
 	if not CollectedEnemies[5]==None:
@@ -1087,12 +1118,16 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		EnemyY=int(Enemies[CollectedEnemies[5]+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			Lock=' LOCK'
+		else:
+			Lock=''
 		Mood=str(Enemies[CollectedEnemies[5]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[5]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[5]])*100
 		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood
+		Text=Pos+HealthPercentage+Mood+Lock
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,550))
 	if not CollectedEnemies[6]==None:
@@ -1103,12 +1138,16 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		EnemyY=int(Enemies[CollectedEnemies[6]+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
+		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			Lock=' LOCK'
+		else:
+			Lock=''
 		Mood=str(Enemies[CollectedEnemies[6]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
 		EnemyHealth=int(Enemies[CollectedEnemies[6]+6])
 		EnemyMaxhealth=int(Enemies[CollectedEnemies[6]])*100
 		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood
+		Text=Pos+HealthPercentage+Mood+Lock
 		EnemyText=myfont.render(Text, False, green)
 		screen.blit(EnemyText,(350,600))
 	screen.blit(text10,(300,650))
@@ -2180,8 +2219,8 @@ while Level < 31:
 				EnemyDir=5
 				EnemyName=str(Enemies[Counter+1]).rstrip()
 				#print(EnemyName)
-				Enemies[Counter+12]='On patrol'
 				EnemyAction=0
+				Message=0
 				while EnemyAction < 2:
 					EnemyLevel=int(Enemies[Counter])
 					EnemyName=str(Enemies[Counter+1]).rstrip()
@@ -2204,6 +2243,7 @@ while Level < 31:
 							EnemyLaserDamage=int(Enemies[Counter+3])
 							PlayerHull=PlayerHull-EnemyLaserDamage
 							Enemies[Counter+12]='Fired laser'
+							Message=1
 							SEnemyLaserDamage=str(EnemyLaserDamage)
 							EnemyAction=EnemyAction+1
 							ExplosionX=PlayerX
@@ -2246,7 +2286,7 @@ while Level < 31:
 								if EnemyName=='Mothership':
 									#print('enemy appended')
 									Enemies.append('3')
-									Enemies.append('Hunter Drone\n')
+									Enemies.append('Hunter Drone')
 									Enemies.append('HunterDrone\n')
 									Enemies.append('70')
 									Enemies.append('12')
@@ -2264,12 +2304,14 @@ while Level < 31:
 									Launch.play()
 									Status='Mothership A launches Hunter Drone...'
 									Enemies[Counter+12]='Launched a drone'
+									Message=1
 									EnemyMissiles=EnemyMissiles-1
 									Enemies[Counter+7]=EnemyMissiles
 									EnemyAction=EnemyAction+1
 								elif EnemyName=='Leech':
 									Status='Leech steals life from you...'
 									Enemies[Counter+12]='Leech steals life...'
+									Message=1
 									EnemyMissiles=EnemyMissiles-1
 									PlayerHull=PlayerHull-EnemyMissileDamage
 									EnemyHull=EnemyHull+EnemyMissileDamage
@@ -2281,6 +2323,7 @@ while Level < 31:
 									if EnemyHull > (EnemyLevel*EnemyDef):
 										Status='Eye jumps you...'
 										Enemies[Counter+12]='Eye jumps...'
+										Message=1
 										EnemyMissiles=EnemyMissiles-1
 										PlayerHull=PlayerHull-EnemyLaserDamage
 										EnemyX=PlayerX+random.randint(-1,1)
@@ -2293,6 +2336,7 @@ while Level < 31:
 								elif EnemyName=='Teleporter':
 									Status='Teleporter teleports you...'
 									Enemies[Counter+12]='Teleporter teleported you'
+									Message=1
 									EnemyMissiles=EnemyMissiles-1
 									PlayerX=random.randint(1,200)
 									PlayerY=random.randint(1,200)
@@ -2362,7 +2406,9 @@ while Level < 31:
 									EnemyName=Enemies[Counter+1]
 									EnemyMissileDamage=int(Enemies[Counter+3])*1.5
 									PlayerHull=PlayerHull-EnemyMissileDamage
-									Enemies[Counter+12]='Fired a missile'
+									if Message==0:
+										Enemies[Counter+12]='Fired a missile'
+										Message=1
 									SEnemyMissileDamage=str(EnemyMissileDamage)
 								if PlayerHull <= 0:
 									Blast.play()
@@ -2388,6 +2434,8 @@ while Level < 31:
 						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
 						if not AsteroidScan[0]==None:
 							Enemies[Counter+12]='Ate an asteroid'
+							EnemyActive=1
+							Message=1
 							if EnemyHull < (EnemyLevel*EnemyDef):
 								Ahh.play()
 							else:
@@ -2429,6 +2477,8 @@ while Level < 31:
 					if EnemyHull <= (EnemyLevel*EnemyDef):
 						Status=str(EnemyName).rstrip()+' Looking for asteroids'
 						Enemies[Counter+12]='Looking for asteroids'
+						EnemyActive=1
+						Message=1
 						EnemyDir=random.randint(1, 9)
 						if EnemyMaxSpeed >= 10:
 							EnemyMoveCounter=10
@@ -2440,6 +2490,8 @@ while Level < 31:
 							if (-40 <= XDiff) and ( XDiff <= 40) and (-40 <= YDiff) and (YDiff <= 40) and running==1:
 								Status=str(EnemyName).rstrip()+' flees...'
 								Enemies[Counter+12]='Running away'
+								EnemyActive=1
+								Message=1
 								EnemyMoveCounter=EnemyMaxSpeed
 								if (EnemyX < PlayerX) and (EnemyY < PlayerY):
 									EnemyDir=1
@@ -2460,6 +2512,8 @@ while Level < 31:
 							else:
 								Status=str(EnemyName).rstrip()+' scared'
 								Enemies[Counter+12]='scared'
+								Message=1
+								EnemyActive=1
 								EnemyDir=random.randint(1, 9)
 								if EnemyMaxSpeed >= 10:
 									EnemyMoveCounter=10
@@ -2468,7 +2522,9 @@ while Level < 31:
 						else:
 							if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==1:
 								Status=str(EnemyName).rstrip()+' hunts...'
-								Enemies[Counter+12]='hunting you'
+								if Message==0:
+									Enemies[Counter+12]='hunting you'
+								EnemyActive=1
 								EnemyMoveCounter=EnemyMaxSpeed
 								if PDist <= 10:
 									EnemyMoveCounter=4
@@ -2600,6 +2656,7 @@ while Level < 31:
 								ExplosionX=-50
 								ExplosionY=-50
 								Enemies[Counter+12]='Hurt by star'
+								EnemyActive=1
 								if CrashStar==1:
 									Damage=100
 								elif CrashStar==2:
@@ -2629,7 +2686,6 @@ while Level < 31:
 							EnemyMove=EnemyMove+1
 						
 						
-						
 					
 
 					if EnemyActive==1:
@@ -2637,6 +2693,9 @@ while Level < 31:
 						EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
 						VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
+					else:
+						Enemies[Counter+12]='On Patrol'	
+
 
 					EnemyAction=EnemyAction+1
 
