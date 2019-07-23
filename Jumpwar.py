@@ -146,26 +146,26 @@ def wait():
 def DoHelp ():
 	global myfont
 	Status = myfont.render('Press enter', False, yellow)		
-	text1 = myfont.render('Numpad Numbers or q,w,e,a,d,z,x,c: Jump direction:', False, green)
-	text2 = myfont.render('Numpad / or left ctrl                        : Fire Laser (range 4)', False, green)
-	text3 = myfont.render('Numpad 0 or space                          : Fire Missile (range 20)', False, green)
-	text4 = myfont.render('Numpad + and - or r and t                : Set Jump Distance', False, green)
-	text5 = myfont.render('Numpad * or l                                    : Closest Enemy Info', False, green)
-	text16 = myfont.render('Del                                                     : Most dangerous Enemy Info', False, green)
-	text17 = myfont.render('End                                                     : Local enemy scan', False, green)
-	text6 = myfont.render('Numpad 5 or s                                  : End Turn', False, green)
-	text7 = myfont.render('ESC                                                  : Quit Game', False, green)
+	text1 = myfont.render('Numpad Numbers                     : Jump direction:', False, green)
+	text2 = myfont.render('Numpad /                                     : Fire Laser (range 4)', False, green)
+	text3 = myfont.render('Numpad 0                                     : Fire Missile (range 20)', False, green)
+	text4 = myfont.render('Numpad + and -                          : Set Jump Distance', False, green)
+	text5 = myfont.render('Numpad *                                     : Closest Enemy Info', False, green)
+	text16 = myfont.render('Del                                                 : Most dangerous Enemy Info', False, green)
+	text17 = myfont.render('End                                               : Local enemy scan', False, green)
+	text6 = myfont.render('Numpad 5 or s                             : End Turn', False, green)
+	text7 = myfont.render('ESC                                             : Quit Game', False, green)
 	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turn to continue to next level', False, green)
 	text9 = myfont.render('- Avoid stars', False, green)
 	text10 = myfont.render('- Move over asteroids to regain health and missiles', False, green)
 	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, green)
 	text12 = myfont.render('Stars (cool/medium/hot)             :', False, green)
 	text13 = myfont.render('Asteroids (Small/medium/large):', False, green)
-	text14 = myfont.render('When player hull below 50%, closets asteroid type and location will be shown', False, green)
+	text14 = myfont.render('When player hull below 50%, closest asteroid type and location will be shown', False, green)
 	text15 = myfont.render('When wormhole open, location will be shown', False, green)
-	text16 = myfont.render('Use info screens (*, Del, End) to play tactically', False, green)
-	text17 = myfont.render('Player has 3 moves per turn, use them wisely!', False, green)
-	text18 = myfont.render('Every 6th level has a special enemy', False, green)
+	text18 = myfont.render('Use info screens (*, Del, End) to play tactically', False, green)
+	text19 = myfont.render('Player has 3 moves per turn, use them wisely!', False, green)
+	text20 = myfont.render('Every 6th level has a special enemy', False, green)
 
 
 #	pygame.display.set_icon(Galaxy)
@@ -192,9 +192,9 @@ def DoHelp ():
 	screen.blit(text13,(0,700))
 	screen.blit(text14,(0,750))
 	screen.blit(text15,(0,800))
-	screen.blit(text16,(0,850))
-	screen.blit(text17,(0,900))
-	screen.blit(text18,(0,950))
+	screen.blit(text18,(0,850))
+	screen.blit(text19,(0,900))
+	screen.blit(text20,(0,950))
 
 	screen.blit(RedStar,(500,650))
 	screen.blit(YellowStar,(560,650))
@@ -602,8 +602,14 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 			AsteroidText=ScanClosestAsteroid(PlayerX, PlayerY)
 		else:
 			AsteroidText='No asteroids left'
+	if len(Enemies)>0:
+		NumberOfEnemies=str(int(len(Enemies)/13))
+	else:
+		NumberOfEnemies='0'
+	EnemyText='Enemies: '+NumberOfEnemies
 	textsurface3 = myfont.render(WormholeText, False, StatusColor)
 	textsurface4 = myfont.render(AsteroidText, False, StatusColor)
+	textsurface5 = myfont.render(EnemyText, False, StatusColor)
 	textsurface = myfont.render(Status, False, StatusColor)
 	if PlayerHull > PlayerLevel*50:
 		PlayerImage=Happy
@@ -633,6 +639,7 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 		Counter=Counter+3
 	screen.blit(textsurface3,(0,0))
 	screen.blit(textsurface4,(0,20))
+	screen.blit(textsurface5,(800,0))
 	screen.blit(textsurface,(0,960))
 	screen.blit(EnemyStatus,(0,940))
 	if EnemyKills >= EnemyKillTarget:
@@ -643,8 +650,9 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 			textEnter='Press enter'
 			text02 = myfont.render(textEnter, False, (255, 255, 0))
 
-			screen.blit(text01,(300,480))
-			screen.blit(text02,(300,580))
+			screen.blit(text01,(300,300))
+			screen.blit(text02,(300,680))
+			screen.blit(Wormhole,(475,475))
 			Yay.play()
 			WormholeOpenPlayed=1
 			pygame.display.flip()
@@ -2322,7 +2330,7 @@ while Level < 31:
 								elif EnemyName=='Eye':
 									if EnemyHull > (EnemyLevel*EnemyDef):
 										Status='Eye jumps you...'
-										Enemies[Counter+12]='Eye jumps...'
+										Enemies[Counter+12]='Eye jumps you...'
 										Message=1
 										EnemyMissiles=EnemyMissiles-1
 										PlayerHull=PlayerHull-EnemyLaserDamage
@@ -2666,6 +2674,22 @@ while Level < 31:
 								EnemyHull=EnemyHull-Damage
 								if EnemyHull < 1:
 									Blast.play()
+									screen.blit(GalaxySmall,(300,300))
+									Crashtext=EnemyName+' crashes into star'
+									text01 = myfont.render(Crashtext, False, (255, 255, 0))
+									textEnter='Press enter'
+									text02 = myfont.render(textEnter, False, (255, 255, 0))
+									if CrashStar==1:
+										ScreenItem=RedStar
+									elif CrashStar==2:
+										ScreenItem=YellowStar
+									elif CrashStar==3:
+										ScreenItem=BlueStar
+									screen.blit(text01,(300,300))
+									screen.blit(text02,(300,680))
+									screen.blit(ScreenItem,(475,475))
+									pygame.display.flip()
+									wait()
 									WipeCounter=0
 									while WipeCounter < 13:
 										del Enemies[Counter]
