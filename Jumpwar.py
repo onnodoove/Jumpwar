@@ -1802,10 +1802,10 @@ while Level < 31:
 
 
 	EnemyKills=0
-	EnemyKillTarget=int(GeneratedEnemies*0.3)
+	EnemyKillTarget=int(GeneratedEnemies*0.5)
 	if EnemyKillTarget==0 and len(Enemies)>0:
 		EnemyKillTarget=1
-	NumberofEnemies=int(len(Enemies)/11)
+	NumberofEnemies=int(len(Enemies)/12)
 #	print('Nomber of enemies: ',NumberofEnemies)
 
 	NewLevel(Level)
@@ -2680,14 +2680,17 @@ while Level < 31:
 									textEnter='Press enter'
 									text02 = myfont.render(textEnter, False, (255, 255, 0))
 									if CrashStar==1:
-										ScreenItem=RedStar
+										ScreenItemB=RedStar
 									elif CrashStar==2:
-										ScreenItem=YellowStar
+										ScreenItemB=YellowStar
 									elif CrashStar==3:
-										ScreenItem=BlueStar
+										ScreenItemB=BlueStar
+									ObjectImage=str(Enemies[Counter+2])
+									ScreenItemA=GetScreenItem(ObjectImage)
 									screen.blit(text01,(300,300))
 									screen.blit(text02,(300,680))
-									screen.blit(ScreenItem,(475,475))
+									screen.blit(ScreenItemB,(525,475))
+									screen.blit(ScreenItemA,(425,475))
 									pygame.display.flip()
 									wait()
 									WipeCounter=0
