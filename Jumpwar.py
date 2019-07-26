@@ -588,8 +588,10 @@ str(PlayerHullMax)+' Missiles: '+str(PlayerMissiles)+Levelup+LevelUpProgress+'% 
 def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus):
 	WXdiff=100-PlayerX
 	WYdiff=100-PlayerY
-	EnemyX=int(Enemies[ClosestEnemy+10])
-	EnemyY=int(Enemies[ClosestEnemy+11])
+	if len(Enemies)>0:	
+		ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
+		EnemyX=int(Enemies[ClosestEnemy+10])
+		EnemyY=int(Enemies[ClosestEnemy+11])
 	global WormholeOpenPlayed
 	PlayerHealth=str(int((PlayerHull/(PlayerLevel*100))*100))+'%'
 	if EnemyKills >= EnemyKillTarget:
@@ -2234,7 +2236,7 @@ while Level < 31:
 			Counter=0
 			EnemyName='Enemy'
 			MaxCounter=len(Enemies)
-			while Counter < MaxCounter and running==1:
+			while Counter < MaxCounter and running:
 				EnemyActive=0
 				Fleeing=0
 				LaserFired=0
@@ -2260,7 +2262,7 @@ while Level < 31:
 					YDiff=PlayerY-EnemyY
 					if EnemyHull < (EnemyLevel*EnemyDef):
 						Enemies[Counter+12]='Scared'
-					if (-4 <= XDiff) and ( XDiff <= 4) and (-4 <= YDiff) and (YDiff <= 4) and running==1:
+					if (-4 <= XDiff) and ( XDiff <= 4) and (-4 <= YDiff) and (YDiff <= 4) and running:
 						if LaserFired==0:
 							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 							EnemyActive=1
@@ -2292,7 +2294,7 @@ while Level < 31:
 								VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 								DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 								wait()
-								running=0
+								running=False
 								sys.exit()
 							else:
 								if PlayerHull<(PlayerLevel*50):
@@ -2301,7 +2303,7 @@ while Level < 31:
 									Laser.play()
 							Status=str(EnemyName).rstrip()+' fires laser...'
 							LaserFired=1
-					if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20) and running==1:
+					if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20) and running:
 						EnemyMissiles=int(Enemies[Counter+7])
 						if EnemyMissiles > 0:
 							ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
@@ -2443,7 +2445,7 @@ while Level < 31:
 									DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 									EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
 									wait()
-									running=0
+									running=False
 									sys.exit()
 								else:
 									if PlayerHull<(PlayerLevel*50):
@@ -2452,7 +2454,7 @@ while Level < 31:
 										Beep.play()
 								MissileFired=1
 								Status=str(EnemyName).rstrip()+' fires missile...'
-					if EnemyHull < (EnemyLevel*50) or EnemyHull < (EnemyLevel*EnemyDef) and running==1:
+					if EnemyHull < (EnemyLevel*50) or EnemyHull < (EnemyLevel*EnemyDef) and running:
 						Fleeing=1
 						AsteroidScan=[None]*4
 						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
@@ -2509,9 +2511,9 @@ while Level < 31:
 						else:
 							EnemyMoveCounter=EnemyMaxSpeed
 
-					if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==1:
+					if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running:
 						if EnemyHull <= (EnemyLevel*EnemyDef):
-							if (-40 <= XDiff) and ( XDiff <= 40) and (-40 <= YDiff) and (YDiff <= 40) and running==1:
+							if (-40 <= XDiff) and ( XDiff <= 40) and (-40 <= YDiff) and (YDiff <= 40) and running:
 								Status=str(EnemyName).rstrip()+' flees...'
 								Enemies[Counter+12]='Running away'
 								EnemyActive=1
@@ -2544,7 +2546,7 @@ while Level < 31:
 								else:
 									EnemyMoveCounter=EnemyMaxSpeed
 						else:
-							if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running==1:
+							if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running:
 								Status=str(EnemyName).rstrip()+' hunts...'
 								if Message==0:
 									Enemies[Counter+12]='hunting you'
@@ -2692,9 +2694,9 @@ while Level < 31:
 									Blast.play()
 									screen.blit(SunCrash,(300,300))
 									Crashtext=EnemyName+' crashes into star'
-									text01 = myfont.render(Crashtext, False, (255, 255, 0))
+									text01 = myfont.render(Crashtext, False, sky_blue)
 									textEnter='Press enter'
-									text02 = myfont.render(textEnter, False, (255, 255, 0))
+									text02 = myfont.render(textEnter, False, sky_blue)
 									if CrashStar==1:
 										ScreenItemB=RedStar
 									elif CrashStar==2:
@@ -2765,7 +2767,7 @@ while Level < 31:
 					SPlayerMissiles='4'
 					SNexp='0'
 				Action=3
-				running=0
+				running=False
 				LoadList[SaveCounter]=SLevel
 				LoadList[SaveCounter+1]=SPlayerLevel
 				LoadList[SaveCounter+2]=SPlayerHull
