@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['Jumpwar.py'],
-             pathex=['/home/onnodoove/Scripts/Jumpwar/Clean'],
+             pathex=['/home/onnodoove/Scripts/Jumpwar'],
              binaries=[],
              datas=[],
              hiddenimports=[],

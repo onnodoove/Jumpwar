@@ -116,6 +116,12 @@ RadarScreen=pygame.image.load('Radar.png')
 Bombs=pygame.image.load('Bombs.png')
 LaserBeams=pygame.image.load('LaserBeams.png')
 SunCrash=pygame.image.load('SunCrash.png')
+AsteroidHarvest=pygame.image.load('Asteroids.png')
+Numpad=pygame.image.load('Numpad.png')
+LaserScreen=pygame.image.load('LaserScreen.png')
+MissileScreen=pygame.image.load('MissileScreen.png')
+EnemyScreen=pygame.image.load('EnemyScreen.png')
+RadarExample=pygame.image.load('RadarScreen.png')
 
 Happy=pygame.image.load('Happy.png')
 Sad=pygame.image.load('Sad.png')
@@ -149,34 +155,64 @@ def wait():
 	
 def DoHelp ():
 	global myfont
+	Selection=True
+	while Selection:
+		Status = myfont.render('Press enter to start the game', False, yellow)		
+		text1 = myfont.render('Welcome to Jumpwar, a turn-based, tactical, space game.', False, green)
+		text2 = myfont.render('Make a choice to read about parts of the game:', False, green)
+		text3 = myfont.render('1> Purpose of the game', False, green)
+		text4 = myfont.render('2> Movement', False, green)
+		text5 = myfont.render('3> Firing weapons', False, green)
+		text6 = myfont.render('4> Finding enemies', False, green)
+		text7 = myfont.render('5> Repairing your ship', False, green)
+		text8 = myfont.render('6> Moving to the next level of the game', False, green)
+		text9 = myfont.render('7> In-game sounds', False, green)
+		text10 = myfont.render('Press h anywhere in-game to return to the help-screens, ESC quits the game', False, green)
+
+		screen.blit(Galaxy,(0,0))
+		screen.blit(text1,(0,0))
+		screen.blit(text2,(0,50))
+		screen.blit(text3,(0,100))
+		screen.blit(text4,(0,150))
+		screen.blit(text5,(0,200))
+		screen.blit(text6,(0,250))
+		screen.blit(text7,(0,300))
+		screen.blit(text8,(0,350))
+		screen.blit(text9,(0,400))
+		screen.blit(text10,(0,450))
+
+		screen.blit(Status,(0,980))
+		pygame.display.flip()
+		for event in pygame.event.get():
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_KP1 or event.key == pygame.K_1:
+					DoHelpPurpose()
+				if event.key == pygame.K_KP2 or event.key == pygame.K_2:
+					DoHelpMovement()		
+				if event.key == pygame.K_KP3 or event.key == pygame.K_3:
+					DoHelpWeapons()
+				if event.key == pygame.K_KP4 or event.key == pygame.K_4:
+					DoHelpEnemies()
+				if event.key == pygame.K_KP5 or event.key == pygame.K_5:
+					DoHelpRepair()
+				if event.key == pygame.K_KP6 or event.key == pygame.K_6:
+					DoHelpNextLevel()
+				if event.key == pygame.K_KP7 or event.key == pygame.K_7:
+					DoHelpSounds()
+				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
+					Selection=False
+
+	return
+
+def DoHelpPurpose():
 	Status = myfont.render('Press enter', False, yellow)		
-	text1 = myfont.render('Numpad Numbers                     : Jump direction:', False, green)
-	text2 = myfont.render('Numpad /                                     : Fire Laser (range 4)', False, green)
-	text3 = myfont.render('Numpad 0                                     : Fire Missile (range 20)', False, green)
-	text4 = myfont.render('Numpad + and -                          : Set Jump Distance', False, green)
-	text5 = myfont.render('Numpad *                                     : Closest Enemy Info', False, green)
-	text16 = myfont.render('Del                                                 : Most dangerous Enemy Info', False, green)
-	text17 = myfont.render('End                                               : Local enemy scan', False, green)
-	text6 = myfont.render('Numpad 5 or s                             : End Turn', False, green)
-	text7 = myfont.render('ESC                                             : Quit Game', False, green)
-	text8 = myfont.render('- Reach the wormhole in the center of the map and skip turn to continue to next level', False, green)
-	text9 = myfont.render('- Avoid stars', False, green)
-	text10 = myfont.render('- Move over asteroids to regain health and missiles', False, green)
-	text11 = myfont.render('- Kill enemies to get EXP and open the wormhole', False, green)
-	text12 = myfont.render('Stars (cool/medium/hot)             :', False, green)
-	text13 = myfont.render('Asteroids (Small/medium/large):', False, green)
-	text14 = myfont.render('When player hull below 50%, closest asteroid type and location will be shown', False, green)
-	text15 = myfont.render('When wormhole open, location will be shown', False, green)
-	text18 = myfont.render('Use info screens (*, Del, End) to play tactically', False, green)
-	text19 = myfont.render('Player has 3 moves per turn, use them wisely!', False, green)
-	text20 = myfont.render('Every 6th level has a special enemy', False, green)
-
-
-#	pygame.display.set_icon(Galaxy)
-#	pygame.display.set_caption('Jumpwar')
-#	Width=int(1000)
-#	Heigth=int(1000)
-#	screen = pygame.display.set_mode((Width, Heigth))
+	text1 = myfont.render('You will appear on the edge of a field of 200x200 positions', False, green)
+	text2 = myfont.render('Your goal is to kill enough enemies so the wormhole opens', False, green)
+	text3 = myfont.render('Once that happens the location of the wormhole is shown upper left', False, green)
+	text4 = myfont.render('All locations in-game are shown in x and y coordinates', False, green)
+	text5 = myfont.render('You will have three actions before the enemies begin their actions', False, green)
+	text6 = myfont.render('After that your round of actions begins again, unless you died', False, green)
+	text7 = myfont.render('You may move, fire your laser or fire a missile in any combination', False, green)
 
 	screen.blit(Galaxy,(0,0))
 	screen.blit(text1,(0,0))
@@ -184,36 +220,196 @@ def DoHelp ():
 	screen.blit(text3,(0,100))
 	screen.blit(text4,(0,150))
 	screen.blit(text5,(0,200))
-	screen.blit(text16,(0,250))
-	screen.blit(text17,(0,300))
-	screen.blit(text6,(0,350))
-	screen.blit(text7,(0,400))
-	screen.blit(text8,(0,450))
-	screen.blit(text9,(0,500))
-	screen.blit(text10,(0,550))
-	screen.blit(text11,(0,600))
-	screen.blit(text12,(0,650))
-	screen.blit(text13,(0,700))
-	screen.blit(text14,(0,750))
-	screen.blit(text15,(0,800))
-	screen.blit(text18,(0,850))
-	screen.blit(text19,(0,900))
-	screen.blit(text20,(0,950))
-
-	screen.blit(RedStar,(500,650))
-	screen.blit(YellowStar,(560,650))
-	screen.blit(BlueStar,(620,650))
-
-	screen.blit(Asteroid,(500,700))
-	screen.blit(Asteroid2,(560,700))
-	screen.blit(Asteroid3,(620,700))
+	screen.blit(text6,(0,250))
+	screen.blit(text7,(0,300))
 
 	screen.blit(Status,(0,980))
 	pygame.display.flip()
-	Selection=0
 	wait()
 	return
 
+def DoHelpMovement():
+	Status = myfont.render('Press enter', False, yellow)		
+	text1 = myfont.render('To move your ship you press a number on your numpad', False, green)
+	text2 = myfont.render('2 for down, 8 for up, 4 for left, 6 for right, diagonal is also possible', False, green)
+	text3 = myfont.render('You will move in a straight line, distance is set ', False, green)
+	text4 = myfont.render('by + and - on your numpad', False, green)
+	text5 = myfont.render('5 on your numpad will end your turn, after that the enemies will move', False, green)
+
+	screen.blit(Galaxy,(0,0))
+	screen.blit(Numpad,(400,0))
+	screen.blit(text1,(0,300))
+	screen.blit(text2,(0,350))
+	screen.blit(text3,(0,400))
+	screen.blit(text4,(0,450))
+	screen.blit(text5,(0,500))
+
+	screen.blit(Status,(0,980))
+	pygame.display.flip()
+	wait()
+
+	return
+
+def DoHelpWeapons():
+	Status = myfont.render('Press enter', False, yellow)		
+	text1 = myfont.render('Your ship has a laser (with unlimited ammo, range 4) and can fire missiles (limited ammo, range 20).', False, green)
+	text2 = myfont.render('To fire the laser, press /, the top left screen will appear where you can select your target', False, green)
+	text3 = myfont.render('To fire a missile, press 0 on the numpad, the top right screen will appear where you can select your target', False, green)
+
+	screen.blit(Galaxy,(0,0))
+	screen.blit(LaserScreen,(0,0))
+	screen.blit(MissileScreen,(600,0))
+
+	screen.blit(text1,(0,500))
+	screen.blit(text2,(0,550))
+	screen.blit(text3,(0,600))
+
+	screen.blit(Status,(0,980))
+	pygame.display.flip()
+	wait()
+	return
+
+def DoHelpEnemies():
+	Status = myfont.render('Press enter', False, yellow)		
+	text1 = myfont.render('At the bottom of your screen the location of the closest enemy will be shown', False, green)
+	text2 = myfont.render('If you want to know more about this enemy you can press * (or del for the most dangerous enemy)', False, green)
+	text3 = myfont.render('Your ship also comes equipped with a local scanner (end) which will show the enemies in range', False, green)
+
+	screen.blit(Galaxy,(0,0))
+	screen.blit(EnemyScreen,(0,0))
+	screen.blit(RadarExample,(600,0))
+
+	screen.blit(text1,(0,500))
+	screen.blit(text2,(0,550))
+	screen.blit(text3,(0,600))
+
+	screen.blit(Status,(0,980))
+	pygame.display.flip()
+	wait()
+
+	return
+
+def DoHelpRepair():
+	Status = myfont.render('Press enter', False, yellow)		
+	text1 = myfont.render('Apart from the wormhole and enemies, there are two more kinds of objects in game:', False, green)
+	text2 = myfont.render('Stars do damage when moved over:', False, green)
+	text3 = myfont.render('Red stars do 100 damage', False, green)
+	text4 = myfont.render('Yellow stars do 200 damage', False, green)
+	text5 = myfont.render('Blue stars do 300 damage', False, green)
+	text6 = myfont.render('Next are the asteroids, those repair your ship and supply missiles', False, green)
+	text7 = myfont.render('Small asteroids give 100 hull and 2 missiles', False, green)
+	text8 = myfont.render('Medium asteroids give 200 hull and 3 missiles', False, green)
+	text9 = myfont.render('Large asteroids give 300 hull and 5 missiles', False, green)
+
+	screen.blit(Galaxy,(0,0))
+	screen.blit(RedStar,(0,100))
+	screen.blit(YellowStar,(0,150))
+	screen.blit(BlueStar,(0,200))
+	screen.blit(Asteroid,(0,300))
+	screen.blit(Asteroid2,(0,350))
+	screen.blit(Asteroid3,(0,400))
+
+	screen.blit(text1,(0,0))
+	screen.blit(text2,(0,50))
+	screen.blit(text3,(50,100))
+	screen.blit(text4,(50,150))
+	screen.blit(text5,(50,200))
+	screen.blit(text6,(0,250))
+	screen.blit(text7,(50,300))
+	screen.blit(text8,(50,350))
+	screen.blit(text9,(50,400))
+
+	screen.blit(Status,(0,980))
+	pygame.display.flip()
+	wait()
+
+	return
+
+def DoHelpNextLevel():
+	Status = myfont.render('Press enter', False, yellow)		
+	text1 = myfont.render('As mentioned before you have to kill a certain amount of the enemies in the game for the wormhole to open.', False, green)
+	text2 = myfont.render('The percentage of the necessary kills will be shown in the upper left corner.', False, green)
+	text3 = myfont.render('Once it reaches 100% the location of the wormhole will be shown, be warned, there might still be enemies', False, green)
+	text4 = myfont.render('Closed wormhole', False, green)
+	text5 = myfont.render('Opened wormhole', False, green)
+	text6 = myfont.render('Once you are on the open wormhole, end your turn with 5, the enemies will move and the next level will start', False, green)
+
+	screen.blit(Galaxy,(0,0))
+	screen.blit(Stop,(0,150))
+	screen.blit(Wormhole,(0,200))
+
+	screen.blit(text1,(0,0))
+	screen.blit(text2,(0,50))
+	screen.blit(text3,(0,100))
+	screen.blit(text4,(50,150))
+	screen.blit(text5,(50,200))
+	screen.blit(text6,(0,250))
+
+	screen.blit(Status,(0,980))
+	pygame.display.flip()
+	wait()
+
+	return
+
+def DoHelpSounds():
+	Selection=True
+	while Selection:
+		Status = myfont.render('Press enter', False, yellow)		
+		text1 = myfont.render('1> Missile hit', False, green)
+		text2 = myfont.render('2> Explosion (when blown up by missile or crashing into star', False, green)
+		text3 = myfont.render('3> Leveling up/ship restored', False, green)
+		text4 = myfont.render('4> Eating asteroid (normal)', False, green)
+		text5 = myfont.render('5> Moving through star', False, green)
+		text6 = myfont.render('6> Laser hit', False, green)
+		text7 = myfont.render('7> Wormhole opens', False, green)
+		text8 = myfont.render('8> Teleported to next level', False, green)
+		text9 = myfont.render('9> Getting hit when severely damaged (player)', False, green)
+		text10 = myfont.render('a> Eating asteroid when severely damaged (player)', False, green)
+		text11 = myfont.render('b> Eating asteroid when severely damaged (enemy)', False, green)
+
+		screen.blit(Galaxy,(0,0))
+		screen.blit(text1,(0,0))
+		screen.blit(text2,(0,50))
+		screen.blit(text3,(0,100))
+		screen.blit(text4,(0,150))
+		screen.blit(text5,(0,200))
+		screen.blit(text6,(0,250))
+		screen.blit(text7,(0,300))
+		screen.blit(text8,(0,350))
+		screen.blit(text9,(0,400))
+		screen.blit(text10,(0,450))
+		screen.blit(text11,(0,500))
+
+		screen.blit(Status,(0,980))
+		pygame.display.flip()
+		for event in pygame.event.get():
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_KP1 or event.key == pygame.K_1:
+					Beep.play()
+				if event.key == pygame.K_KP2 or event.key == pygame.K_2:
+					Blast.play()
+				if event.key == pygame.K_KP3 or event.key == pygame.K_3:
+					LevelUp.play()
+				if event.key == pygame.K_KP4 or event.key == pygame.K_4:
+					Eating.play()
+				if event.key == pygame.K_KP5 or event.key == pygame.K_5:
+					Sizzle.play()
+				if event.key == pygame.K_KP6 or event.key == pygame.K_6:
+					Laser.play()
+				if event.key == pygame.K_KP7 or event.key == pygame.K_7:
+					Yay.play()
+				if event.key == pygame.K_KP8 or event.key == pygame.K_8:
+					Teleport.play()
+				if event.key == pygame.K_KP9 or event.key == pygame.K_9:
+					Hurt.play()
+				if event.key == pygame.K_a:
+					Yeah.play()
+				if event.key == pygame.K_b:
+					Ahh.play()
+				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
+					Selection=False
+
+	return
 
 def LoadGame ():
 	global Level
@@ -237,14 +433,30 @@ def LoadGame ():
 	SLevelSave5=str(LevelSave5)
 	SLevelSave6=str(LevelSave6)
 
-
-	Save1Status='Save slot 1, level: '+SLevelSave1+' Ship Level: '+str(LoadList[1].rstrip())+' Hull: '+str(LoadList[2].rstrip())+' Missiles: '+str(LoadList[3].rstrip())
-	Save2Status='Save slot 2, level: '+SLevelSave2+' Ship Level: '+str(LoadList[6].rstrip())+' Hull: '+str(LoadList[7].rstrip())+' Missiles: '+str(LoadList[8].rstrip())
-	Save3Status='Save slot 3, level: '+SLevelSave3+' Ship Level: '+str(LoadList[11].rstrip())+' Hull: '+str(LoadList[12].rstrip())+' Missiles: '+str(LoadList[13].rstrip())
-	Save4Status='Save slot 4, level: '+SLevelSave4+' Ship Level: '+str(LoadList[16].rstrip())+' Hull: '+str(LoadList[17].rstrip())+' Missiles: '+str(LoadList[18].rstrip())
-	Save5Status='Save slot 5, level: '+SLevelSave5+' Ship Level: '+str(LoadList[21].rstrip())+' Hull: '+str(LoadList[22].rstrip())+' Missiles: '+str(LoadList[23].rstrip())
-	Save6Status='Save slot 6, level: '+SLevelSave6+' Ship Level: '+str(LoadList[26].rstrip())+' Hull: '+str(LoadList[27].rstrip())+' Missiles: '+str(LoadList[28].rstrip())
-
+	if LevelSave1==1:
+		Save1Status='Save slot 1, new game'
+	else:
+		Save1Status='Save slot 1, level: '+SLevelSave1+' Ship Level: '+str(LoadList[1].rstrip())+' Hull: '+str(LoadList[2].rstrip())+' Missiles: '+str(LoadList[3].rstrip())
+	if LevelSave2==1:
+		Save2Status='Save slot 2, new game'
+	else:
+		Save2Status='Save slot 2, level: '+SLevelSave2+' Ship Level: '+str(LoadList[6].rstrip())+' Hull: '+str(LoadList[7].rstrip())+' Missiles: '+str(LoadList[8].rstrip())
+	if LevelSave3==1:
+		Save3Status='Save slot 3, new game'
+	else:
+		Save3Status='Save slot 3, level: '+SLevelSave3+' Ship Level: '+str(LoadList[11].rstrip())+' Hull: '+str(LoadList[12].rstrip())+' Missiles: '+str(LoadList[13].rstrip())
+	if LevelSave4==1:
+		Save4Status='Save slot 4, new game'
+	else:
+		Save4Status='Save slot 4, level: '+SLevelSave4+' Ship Level: '+str(LoadList[16].rstrip())+' Hull: '+str(LoadList[17].rstrip())+' Missiles: '+str(LoadList[18].rstrip())
+	if LevelSave5==1:
+		Save5Status='Save slot 5, new game'
+	else:
+		Save5Status='Save slot 5, level: '+SLevelSave5+' Ship Level: '+str(LoadList[21].rstrip())+' Hull: '+str(LoadList[22].rstrip())+' Missiles: '+str(LoadList[23].rstrip())
+	if LevelSave6==1:
+		Save6Status='Save slot 6, new game'
+	else:
+		Save6Status='Save slot 6, level: '+SLevelSave6+' Ship Level: '+str(LoadList[26].rstrip())+' Hull: '+str(LoadList[27].rstrip())+' Missiles: '+str(LoadList[28].rstrip())
 
 	Save1Text = myfont.render(Save1Status, False, green)
 	Save2Text = myfont.render(Save2Status, False, green)
@@ -252,7 +464,7 @@ def LoadGame ():
 	Save4Text = myfont.render(Save4Status, False, green)
 	Save5Text = myfont.render(Save5Status, False, green)
 	Save6Text = myfont.render(Save6Status, False, green)
-	Status = myfont.render('Or press ESC to quit', False, yellow)
+	Status = myfont.render('Select a save slot or press ESC to quit', False, yellow)
 	
 	screen.blit(Galaxy,(0,0))
 	screen.blit(Save1Text,(0,0))
@@ -319,10 +531,10 @@ def LoadGame ():
 					Selection=False
 				if event.key == pygame.K_ESCAPE:
 					sys.exit()
-	DoHelp()
+
 	return
 
-	
+DoHelp()	
 LoadGame()
 Action=0
 ScreenRange=list()
@@ -574,14 +786,14 @@ def SetStatus():
 	SAction=str(Action+1)
 	ExpInt=int(Exp[0])
 	NeededInt=int(ExpNeeded)
-	PlayerLaserDamage=PlayerLevel*10
-	PlayerMissileDamage=PlayerLevel*15
+	PlayerLaserDamage=str(PlayerLevel*10)
+	PlayerMissileDamage=str(PlayerLevel*15)
 	if PlayerLevel < 20:
 		Levelup=' Level up: '
 	else:
 		Levelup=' Healing: '
 	LevelUpProgress=str(int((ExpInt/NeededInt)*100))
-	Status='Level: '+str(Level)+' Ship Level: '+str(PlayerLevel)+' Jump Dist: '+str(Move)+'/'+str(PlayerLevel)+' Hull: '+str(int(PlayerHull))+'/'+\
+	Status='Level: '+str(Level)+' Ship Level: '+str(PlayerLevel)+' Dam: '+PlayerLaserDamage+'-'+PlayerMissileDamage+' Speed: '+str(Move)+'/'+str(PlayerLevel)+' Hull: '+str(int(PlayerHull))+'/'+\
 str(PlayerHullMax)+' Missiles: '+str(PlayerMissiles)+Levelup+LevelUpProgress+'% move: '+SAction+'/3'
 	return (Status)
 
@@ -628,6 +840,7 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	textsurface4 = myfont.render(AsteroidText, False, StatusColor)
 	textsurface5 = myfont.render(EnemyText, False, StatusColor)
 	textsurface = myfont.render(Status, False, StatusColor)
+	HelpText = myfont.render('Press h for help', False, green)
 	if PlayerHull > PlayerLevel*50:
 		PlayerImage=Happy
 	elif PlayerHull > 0:
@@ -660,6 +873,7 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	screen.blit(SafetyText,(800,20))
 	screen.blit(textsurface,(0,960))
 	screen.blit(EnemyStatus,(0,940))
+	screen.blit(HelpText,(440,0))
 	if EnemyKills >= EnemyKillTarget:
 		if WormholeOpenPlayed==0:
 			screen.blit(GalaxySmall,(300,300))
@@ -1013,13 +1227,12 @@ def GetEnemyXL (Enemies):
 
 def CollectEnemies (Enemies,CollectedEnemies, PlayerX, PlayerY):
 	if len(Enemies)>0:
-		Counter=0
-		MaxCounter=len(Enemies)
+		Counter=len(Enemies)-13
 		CounterCollected=0
 		PlayerScan=PlayerLevel*2
 		if PlayerScan < 20:
 			PlayerScan=20
-		while Counter < MaxCounter:
+		while Counter >= 0:
 			if CounterCollected > 6:
 				break
 			EnemyX=int(Enemies[Counter+10])
@@ -1029,7 +1242,7 @@ def CollectEnemies (Enemies,CollectedEnemies, PlayerX, PlayerY):
 			if ((-1*PlayerScan) <= XDiff) and ( XDiff <= PlayerScan) and ((-1*PlayerScan) <= YDiff) and (YDiff <= PlayerScan):
 				CollectedEnemies[CounterCollected]=Counter
 				CounterCollected=CounterCollected+1
-			Counter=Counter+13
+			Counter=Counter-13
 	return (CollectedEnemies)
 
 def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
@@ -1050,10 +1263,8 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[0]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
-		EnemyHealth=int(Enemies[CollectedEnemies[0]+6])
-		EnemyMaxhealth=int(Enemies[CollectedEnemies[0]])*100
-		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood+Lock
+		EnemyHealth=str(Enemies[CollectedEnemies[0]+6]).rstrip()
+		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
 		screen.blit(EnemyText,(350,300))
 	if not CollectedEnemies[1]==None:
@@ -1070,10 +1281,8 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[1]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
-		EnemyHealth=int(Enemies[CollectedEnemies[1]+6])
-		EnemyMaxhealth=int(Enemies[CollectedEnemies[1]])*100
-		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood+Lock
+		EnemyHealth=str(Enemies[CollectedEnemies[1]+6]).rstrip()
+		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
 		screen.blit(EnemyText,(350,350))
 	if not CollectedEnemies[2]==None:
@@ -1090,10 +1299,8 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[2]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
-		EnemyHealth=int(Enemies[CollectedEnemies[2]+6])
-		EnemyMaxhealth=int(Enemies[CollectedEnemies[2]])*100
-		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood+Lock
+		EnemyHealth=str(Enemies[CollectedEnemies[2]+6]).rstrip()
+		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
 		screen.blit(EnemyText,(350,400))
 	if not CollectedEnemies[3]==None:
@@ -1110,10 +1317,8 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[3]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
-		EnemyHealth=int(Enemies[CollectedEnemies[3]+6])
-		EnemyMaxhealth=int(Enemies[CollectedEnemies[3]])*100
-		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood+Lock
+		EnemyHealth=str(Enemies[CollectedEnemies[3]+6]).rstrip()
+		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
 		screen.blit(EnemyText,(350,450))
 	if not CollectedEnemies[4]==None:
@@ -1130,10 +1335,8 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[4]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
-		EnemyHealth=int(Enemies[CollectedEnemies[4]+6])
-		EnemyMaxhealth=int(Enemies[CollectedEnemies[4]])*100
-		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood+Lock
+		EnemyHealth=str(Enemies[CollectedEnemies[4]+6]).rstrip()
+		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
 		screen.blit(EnemyText,(350,500))
 	if not CollectedEnemies[5]==None:
@@ -1150,10 +1353,8 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[5]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
-		EnemyHealth=int(Enemies[CollectedEnemies[5]+6])
-		EnemyMaxhealth=int(Enemies[CollectedEnemies[5]])*100
-		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood+Lock
+		EnemyHealth=str(Enemies[CollectedEnemies[5]+6]).rstrip()
+		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
 		screen.blit(EnemyText,(350,550))
 	if not CollectedEnemies[6]==None:
@@ -1170,10 +1371,8 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[6]+12]).rstrip()
 		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
-		EnemyHealth=int(Enemies[CollectedEnemies[6]+6])
-		EnemyMaxhealth=int(Enemies[CollectedEnemies[6]])*100
-		HealthPercentage=str(int((EnemyHealth/EnemyMaxhealth)*100))+'% '
-		Text=Pos+HealthPercentage+Mood+Lock
+		EnemyHealth=str(Enemies[CollectedEnemies[6]+6]).rstrip()
+		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
 		screen.blit(EnemyText,(350,600))
 	screen.blit(text10,(300,650))
@@ -1234,7 +1433,7 @@ def LaserScan (Enemies, laserTargetList):
 	return (laserTargetList)
 
 def SelectLaserEnemy (LaserTargetList, Enemies):
-	text10 = myfont.render('Select Laser target', False, yellow)
+	text10 = myfont.render('Select Laser target or press enter to cancel', False, yellow)
 
 	EnemyOneName='empty'
 	EnemyTwoName='empty'
@@ -1260,7 +1459,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 
 	FirstEnemy=LaserTargetList[0]
 	Loc1=' x'+str(LaserTargetList[1])+' y'+str(LaserTargetList[2])
-	EnemyOneName='1: '+Enemies[FirstEnemy+1]+Loc1
+	EnemyOneName='1: '+Enemies[FirstEnemy+1]+' '+str(Enemies[FirstEnemy+6]).rstrip()+' '+Loc1
 	text = myfont.render(EnemyOneName, False, sky_blue)
 	screen.blit(text,(300,350))
 	ObjectImage=Enemies[FirstEnemy+2]
@@ -1270,7 +1469,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 	if len(LaserTargetList) > 3:
 		SecondEnemy=LaserTargetList[3]
 		Loc2=' x'+str(LaserTargetList[4])+' y'+str(LaserTargetList[5])
-		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+Loc2
+		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+' '+str(Enemies[SecondEnemy+6]).rstrip()+' '+Loc2
 		text = myfont.render(EnemyTwoName, False, sky_blue)
 		screen.blit(text,(300,400))
 		ObjectImage=Enemies[SecondEnemy+2]
@@ -1280,7 +1479,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 		if len(LaserTargetList) > 6:
 			ThirdEnemy=LaserTargetList[6]
 			Loc3=' x'+str(LaserTargetList[7])+' y'+str(LaserTargetList[8])
-			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+Loc3
+			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+' '+str(Enemies[ThirdEnemy+6]).rstrip()+' '+Loc3
 			text = myfont.render(EnemyThreeName, False, sky_blue)
 			screen.blit(text,(300,450))
 			ObjectImage=Enemies[ThirdEnemy+2]
@@ -1290,7 +1489,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 			if len(LaserTargetList) > 9:
 				FourthEnemy=LaserTargetList[9]
 				Loc4=' x'+str(LaserTargetList[10])+' y'+str(LaserTargetList[11])
-				EnemyFourName='4: '+Enemies[FourthEnemy+1]+Loc4
+				EnemyFourName='4: '+Enemies[FourthEnemy+1]+' '+str(Enemies[FourthEnemy+6]).rstrip()+' '+Loc4
 				text = myfont.render(EnemyFourName, False, sky_blue)
 				screen.blit(text,(300,500))
 				ObjectImage=Enemies[FourthEnemy+2]
@@ -1300,7 +1499,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 				if len(LaserTargetList) > 12:
 					FifthEnemy=LaserTargetList[12]
 					Loc5=' x'+str(LaserTargetList[13])+' y'+str(LaserTargetList[14])
-					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+Loc5
+					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+' '+str(Enemies[FifthEnemy+6]).rstrip()+' '+Loc5
 					text = myfont.render(EnemyFiveName, False, sky_blue)
 					screen.blit(text,(300,550))
 					ObjectImage=Enemies[FifthEnemy+2]
@@ -1310,7 +1509,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 					if len(LaserTargetList) > 15:
 						SixthEnemy=LaserTargetList[15]
 						Loc6=' x'+str(LaserTargetList[16])+' y'+str(LaserTargetList[17])
-						EnemySixName='6: '+Enemies[SixthEnemy+1]+Loc6
+						EnemySixName='6: '+Enemies[SixthEnemy+1]+' '+str(Enemies[SixthEnemy+6]).rstrip()+' '+Loc6
 						text = myfont.render(EnemySixName, False, sky_blue)
 						screen.blit(text,(300,600))
 						ObjectImage=Enemies[SixthEnemy+2]
@@ -1320,7 +1519,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 						if len(LaserTargetList) > 18:
 							SeventhEnemy=LaserTargetList[18]
 							Loc7=' x'+str(LaserTargetList[19])+' y'+str(LaserTargetList[20])
-							EnemySevenName='7: '+Enemies[SeventhEnemy+1]+Loc7
+							EnemySevenName='7: '+Enemies[SeventhEnemy+1]+' '+str(Enemies[SeventhEnemy+6]).rstrip()+' '+Loc7
 							text = myfont.render(EnemyFiveName, False, sky_blue)
 							screen.blit(text,(300,550))
 							ObjectImage=Enemies[SeventhEnemy+2]
@@ -1359,11 +1558,14 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 					if len(LaserTargetList) > 18:
 						LaserTarget=LaserTargetList[18]
 						Selection=False
+				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
+					LaserTarget=20000000
+					Selection=False
 	return(LaserTarget)
 
 
 def SelectMissileEnemy (MissileTargetList, Enemies):
-	text10 = myfont.render('Select Missile target', False, yellow)
+	text10 = myfont.render('Select Missile target or press enter to cancel', False, yellow)
 
 	EnemyOneName='empty'
 	EnemyTwoName='empty'
@@ -1389,8 +1591,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 
 	FirstEnemy=MissileTargetList[0]
 	Loc1=' x'+str(MissileTargetList[1])+' y'+str(MissileTargetList[2])
-	EnemyOneName='1: '+Enemies[FirstEnemy+1]+Loc1
-	text = myfont.render(EnemyOneName, False, green)
+	EnemyOneName='1: '+Enemies[FirstEnemy+1]+' '+str(Enemies[FirstEnemy+6]).rstrip()+' '+Loc1
+	text = myfont.render(EnemyOneName, False, sky_blue)
 	screen.blit(text,(300,350))
 	ObjectImage=Enemies[FirstEnemy+2]
 	ScreenItem=GetScreenItem(ObjectImage)
@@ -1399,8 +1601,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 	if len(MissileTargetList) > 3:
 		SecondEnemy=MissileTargetList[3]
 		Loc2=' x'+str(MissileTargetList[4])+' y'+str(MissileTargetList[5])
-		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+Loc2
-		text = myfont.render(EnemyTwoName, False, green)
+		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+' '+str(Enemies[SecondEnemy+6]).rstrip()+Loc2
+		text = myfont.render(EnemyTwoName, False, sky_blue)
 		screen.blit(text,(300,400))
 		ObjectImage=Enemies[SecondEnemy+2]
 		ScreenItem=GetScreenItem(ObjectImage)
@@ -1409,8 +1611,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 		if len(MissileTargetList) > 6:
 			ThirdEnemy=MissileTargetList[6]
 			Loc3=' x'+str(MissileTargetList[7])+' y'+str(MissileTargetList[8])
-			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+Loc3
-			text = myfont.render(EnemyThreeName, False, green)
+			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+' '+str(Enemies[ThirdEnemy+6]).rstrip()+Loc3
+			text = myfont.render(EnemyThreeName, False, sky_blue)
 			screen.blit(text,(300,450))
 			ObjectImage=Enemies[ThirdEnemy+2]
 			ScreenItem=GetScreenItem(ObjectImage)
@@ -1419,8 +1621,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 			if len(MissileTargetList) > 9:
 				FourthEnemy=MissileTargetList[9]
 				Loc4=' x'+str(MissileTargetList[10])+' y'+str(MissileTargetList[11])
-				EnemyFourName='4: '+Enemies[FourthEnemy+1]+Loc4
-				text = myfont.render(EnemyFourName, False, green)
+				EnemyFourName='4: '+Enemies[FourthEnemy+1]+' '+str(Enemies[FourthEnemy+6]).rstrip()+Loc4
+				text = myfont.render(EnemyFourName, False, sky_blue)
 				screen.blit(text,(300,500))
 				ObjectImage=Enemies[FourthEnemy+2]
 				ScreenItem=GetScreenItem(ObjectImage)
@@ -1429,8 +1631,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 				if len(MissileTargetList) > 12:
 					FifthEnemy=MissileTargetList[12]
 					Loc5=' x'+str(MissileTargetList[13])+' y'+str(MissileTargetList[14])
-					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+Loc5
-					text = myfont.render(EnemyFiveName, False, green)
+					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+' '+str(Enemies[FifthEnemy+6]).rstrip()+Loc5
+					text = myfont.render(EnemyFiveName, False, sky_blue)
 					screen.blit(text,(300,550))
 					ObjectImage=Enemies[FifthEnemy+2]
 					ScreenItem=GetScreenItem(ObjectImage)
@@ -1439,8 +1641,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 					if len(MissileTargetList) > 15:
 						SixthEnemy=MissileTargetList[15]
 						Loc6=' x'+str(MissileTargetList[16])+' y'+str(MissileTargetList[17])
-						EnemySixName='6: '+Enemies[SixthEnemy+1]+Loc6
-						text = myfont.render(EnemySixName, False, green)
+						EnemySixName='6: '+Enemies[SixthEnemy+1]+' '+str(Enemies[SixthEnemy+6]).rstrip()+Loc6
+						text = myfont.render(EnemySixName, False, sky_blue)
 						screen.blit(text,(300,600))
 						ObjectImage=Enemies[SixthEnemy+2]
 						ScreenItem=GetScreenItem(ObjectImage)
@@ -1449,8 +1651,8 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 						if len(MissileTargetList) > 18:
 							SeventhEnemy=MissileTargetList[18]
 							Loc7=' x'+str(MissileTargetList[19])+' y'+str(MissileTargetList[20])
-							EnemySevenName='7: '+Enemies[SeventhEnemy+1]+Loc7
-							text = myfont.render(EnemySevenName, False, green)
+							EnemySevenName='7: '+Enemies[SeventhEnemy+1]+' '+str(Enemies[SeventhEnemy+6]).rstrip()+Loc7
+							text = myfont.render(EnemySevenName, False, sky_blue)
 							screen.blit(text,(300,650))
 							ObjectImage=Enemies[SeventhEnemy+2]
 							ScreenItem=GetScreenItem(ObjectImage)
@@ -1488,7 +1690,9 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 					if len(MissileTargetList) > 18:
 						MissileTarget=MissileTargetList[18]
 						Selection=False
-
+				if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
+					MissileTarget=20000000
+					Selection=False
 	return(MissileTarget)
 		
 			
@@ -1499,12 +1703,11 @@ def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 		EnemyColor=green
 	else:
 		EnemyMaxHull=int(Enemies[ClosestEnemy])*100
-		EnemyHull=int(Enemies[ClosestEnemy+6])
+		EnemyHull=str(Enemies[ClosestEnemy+6]).rstrip()
 		EnemyMissiles=str(Enemies[ClosestEnemy+7]).rstrip()
 		EnemyX=int(Enemies[ClosestEnemy+10])
 		EnemyY=int(Enemies[ClosestEnemy+11])
 		EnemyMood=Enemies[ClosestEnemy+12].rstrip()
-		HullPercentage=int((EnemyHull/EnemyMaxHull)*100)
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
 		EnemyDamageLaser=int(Enemies[ClosestEnemy+3])
@@ -1522,14 +1725,14 @@ def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 			EnemyColor=red
 		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
 			if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
-				EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' LASER LOCK'
+				EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' LASER LOCK'
 			else:
 				if PlayerMissiles > 0:
-					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' MISSILE LOCK'
+					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' MISSILE LOCK'
 				else:
-					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' NO MISSILES'
+					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' NO MISSILES'
 		else:
-			EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' '+str(HullPercentage)+'% Missiles: '+EnemyMissiles+' OUT OF RANGE'
+			EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' OUT OF RANGE'
 	EnemyStatus = myfont.render(EnemyStat, False, EnemyColor)
 	return(EnemyStatus)
 
@@ -2493,6 +2696,28 @@ while Level < 31:
 								Enemies[Counter+11]=EnemyY
 								WipeCounter=0
 								Status=str(EnemyName).rstrip()+' ate asteroid'
+								screen.blit(AsteroidHarvest,(300,300))
+								ObjectImage=str(Enemies[Counter+2])
+								ScreenItemA=GetScreenItem(ObjectImage)
+								if CrashAsteroid==1:
+									ScreenItemB=Asteroid
+									Size=' small '
+								elif CrashAsteroid==2:
+									ScreenItemB=Asteroid2
+									Size=' medium '
+								elif CrashAsteroid==3:
+									ScreenItemB=Asteroid3
+									Size=' large '
+								Crashtext=EnemyName+' eats'+Size+'asteroid'
+								text01 = myfont.render(Crashtext, False, green)
+								textEnter='Press enter'
+								text02 = myfont.render(textEnter, False, green)
+								screen.blit(text01,(300,300))
+								screen.blit(text02,(300,680))
+								screen.blit(ScreenItemB,(525,475))
+								screen.blit(ScreenItemA,(425,475))
+								pygame.display.flip()
+								wait()
 								while WipeCounter < 3:
 									del Asteroids[AsteroidCounter]
 									WipeCounter=WipeCounter+1
@@ -2694,9 +2919,9 @@ while Level < 31:
 									Blast.play()
 									screen.blit(SunCrash,(300,300))
 									Crashtext=EnemyName+' crashes into star'
-									text01 = myfont.render(Crashtext, False, sky_blue)
+									text01 = myfont.render(Crashtext, False, black)
 									textEnter='Press enter'
-									text02 = myfont.render(textEnter, False, sky_blue)
+									text02 = myfont.render(textEnter, False, black)
 									if CrashStar==1:
 										ScreenItemB=RedStar
 									elif CrashStar==2:
