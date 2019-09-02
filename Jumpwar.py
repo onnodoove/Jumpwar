@@ -946,10 +946,10 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	else:
 		EnemyLevel='NVT'
 		EnemyName='Wormhole'
-		EnemyDanger='NVT'
+		EnemyDamageLaser='NVT'
 		EnemySpeed='NVT'
 		EnemyScan='NVT'
-		Armor='NVT'
+		EnemyHull='NVT'
 		EnemyMissiles='NVT'
 		EnemyX='NVT'
 		EnemyY='NVT'
@@ -967,7 +967,7 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	text01 = myfont.render(textEnemyPic, False, EnemyColor)
 	textEnemyName='Name           : '+EnemyName
 	text02 = myfont.render(textEnemyName, False, EnemyColor)
-	textEnemyDamage='Damage       : '+str(EnemyDamageLaser)
+	textEnemyDamage='Damage       : '+str(EnemyDamageLaser)+'-'+str(EnemyDamageMissile)
 	text03 = myfont.render(textEnemyDamage, False, EnemyColor)
 	textEnemySpeed='Speed          : '+EnemySpeed
 	text04 = myfont.render(textEnemySpeed, False, EnemyColor)
@@ -1062,10 +1062,10 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 	else:
 		EnemyLevel='NVT'
 		EnemyName='Wormhole'
-		EnemyDanger='NVT'
+		EnemyDamageLaser='NVT'
 		EnemySpeed='NVT'
 		EnemyScan='NVT'
-		Armor='NVT'
+		EnemyHull='NVT'
 		EnemyMissiles='NVT'
 		EnemyX='NVT'
 		EnemyY='NVT'
@@ -1082,7 +1082,7 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 	text01 = myfont.render(textEnemyPic, False, EnemyColor)
 	textEnemyName='Name           : '+EnemyName
 	text02 = myfont.render(textEnemyName, False, EnemyColor)
-	textEnemyDamage='Damage       : '+str(EnemyDamageLaser)
+	textEnemyDamage='Damage       : '+str(EnemyDamageLaser)+'-'+str(EnemyDamageMissile)
 	text03 = myfont.render(textEnemyDamage, False, EnemyColor)
 	textEnemySpeed='Speed          : '+EnemySpeed
 	text04 = myfont.render(textEnemySpeed, False, EnemyColor)
@@ -1942,7 +1942,7 @@ while Level < 31:
 		Enemies.append(600)
 		Enemies.append(6)
 		Enemies.append(6)
-		Enemies.append(24)
+		Enemies.append(40)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -1959,7 +1959,7 @@ while Level < 31:
 		Enemies.append(1200)
 		Enemies.append(12)
 		Enemies.append(12)
-		Enemies.append(24)
+		Enemies.append(40)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -1977,7 +1977,7 @@ while Level < 31:
 		Enemies.append(1800)
 		Enemies.append(18)
 		Enemies.append(18)
-		Enemies.append(24)
+		Enemies.append(40)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -1995,7 +1995,7 @@ while Level < 31:
 		Enemies.append(2400)
 		Enemies.append(24)
 		Enemies.append(24)
-		Enemies.append(24)
+		Enemies.append(40)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -2013,7 +2013,7 @@ while Level < 31:
 		Enemies.append(3000)
 		Enemies.append(30)
 		Enemies.append(30)
-		Enemies.append(24)
+		Enemies.append(40)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
