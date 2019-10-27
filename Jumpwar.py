@@ -77,6 +77,11 @@ Drone8=pygame.image.load('Drone8.png')
 Drone9=pygame.image.load('Drone9.png')
 Drone10=pygame.image.load('Drone10.png')
 Drone11=pygame.image.load('Drone11.png')
+Drone12=pygame.image.load('Drone12.png')
+Drone13=pygame.image.load('Drone13.png')
+Drone14=pygame.image.load('Drone14.png')
+Drone15=pygame.image.load('Drone15.png')
+
 HunterDrone=pygame.image.load('HunterDrone.png')
 
 Interceptor=pygame.image.load('Interceptor.png')
@@ -88,6 +93,7 @@ Interceptor6=pygame.image.load('Interceptor6.png')
 Interceptor7=pygame.image.load('Interceptor7.png')
 Interceptor8=pygame.image.load('Interceptor8.png')
 Interceptor9=pygame.image.load('Interceptor9.png')
+Interceptor10=pygame.image.load('Interceptor10.png')
 
 Frigat=pygame.image.load('Frigat.png')
 Frigat2=pygame.image.load('Frigat2.png')
@@ -589,6 +595,14 @@ def GetScreenItem (ObjectImage):
 		ScreenItem=Drone10
 	elif ObjectImage == 'Drone11\n':
 		ScreenItem=Drone11
+	elif ObjectImage == 'Drone12\n':
+		ScreenItem=Drone12
+	elif ObjectImage == 'Drone13\n':
+		ScreenItem=Drone13
+	elif ObjectImage == 'Drone14\n':
+		ScreenItem=Drone14
+	elif ObjectImage == 'Drone15\n':
+		ScreenItem=Drone15
 	elif ObjectImage == 'Interceptor\n':
 		ScreenItem=Interceptor
 	elif ObjectImage == 'Interceptor2\n':
@@ -607,6 +621,8 @@ def GetScreenItem (ObjectImage):
 		ScreenItem=Interceptor8
 	elif ObjectImage == 'Interceptor9\n':
 		ScreenItem=Interceptor9
+	elif ObjectImage == 'Interceptor10\n':
+		ScreenItem=Interceptor10
 	elif ObjectImage == 'Frigat\n':
 		ScreenItem=Frigat
 	elif ObjectImage == 'Frigat2\n':
