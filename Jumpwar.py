@@ -2424,8 +2424,8 @@ while Level < 31:
 			PlayerHull=PlayerLevel*100
 			PlayerMissiles=PlayerLevel
 			Status='Ship leveled up, press enter'
-			if PlayerLevel > 20:
-				PlayerLevel=20
+			if PlayerLevel > 30:
+				PlayerLevel=30
 				PlayerHull=PlayerLevel*100
 				PlayerMissiles=PlayerLevel
 				Status='Player restored, press enter'
