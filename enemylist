@@ -8,7 +8,7 @@ Drone
 1
 12
 1
-Drone
+Suppressor Drone
 Drone2
 60
 4
@@ -107,7 +107,7 @@ Drone12
 4
 12
 1
-Missile Drone
+Assault Drone
 Drone13
 80
 4
@@ -161,7 +161,7 @@ Interceptor3
 4
 36
 4
-Heavy Infiltrator
+X-Wing
 Interceptor10
 40
 14
@@ -179,7 +179,7 @@ Interceptor4
 2
 36
 6
-Interceptor
+Tie Fighter
 Interceptor5
 20
 7
@@ -188,7 +188,7 @@ Interceptor5
 5
 36
 7
-Heavy Interceptor
+Interceptor
 Interceptor6
 50
 8
@@ -197,7 +197,7 @@ Interceptor6
 5
 36
 4
-Missile Fighter
+Viper
 Interceptor7
 20
 8
@@ -304,12 +304,3 @@ Liberator
 1800
 10
 48
-30
-Mothership
-Mothership
-300
-30
-120
-3000
-30
-24
