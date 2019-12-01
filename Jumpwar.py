@@ -2274,14 +2274,14 @@ while Level < 31:
 							Status=SetStatus()
 							VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 							DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-					elif event.key == pygame.K_KP_MULTIPLY or event.key == pygame.K_l:
+					elif (event.key == pygame.K_KP_MULTIPLY or event.key == pygame.K_l) and len(Enemies) > 0:
 						DoEnemyInfo(Enemies, PlayerX, PlayerY, ClosestEnemy)
 						ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 						EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
 						VisualScan(Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX, ExplosionY)
 						Status=SetStatus()
 						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
-					elif event.key == pygame.K_KP_PERIOD or event.key == pygame.K_DELETE:
+					elif (event.key == pygame.K_KP_PERIOD or event.key == pygame.K_DELETE) and len(Enemies) > 0:
 						DoEnemyXL(Enemies, PlayerX, PlayerY)
 						ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 						EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
