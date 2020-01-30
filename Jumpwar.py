@@ -1,3 +1,5 @@
+#!/bin/python3
+
 # Import necessary modules
 import pygame
 import sys
@@ -1155,15 +1157,15 @@ def NewLevel (Level):
 #	screen = pygame.display.set_mode((Width, Heigth))
 	screen.blit(Galaxy, (0,0))
 	screen.blit(text1,(300,300))
-	if Level==6:
+	if Level==4:
 		screen.blit(Teleportertext,(300,350))
-	if Level==12:
+	if Level==8:
 		screen.blit(Eyetext,(300,350))
-	if Level==18:
+	if Level==12:
 		screen.blit(Leechtext,(300,350))
-	if Level==24:
+	if Level==16:
 		screen.blit(Ramjettext,(300,350))
-	if Level==30:
+	if Level==20:
 		screen.blit(Mothershiptext,(300,350))
 
 	screen.blit(Status,(0,980))
@@ -1234,7 +1236,7 @@ def GetEnemyXL (Enemies):
 		EnemyY=int(Enemies[Counter+11])
 		Xdiff=EnemyX-PlayerX
 		Ydiff=EnemyY-PlayerY
-		EnemyDanger=int(((EnemyDamageLaser/10)+EnemySpeed+EnemyLevel+EnemyMissiles)/4)
+		EnemyDanger=EnemyLevel
 		if EnemyDanger >= SetEnemyDanger:
 			SetEnemyDanger=EnemyDanger
 			EnemyXL=Counter
@@ -1773,7 +1775,7 @@ def FireMissile (Enemies, Stars, Asteroids, MissileTarget, PlayerLevel, Exp, Nex
 		EnemyY=int(Enemies[MissileTarget+11])
 		Xdiff=EnemyX-PlayerX
 		Ydiff=EnemyY-PlayerY
-		EnemyDanger=int(((EnemyDamageLaser/10)+EnemySpeed+EnemyLevel+EnemyMissiles)/4)
+		EnemyDanger=EnemyLevel
 
 		EnemyXp=EnemyDanger
 		EnemyKills=EnemyKills+EnemyXp
@@ -1824,7 +1826,7 @@ def FireLaser (Enemies, Stars, Asteroids, LaserTarget, PlayerLevel, Exp, Nexp):
 		EnemyY=int(Enemies[LaserTarget+11])
 		Xdiff=EnemyX-PlayerX
 		Ydiff=EnemyY-PlayerY
-		EnemyDanger=int(((EnemyDamageLaser/10)+EnemySpeed+EnemyLevel+EnemyMissiles)/4)
+		EnemyDanger=EnemyLevel
 
 		EnemyXp=EnemyDanger
 		EnemyKills=EnemyKills+EnemyXp
@@ -1856,7 +1858,7 @@ def ScanAsteroid (EnemyX, EnemyY):
 		Counter=Counter+3
 	return (AsteroidScan)
 
-while Level < 31:
+while Level < 21:
 	SpeedSetting=3
 	CXdiff=200
 	CYdiff=200
@@ -1868,7 +1870,7 @@ while Level < 31:
 	Enemies=list()
 	ScreenRange=list()
 	PlayerDamage=PlayerLevel*10
-	ExpNeeded=PlayerLevel*5
+	ExpNeeded=PlayerLevel*3
 	Spawn=random.randint(1,4)
 	if Spawn==1:
 		PlayerX=random.randint(1,200)
@@ -1948,8 +1950,8 @@ while Level < 31:
 			GeneratedEnemies=GeneratedEnemies+int(Enemylist[Counter])
 			EnemyCounter=EnemyCounter+1
 		Counter=Counter+9
-	if Level == 6:
-		Enemies.append(6)
+	if Level == 4:
+		Enemies.append(4)
 		Enemies.append('Teleporter')
 		Enemies.append('Teleporter\n')
 		Enemies.append(60)
@@ -1965,8 +1967,8 @@ while Level < 31:
 		Enemies.append(EnemyY)
 		Enemies.append('On patrol')
 		GeneratedEnemies=GeneratedEnemies+6
-	elif Level == 12:
-		Enemies.append(12)
+	elif Level == 8:
+		Enemies.append(8)
 		Enemies.append('Eye')
 		Enemies.append('Eye\n')
 		Enemies.append(120)
@@ -1983,8 +1985,8 @@ while Level < 31:
 		Enemies.append('On patrol')
 		GeneratedEnemies=GeneratedEnemies+12
 
-	elif Level == 18:
-		Enemies.append(18)
+	elif Level == 12:
+		Enemies.append(12)
 		Enemies.append('Leech')
 		Enemies.append('Leech\n')
 		Enemies.append(180)
@@ -2001,8 +2003,8 @@ while Level < 31:
 		Enemies.append('On patrol')
 		GeneratedEnemies=GeneratedEnemies+18
 
-	elif Level == 24:
-		Enemies.append(24)
+	elif Level == 16:
+		Enemies.append(16)
 		Enemies.append('Ramjet')
 		Enemies.append('Ramjet\n')
 		Enemies.append(240)
@@ -2019,8 +2021,8 @@ while Level < 31:
 		Enemies.append('On patrol')
 		GeneratedEnemies=GeneratedEnemies+24
 
-	elif Level == 30:
-		Enemies.append(30)
+	elif Level == 20:
+		Enemies.append(20)
 		Enemies.append('Mothership')
 		Enemies.append('Mothership\n')
 		Enemies.append(300)
@@ -2420,7 +2422,7 @@ while Level < 31:
 		if Nexp >= ExpNeeded:
 			Nexp=Nexp-ExpNeeded
 			PlayerLevel=PlayerLevel+1
-			ExpNeeded=PlayerLevel*5
+			ExpNeeded=PlayerLevel*3
 			PlayerHull=PlayerLevel*100
 			PlayerMissiles=PlayerLevel
 			Status='Ship leveled up, press enter'
@@ -2700,8 +2702,8 @@ while Level < 31:
 									Health=300
 									ExtraMissiles=3
 								EnemyHull=EnemyHull+Health
-								if EnemyHull > (EnemyLevel*100):
-									EnemyHull = (EnemyLevel*100)
+								if EnemyHull > (EnemyLevel*150):
+									EnemyHull = (EnemyLevel*150)
 								EnemyMissiles=int(Enemies[Counter+7])
 								EnemyMissiles=EnemyMissiles+ExtraMissiles
 								if EnemyMissiles > EnemyMaxMissiles:
