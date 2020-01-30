@@ -773,11 +773,11 @@ def ScanClosestAsteroid (PlayerX, PlayerY):
 		if (Xdiff==0) and (Ydiff==0):
 			AsteroidDistance=0
 			if AsteroidType==1:
-				AsteroidName='Small asteroid at: '
+				AsteroidName='Ast S at: '
 			elif AsteroidType==2:
-				AsteroidName='Medium asteroid at: '
+				AsteroidName='Ast M at: '
 			elif AsteroidType==3:
-				AsteroidName='Large asteroid at: '
+				AsteroidName='Ast L at: '
 			ShowX=Xdiff
 			ShowY=Ydiff
 		else:
@@ -785,14 +785,14 @@ def ScanClosestAsteroid (PlayerX, PlayerY):
 			if AsteroidDistance < SetAsteroidDistance:
 				SetAsteroidDistance=AsteroidDistance
 				if AsteroidType==1:
-					AsteroidName='Small asteroid at: '
+					AsteroidName='Ast S at: '
 				elif AsteroidType==2:
-					AsteroidName='Medium asteroid at: '
+					AsteroidName='Ast M at: '
 				elif AsteroidType==3:
-					AsteroidName='Large asteroid at: '
+					AsteroidName='Ast L at: '
 				ShowX=Xdiff
 				ShowY=Ydiff
-				AsteroidText=AsteroidName+' x'+str(ShowX)+' y'+str(ShowY)
+				AsteroidText=AsteroidName+' '+str(ShowX)+' '+str(ShowY)
 		Counter=Counter+3
 
 	return (AsteroidText)
@@ -825,7 +825,7 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	global WormholeOpenPlayed
 	PlayerHealth=str(int((PlayerHull/(PlayerLevel*100))*100))+'%'
 	if EnemyKills >= EnemyKillTarget:
-		WormholeText='Wormhole open at: x'+str(WXdiff)+' y'+str(WYdiff)
+		WormholeText='Wormhole open at: '+str(WXdiff)+' '+str(WYdiff)
 	else:
 		WormholeText='Current levelmap progress: '+str(int((EnemyKills/EnemyKillTarget)*100))+'%'
 	if PlayerHull > PlayerLevel*50 and PlayerMissiles >0:
@@ -886,7 +886,7 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 		screen.blit(ScreenItem, (ScreenX,ScreenY))
 		Counter=Counter+3
 	screen.blit(textsurface3,(0,0))
-	screen.blit(textsurface4,(0,20))
+	screen.blit(textsurface4,(450,525))
 	screen.blit(textsurface5,(800,0))
 	screen.blit(SafetyText,(800,20))
 	screen.blit(textsurface,(0,960))
@@ -995,7 +995,7 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 	text06 = myfont.render(textEnemyHull, False, EnemyColor)
 	textEnemyMissiles='Missiles       : '+EnemyMissiles
 	text07 = myfont.render(textEnemyMissiles, False, EnemyColor)
-	textEnemyPosition='Position       : x'+str(XDiff)+' y'+str(YDiff)
+	textEnemyPosition='Position       : '+str(XDiff)+' '+str(YDiff)
 	text08 = myfont.render(textEnemyPosition, False, EnemyColor)
 	textEnemyMood='Status          : '+Mood
 	text09 = myfont.render(textEnemyMood, False, EnemyColor)
@@ -1110,7 +1110,7 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 	text06 = myfont.render(textEnemyHull, False, EnemyColor)
 	textEnemyMissiles='Missiles       : '+EnemyMissiles
 	text07 = myfont.render(textEnemyMissiles, False, EnemyColor)
-	textEnemyPosition='Position       : x'+str(XDiff)+' y'+str(YDiff)
+	textEnemyPosition='Position       : '+str(XDiff)+' y'+str(YDiff)
 	text08 = myfont.render(textEnemyPosition, False, EnemyColor)
 	textEnemyMood='Status          : '+Mood
 	text09 = myfont.render(textEnemyMood, False, EnemyColor)
@@ -1280,7 +1280,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		else:
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[0]+12]).rstrip()
-		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
+		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=str(Enemies[CollectedEnemies[0]+6]).rstrip()
 		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
@@ -1298,7 +1298,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		else:
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[1]+12]).rstrip()
-		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
+		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=str(Enemies[CollectedEnemies[1]+6]).rstrip()
 		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
@@ -1316,7 +1316,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		else:
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[2]+12]).rstrip()
-		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
+		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=str(Enemies[CollectedEnemies[2]+6]).rstrip()
 		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
@@ -1334,7 +1334,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		else:
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[3]+12]).rstrip()
-		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
+		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=str(Enemies[CollectedEnemies[3]+6]).rstrip()
 		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
@@ -1352,7 +1352,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		else:
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[4]+12]).rstrip()
-		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
+		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=str(Enemies[CollectedEnemies[4]+6]).rstrip()
 		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
@@ -1370,7 +1370,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		else:
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[5]+12]).rstrip()
-		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
+		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=str(Enemies[CollectedEnemies[5]+6]).rstrip()
 		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
@@ -1388,7 +1388,7 @@ def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 		else:
 			Lock=''
 		Mood=str(Enemies[CollectedEnemies[6]+12]).rstrip()
-		Pos='x'+str(XDiff)+' y'+str(YDiff)+' '
+		Pos=str(XDiff)+' '+str(YDiff)+' '
 		EnemyHealth=str(Enemies[CollectedEnemies[6]+6]).rstrip()
 		Text=Pos+EnemyHealth+' '+Mood+Lock
 		EnemyText=myfont.render(Text, False, yellow)
@@ -1476,7 +1476,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 	screen.blit(text10,(300,300))
 
 	FirstEnemy=LaserTargetList[0]
-	Loc1=' x'+str(LaserTargetList[1])+' y'+str(LaserTargetList[2])
+	Loc1=' '+str(LaserTargetList[1])+' '+str(LaserTargetList[2])
 	EnemyOneName='1: '+Enemies[FirstEnemy+1]+' '+str(Enemies[FirstEnemy+6]).rstrip()+' '+Loc1
 	text = myfont.render(EnemyOneName, False, sky_blue)
 	screen.blit(text,(300,350))
@@ -1486,7 +1486,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 
 	if len(LaserTargetList) > 3:
 		SecondEnemy=LaserTargetList[3]
-		Loc2=' x'+str(LaserTargetList[4])+' y'+str(LaserTargetList[5])
+		Loc2=' '+str(LaserTargetList[4])+' '+str(LaserTargetList[5])
 		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+' '+str(Enemies[SecondEnemy+6]).rstrip()+' '+Loc2
 		text = myfont.render(EnemyTwoName, False, sky_blue)
 		screen.blit(text,(300,400))
@@ -1496,7 +1496,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 
 		if len(LaserTargetList) > 6:
 			ThirdEnemy=LaserTargetList[6]
-			Loc3=' x'+str(LaserTargetList[7])+' y'+str(LaserTargetList[8])
+			Loc3=' '+str(LaserTargetList[7])+' '+str(LaserTargetList[8])
 			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+' '+str(Enemies[ThirdEnemy+6]).rstrip()+' '+Loc3
 			text = myfont.render(EnemyThreeName, False, sky_blue)
 			screen.blit(text,(300,450))
@@ -1506,7 +1506,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 
 			if len(LaserTargetList) > 9:
 				FourthEnemy=LaserTargetList[9]
-				Loc4=' x'+str(LaserTargetList[10])+' y'+str(LaserTargetList[11])
+				Loc4=' '+str(LaserTargetList[10])+' '+str(LaserTargetList[11])
 				EnemyFourName='4: '+Enemies[FourthEnemy+1]+' '+str(Enemies[FourthEnemy+6]).rstrip()+' '+Loc4
 				text = myfont.render(EnemyFourName, False, sky_blue)
 				screen.blit(text,(300,500))
@@ -1516,7 +1516,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 
 				if len(LaserTargetList) > 12:
 					FifthEnemy=LaserTargetList[12]
-					Loc5=' x'+str(LaserTargetList[13])+' y'+str(LaserTargetList[14])
+					Loc5=' '+str(LaserTargetList[13])+' '+str(LaserTargetList[14])
 					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+' '+str(Enemies[FifthEnemy+6]).rstrip()+' '+Loc5
 					text = myfont.render(EnemyFiveName, False, sky_blue)
 					screen.blit(text,(300,550))
@@ -1526,7 +1526,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 
 					if len(LaserTargetList) > 15:
 						SixthEnemy=LaserTargetList[15]
-						Loc6=' x'+str(LaserTargetList[16])+' y'+str(LaserTargetList[17])
+						Loc6=' '+str(LaserTargetList[16])+' '+str(LaserTargetList[17])
 						EnemySixName='6: '+Enemies[SixthEnemy+1]+' '+str(Enemies[SixthEnemy+6]).rstrip()+' '+Loc6
 						text = myfont.render(EnemySixName, False, sky_blue)
 						screen.blit(text,(300,600))
@@ -1536,7 +1536,7 @@ def SelectLaserEnemy (LaserTargetList, Enemies):
 
 						if len(LaserTargetList) > 18:
 							SeventhEnemy=LaserTargetList[18]
-							Loc7=' x'+str(LaserTargetList[19])+' y'+str(LaserTargetList[20])
+							Loc7=' '+str(LaserTargetList[19])+' '+str(LaserTargetList[20])
 							EnemySevenName='7: '+Enemies[SeventhEnemy+1]+' '+str(Enemies[SeventhEnemy+6]).rstrip()+' '+Loc7
 							text = myfont.render(EnemyFiveName, False, sky_blue)
 							screen.blit(text,(300,550))
@@ -1608,7 +1608,7 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 	screen.blit(text10,(300,300))
 
 	FirstEnemy=MissileTargetList[0]
-	Loc1=' x'+str(MissileTargetList[1])+' y'+str(MissileTargetList[2])
+	Loc1=' '+str(MissileTargetList[1])+' '+str(MissileTargetList[2])
 	EnemyOneName='1: '+Enemies[FirstEnemy+1]+' '+str(Enemies[FirstEnemy+6]).rstrip()+' '+Loc1
 	text = myfont.render(EnemyOneName, False, sky_blue)
 	screen.blit(text,(300,350))
@@ -1618,7 +1618,7 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 
 	if len(MissileTargetList) > 3:
 		SecondEnemy=MissileTargetList[3]
-		Loc2=' x'+str(MissileTargetList[4])+' y'+str(MissileTargetList[5])
+		Loc2=' '+str(MissileTargetList[4])+' '+str(MissileTargetList[5])
 		EnemyTwoName='2: '+Enemies[SecondEnemy+1]+' '+str(Enemies[SecondEnemy+6]).rstrip()+Loc2
 		text = myfont.render(EnemyTwoName, False, sky_blue)
 		screen.blit(text,(300,400))
@@ -1628,7 +1628,7 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 
 		if len(MissileTargetList) > 6:
 			ThirdEnemy=MissileTargetList[6]
-			Loc3=' x'+str(MissileTargetList[7])+' y'+str(MissileTargetList[8])
+			Loc3=' '+str(MissileTargetList[7])+' '+str(MissileTargetList[8])
 			EnemyThreeName='3: '+Enemies[ThirdEnemy+1]+' '+str(Enemies[ThirdEnemy+6]).rstrip()+Loc3
 			text = myfont.render(EnemyThreeName, False, sky_blue)
 			screen.blit(text,(300,450))
@@ -1638,7 +1638,7 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 
 			if len(MissileTargetList) > 9:
 				FourthEnemy=MissileTargetList[9]
-				Loc4=' x'+str(MissileTargetList[10])+' y'+str(MissileTargetList[11])
+				Loc4=' '+str(MissileTargetList[10])+' '+str(MissileTargetList[11])
 				EnemyFourName='4: '+Enemies[FourthEnemy+1]+' '+str(Enemies[FourthEnemy+6]).rstrip()+Loc4
 				text = myfont.render(EnemyFourName, False, sky_blue)
 				screen.blit(text,(300,500))
@@ -1648,7 +1648,7 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 
 				if len(MissileTargetList) > 12:
 					FifthEnemy=MissileTargetList[12]
-					Loc5=' x'+str(MissileTargetList[13])+' y'+str(MissileTargetList[14])
+					Loc5=' '+str(MissileTargetList[13])+' '+str(MissileTargetList[14])
 					EnemyFiveName='5: '+Enemies[FifthEnemy+1]+' '+str(Enemies[FifthEnemy+6]).rstrip()+Loc5
 					text = myfont.render(EnemyFiveName, False, sky_blue)
 					screen.blit(text,(300,550))
@@ -1658,7 +1658,7 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 
 					if len(MissileTargetList) > 15:
 						SixthEnemy=MissileTargetList[15]
-						Loc6=' x'+str(MissileTargetList[16])+' y'+str(MissileTargetList[17])
+						Loc6=' '+str(MissileTargetList[16])+' '+str(MissileTargetList[17])
 						EnemySixName='6: '+Enemies[SixthEnemy+1]+' '+str(Enemies[SixthEnemy+6]).rstrip()+Loc6
 						text = myfont.render(EnemySixName, False, sky_blue)
 						screen.blit(text,(300,600))
@@ -1668,7 +1668,7 @@ def SelectMissileEnemy (MissileTargetList, Enemies):
 
 						if len(MissileTargetList) > 18:
 							SeventhEnemy=MissileTargetList[18]
-							Loc7=' x'+str(MissileTargetList[19])+' y'+str(MissileTargetList[20])
+							Loc7=' '+str(MissileTargetList[19])+' '+str(MissileTargetList[20])
 							EnemySevenName='7: '+Enemies[SeventhEnemy+1]+' '+str(Enemies[SeventhEnemy+6]).rstrip()+Loc7
 							text = myfont.render(EnemySevenName, False, sky_blue)
 							screen.blit(text,(300,650))
@@ -1743,14 +1743,14 @@ def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 			EnemyColor=red
 		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
 			if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
-				EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' LASER LOCK'
+				EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' LASER LOCK'
 			else:
 				if PlayerMissiles > 0:
-					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' MISSILE LOCK'
+					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' MISSILE LOCK'
 				else:
-					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' NO MISSILES'
+					EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' NO MISSILES'
 		else:
-			EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: x'+str(XDiff)+' y'+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' OUT OF RANGE'
+			EnemyStat=str(Enemies[ClosestEnemy+1]).rstrip()+' at: '+str(XDiff)+' '+str(YDiff)+' ('+EnemyMood+')'+' Hull: '+EnemyHull+' Missiles: '+EnemyMissiles+' OUT OF RANGE'
 	EnemyStatus = myfont.render(EnemyStat, False, EnemyColor)
 	return(EnemyStatus)
 
@@ -1960,7 +1960,7 @@ while Level < 21:
 		Enemies.append(600)
 		Enemies.append(6)
 		Enemies.append(6)
-		Enemies.append(40)
+		Enemies.append(192)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -1977,7 +1977,7 @@ while Level < 21:
 		Enemies.append(1200)
 		Enemies.append(12)
 		Enemies.append(12)
-		Enemies.append(40)
+		Enemies.append(384)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -1995,7 +1995,7 @@ while Level < 21:
 		Enemies.append(1800)
 		Enemies.append(18)
 		Enemies.append(18)
-		Enemies.append(40)
+		Enemies.append(576)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -2013,7 +2013,7 @@ while Level < 21:
 		Enemies.append(2400)
 		Enemies.append(24)
 		Enemies.append(24)
-		Enemies.append(40)
+		Enemies.append(768)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -2031,7 +2031,7 @@ while Level < 21:
 		Enemies.append(3000)
 		Enemies.append(30)
 		Enemies.append(30)
-		Enemies.append(40)
+		Enemies.append(960)
 		EnemyX=random.randint(1,200)
 		EnemyY=random.randint(1,200)
 		Enemies.append(EnemyX)
@@ -2481,7 +2481,7 @@ while Level < 21:
 					EnemyY=int(Enemies[Counter+11])
 					XDiff=PlayerX-EnemyX
 					YDiff=PlayerY-EnemyY
-					if EnemyHull < (EnemyLevel*EnemyDef):
+					if EnemyHull < EnemyDef:
 						Enemies[Counter+12]='Scared'
 					if (-4 <= XDiff) and ( XDiff <= 4) and (-4 <= YDiff) and (YDiff <= 4) and running:
 						if LaserFired==0:
@@ -2675,7 +2675,7 @@ while Level < 21:
 										Beep.play()
 								MissileFired=1
 								Status=str(EnemyName).rstrip()+' fires missile...'
-					if EnemyHull < (EnemyLevel*50) or EnemyHull < (EnemyLevel*EnemyDef) and running:
+					if EnemyHull < (EnemyLevel*50) or EnemyHull < EnemyDef and running:
 						Fleeing=1
 						AsteroidScan=[None]*4
 						AsteroidScan=ScanAsteroid(EnemyX, EnemyY)
@@ -2683,7 +2683,7 @@ while Level < 21:
 							Enemies[Counter+12]='Ate an asteroid'
 							EnemyActive=1
 							Message=1
-							if EnemyHull < (EnemyLevel*EnemyDef):
+							if EnemyHull < EnemyDef:
 								Ahh.play()
 							else:
 								Eating.play()
@@ -2743,7 +2743,7 @@ while Level < 21:
 							EnemyAction=EnemyAction+1
 
 					PDist=PlayerDistance(EnemyX, EnemyY, PlayerX, PlayerY)
-					if EnemyHull <= (EnemyLevel*EnemyDef):
+					if EnemyHull <= EnemyDef:
 						Status=str(EnemyName).rstrip()+' Looking for asteroids'
 						Enemies[Counter+12]='Looking for asteroids'
 						EnemyActive=1
@@ -2755,7 +2755,7 @@ while Level < 21:
 							EnemyMoveCounter=EnemyMaxSpeed
 
 					if (-1*EnemyScan <= XDiff) and ( XDiff <= EnemyScan) and (-1*EnemyScan <= YDiff) and (YDiff <= EnemyScan) and running:
-						if EnemyHull <= (EnemyLevel*EnemyDef):
+						if EnemyHull <= EnemyDef:
 							if (-40 <= XDiff) and ( XDiff <= 40) and (-40 <= YDiff) and (YDiff <= 40) and running:
 								Status=str(EnemyName).rstrip()+' flees...'
 								Enemies[Counter+12]='Running away'
@@ -3016,7 +3016,7 @@ while Level < 21:
 				LoadList[SaveCounter+2]=SPlayerHull
 				LoadList[SaveCounter+3]=SPlayerMissiles
 				LoadList[SaveCounter+4]=SNexp
-				os.system('rm Jumpwar.sav')
+				os.remove('Jumpwar.sav')
 				Save=open('Jumpwar.sav', 'a')
 #				print('WELCOME TO LEVEL ', SLevel)
 				WriteCounter=0
