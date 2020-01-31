@@ -2567,7 +2567,7 @@ while Level < 21:
 									EnemyAction=EnemyAction+1
 									Steal.play()
 								elif EnemyName=='Eye':
-									if EnemyHull > (EnemyLevel*EnemyDef):
+									if EnemyHull > EnemyDef:
 										Status='Eye jumps you...'
 										Enemies[Counter+12]='Eye jumps you...'
 										Message=1
