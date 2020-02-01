@@ -1730,7 +1730,10 @@ def GetEnemyStatus (Enemies, PlayerX, PlayerY, ClosestEnemy):
 		YDiff=EnemyY-PlayerY
 		EnemyDamageLaser=int(Enemies[ClosestEnemy+3])
 		EnemyDamageMissile=int(EnemyDamageLaser*1.5)
-		EnemyDamage=(EnemyDamageMissile/PlayerHull)
+		if PlayerHull==0:
+			EnemyDamage=1
+		else:
+			EnemyDamage=(EnemyDamageMissile/PlayerHull)
 		if EnemyDamage < 0.1:
 			EnemyColor=green
 		elif EnemyDamage < 0.2:
