@@ -67,6 +67,11 @@ Asteroid=pygame.image.load('Asteroid.png')
 Asteroid2=pygame.image.load('Asteroid2.png')
 Asteroid3=pygame.image.load('Asteroid3.png')
 Wormhole=pygame.image.load('Wormhole.png')
+YellowBlip=pygame.image.load('YellowBlip.png')
+RedBlip=pygame.image.load('RedBlip.png')
+GreyBlip=pygame.image.load('GreyBlip.png')
+GreenBlip=pygame.image.load('GreenBlip.png')
+BlueBlip=pygame.image.load('BlueBlip.png')
 
 Drone=pygame.image.load('Drone.png')
 Drone2=pygame.image.load('Drone2.png')
@@ -147,7 +152,7 @@ pygame.display.set_caption('Jumpwar')
 Width=int(1000)
 Heigth=int(1000)
 screen = pygame.display.set_mode((Width, Heigth))
-CollectedEnemies=[None]*7
+CollectedEnemies=list()
 
 Load=open('Jumpwar.sav', 'r')
 LoadList=list(Load)
@@ -679,6 +684,8 @@ def VisualScan (Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX,
 			else:
 				StarImage='BlueStar'
 			ScreenRange.append(StarImage)
+			ScreenRange.append(0)
+			ScreenRange.append(0)
 			ScreenRange.append(XDiff)
 			ScreenRange.append(YDiff)
 		Counter=Counter+3
@@ -700,6 +707,8 @@ def VisualScan (Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX,
 		YDiff=AsteroidsY-PlayerY
 		if (-10 <= XDiff) and ( XDiff <= 10) and (-10 <= YDiff) and (YDiff <= 10):
 			ScreenRange.append(AsteroidsImage)
+			ScreenRange.append(0)
+			ScreenRange.append(0)
 			ScreenRange.append(XDiff)
 			ScreenRange.append(YDiff)
 		Counter=Counter+3
@@ -709,12 +718,16 @@ def VisualScan (Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX,
 	MaxCounter=len(Enemies)
 	while Counter < MaxCounter:
 		EnemyType=Enemies[Counter+2]
+		EnemyHull=int(Enemies[Counter+6])
+		EnemyTreshold=int(Enemies[Counter+9])
 		EnemyX=int(Enemies[Counter+10])
 		EnemyY=int(Enemies[Counter+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
 		if (-10 <= XDiff) and ( XDiff <= 10) and (-10 <= YDiff) and (YDiff <= 10):
 			ScreenRange.append(EnemyType)
+			ScreenRange.append(EnemyHull)
+			ScreenRange.append(EnemyTreshold)
 			ScreenRange.append(XDiff)
 			ScreenRange.append(YDiff)
 		Counter=Counter+13
@@ -727,18 +740,24 @@ def VisualScan (Stars, Asteroids, Enemies, MissilePosX, MissilePosY, ExplosionX,
 			ScreenRange.append('Stop')
 		else:
 			ScreenRange.append('Wormhole')
+		ScreenRange.append(0)
+		ScreenRange.append(0)
 		ScreenRange.append(XDiff)
 		ScreenRange.append(YDiff)
 
 	XDiff=MissilePosX-PlayerX
 	YDiff=MissilePosY-PlayerY
 	ScreenRange.append('Bomb')
+	ScreenRange.append(0)
+	ScreenRange.append(0)
 	ScreenRange.append(XDiff)
 	ScreenRange.append(YDiff)
 
 	XDiff=ExplosionX-PlayerX
 	YDiff=ExplosionY-PlayerY
 	ScreenRange.append('Explosion')
+	ScreenRange.append(0)
+	ScreenRange.append(0)
 	ScreenRange.append(XDiff)
 	ScreenRange.append(YDiff)
 	
@@ -827,7 +846,7 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	if EnemyKills >= EnemyKillTarget:
 		WormholeText='Wormhole open at: '+str(WXdiff)+' '+str(WYdiff)
 	else:
-		WormholeText='Current levelmap progress: '+str(int((EnemyKills/EnemyKillTarget)*100))+'%'
+		WormholeText='Level '+str(Level)+' progress: '+str(int((EnemyKills/EnemyKillTarget)*100))+'%'
 	if PlayerHull > PlayerLevel*50 and PlayerMissiles >0:
 		StatusColor=green
 		AsteroidText='Ship hull '+PlayerHealth
@@ -846,8 +865,10 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 		EnemyY=int(Enemies[ClosestEnemy+11])
 		XDiff=EnemyX-PlayerX
 		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			SafetyText=myfont.render('Danger', False, red)
+		if ((-4) <= XDiff) and ( XDiff <= 4) and ((-4) <= YDiff) and (YDiff <= 4):
+			SafetyText=myfont.render('Laser Lock', False, red)
+		elif ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
+			SafetyText=myfont.render('Missile Lock', False, red)
 		else:
 			SafetyText=myfont.render('Safe', False, green)
 	else:
@@ -878,17 +899,27 @@ def DoScreen (ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, Ene
 	while Counter < MaxCounter:
 		ObjectImage=ScreenRange[Counter]
 		ScreenItem=GetScreenItem(ObjectImage)
-		XDiff=ScreenRange[Counter+1]
-		YDiff=ScreenRange[Counter+2]
+		ItemHealth=int(ScreenRange[Counter+1])
+		ItemTreshold=int(ScreenRange[Counter+2])
+		if ItemHealth > ItemTreshold:
+			ItemHealthText = myfont.render(str(ItemHealth), False, green)
+		else:
+			ItemHealthText = myfont.render(str(ItemHealth), False, red)
+		XDiff=ScreenRange[Counter+3]
+		YDiff=ScreenRange[Counter+4]
 		ScreenX=(XDiff+10)*47.5
 		YConvert=YDiff*-1
 		ScreenY=(YConvert+10)*47.5
+		HealthScreenX=ScreenX-25
+		HealthScreenY=ScreenY+50
 		screen.blit(ScreenItem, (ScreenX,ScreenY))
-		Counter=Counter+3
+		if not ItemHealth==0:
+			screen.blit(ItemHealthText, (ScreenX,HealthScreenY))
+		Counter=Counter+5
 	screen.blit(textsurface3,(0,0))
 	screen.blit(textsurface4,(450,525))
 	screen.blit(textsurface5,(800,0))
-	screen.blit(SafetyText,(800,20))
+	screen.blit(SafetyText,(450,545))
 	screen.blit(textsurface,(0,960))
 	screen.blit(EnemyStatus,(0,940))
 	screen.blit(HelpText,(440,0))
@@ -931,27 +962,28 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 #		else:
 #			Armor='Very light'
 	
-		EnemyDamage=(EnemyDamageMissile/PlayerHull)
-		if EnemyDamage < 0.1:
-			EnemyDanger='Very low'
-			EnemyColor=green
-		elif EnemyDamage < 0.2:
-			EnemyDanger='Low'
-			EnemyColor=light_grey
-		elif EnemyDamage < 0.3:
-			EnemyDanger='Medium'
-			EnemyColor=yellow
-		elif EnemyDamage <= 0.4:
-			EnemyDanger='High'
-			EnemyColor=orange
-		elif EnemyDamage > 0.4:
-			EnemyDanger='Very high'
-			EnemyColor=red
+		#EnemyDamage=(EnemyDamageMissile/PlayerHull)
+		#if EnemyDamage < 0.1:
+		#	EnemyDanger='Very low'
+		#	EnemyColor=green
+		#elif EnemyDamage < 0.2:
+		#	EnemyDanger='Low'
+		#	EnemyColor=light_grey
+		#elif EnemyDamage < 0.3:
+		#	EnemyDanger='Medium'
+		#	EnemyColor=yellow
+		#elif EnemyDamage <= 0.4:
+		#	EnemyDanger='High'
+		#	EnemyColor=orange
+		#elif EnemyDamage > 0.4:
+		#	EnemyDanger='Very high'
+		#	EnemyColor=red
 
 		EnemySpeed=str(Enemies[ClosestEnemy+4]).rstrip()
 		EnemyScan=int(Enemies[ClosestEnemy+5])
 		EnemyHull=int(Enemies[ClosestEnemy+6])
 		EnemyMissiles=str(Enemies[ClosestEnemy+7]).rstrip()
+		EnemyDef=int(Enemies[ClosestEnemy+9])
 		EnemyX=int(Enemies[ClosestEnemy+10])
 		EnemyY=int(Enemies[ClosestEnemy+11])
 		XDiff=EnemyX-PlayerX
@@ -961,6 +993,10 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 		ObjectImage=str(Enemies[ClosestEnemy+2])
 		EnemyHealth=str(int((EnemyHull/(EnemyLevel*100))*100))+'%'
 		ScreenItem=GetScreenItem(ObjectImage)
+		if EnemyHull > EnemyDef:
+			EnemyColor=green
+		else:
+			EnemyColor=red
 	else:
 		EnemyLevel='NVT'
 		EnemyName='Wormhole'
@@ -980,23 +1016,23 @@ def DoEnemyInfo (Enemies, PlayerX, PlayerY, ClosestEnemy):
 
 
 	textHeader='Closest Enemy'
-	text00 = myfont.render(textHeader, False, EnemyColor)
+	text00 = myfont.render(textHeader, False, green)
 	textEnemyPic='Enemy         : '
-	text01 = myfont.render(textEnemyPic, False, EnemyColor)
+	text01 = myfont.render(textEnemyPic, False, green)
 	textEnemyName='Name           : '+EnemyName
-	text02 = myfont.render(textEnemyName, False, EnemyColor)
+	text02 = myfont.render(textEnemyName, False, green)
 	textEnemyDamage='Damage       : '+str(EnemyDamageLaser)+'-'+str(EnemyDamageMissile)
-	text03 = myfont.render(textEnemyDamage, False, EnemyColor)
+	text03 = myfont.render(textEnemyDamage, False, green)
 	textEnemySpeed='Speed          : '+EnemySpeed
-	text04 = myfont.render(textEnemySpeed, False, EnemyColor)
+	text04 = myfont.render(textEnemySpeed, False, green)
 	textEnemyScan='Scan Range: '+str(EnemyScan)
-	text05 = myfont.render(textEnemyScan, False, EnemyColor)
+	text05 = myfont.render(textEnemyScan, False, green)
 	textEnemyHull='Hull              : '+str(EnemyHull)
 	text06 = myfont.render(textEnemyHull, False, EnemyColor)
 	textEnemyMissiles='Missiles       : '+EnemyMissiles
-	text07 = myfont.render(textEnemyMissiles, False, EnemyColor)
+	text07 = myfont.render(textEnemyMissiles, False, green)
 	textEnemyPosition='Position       : '+str(XDiff)+' '+str(YDiff)
-	text08 = myfont.render(textEnemyPosition, False, EnemyColor)
+	text08 = myfont.render(textEnemyPosition, False, green)
 	textEnemyMood='Status          : '+Mood
 	text09 = myfont.render(textEnemyMood, False, EnemyColor)
 	text10 = myfont.render('Press enter', False, yellow)
@@ -1048,26 +1084,27 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 #			Armor='Very light'
 	
 		EnemyDamage=(EnemyDamageMissile/PlayerHull)
-		if EnemyDamage < 0.1:
-			EnemyDanger='Very low'
-			EnemyColor=green
-		elif EnemyDamage < 0.2:
-			EnemyDanger='Low'
-			EnemyColor=light_grey
-		elif EnemyDamage < 0.3:
-			EnemyDanger='Medium'
-			EnemyColor=yellow
-		elif EnemyDamage <= 0.4:
-			EnemyDanger='High'
-			EnemyColor=orange
-		elif EnemyDamage > 0.4:
-			EnemyDanger='Very high'
-			EnemyColor=red
+		#if EnemyDamage < 0.1:
+		#	EnemyDanger='Very low'
+		#	EnemyColor=green
+		#elif EnemyDamage < 0.2:
+		#	EnemyDanger='Low'
+		#	EnemyColor=light_grey
+		#elif EnemyDamage < 0.3:
+		#	EnemyDanger='Medium'
+		#	EnemyColor=yellow
+		#elif EnemyDamage <= 0.4:
+		#	EnemyDanger='High'
+		#	EnemyColor=orange
+		#elif EnemyDamage > 0.4:
+		#	EnemyDanger='Very high'
+		#	EnemyColor=red
 
 		EnemySpeed=str(Enemies[EnemyXL+4]).rstrip()
 		EnemyScan=int(Enemies[EnemyXL+5])
 		EnemyHull=int(Enemies[EnemyXL+6])
 		EnemyMissiles=str(Enemies[EnemyXL+7]).rstrip()
+		EnemyDef=int(Enemies[EnemyXL+9])
 		EnemyX=int(Enemies[EnemyXL+10])
 		EnemyY=int(Enemies[EnemyXL+11])
 		XDiff=EnemyX-PlayerX
@@ -1077,6 +1114,10 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 		ObjectImage=str(Enemies[EnemyXL+2])
 		EnemyHealth=str(int((EnemyHull/(EnemyLevel*100))*100))+'%'
 		ScreenItem=GetScreenItem(ObjectImage)
+		if EnemyHull > EnemyDef:
+			EnemyColor=green
+		else:
+			EnemyColor=red
 	else:
 		EnemyLevel='NVT'
 		EnemyName='Wormhole'
@@ -1095,23 +1136,23 @@ def DoEnemyXL (Enemies, PlayerX, PlayerY):
 		EnemyColor=green
 
 	textEnemyXL='Most dangerous enemy'
-	text00 = myfont.render(textEnemyXL, False, EnemyColor)
+	text00 = myfont.render(textEnemyXL, False, green)
 	textEnemyPic='Enemy         : '
-	text01 = myfont.render(textEnemyPic, False, EnemyColor)
+	text01 = myfont.render(textEnemyPic, False, green)
 	textEnemyName='Name           : '+EnemyName
-	text02 = myfont.render(textEnemyName, False, EnemyColor)
+	text02 = myfont.render(textEnemyName, False, green)
 	textEnemyDamage='Damage       : '+str(EnemyDamageLaser)+'-'+str(EnemyDamageMissile)
-	text03 = myfont.render(textEnemyDamage, False, EnemyColor)
+	text03 = myfont.render(textEnemyDamage, False, green)
 	textEnemySpeed='Speed          : '+EnemySpeed
-	text04 = myfont.render(textEnemySpeed, False, EnemyColor)
+	text04 = myfont.render(textEnemySpeed, False, green)
 	textEnemyScan='Scan Range: '+str(EnemyScan)
-	text05 = myfont.render(textEnemyScan, False, EnemyColor)
+	text05 = myfont.render(textEnemyScan, False, green)
 	textEnemyHull='Hull              : '+str(EnemyHull)
 	text06 = myfont.render(textEnemyHull, False, EnemyColor)
 	textEnemyMissiles='Missiles       : '+EnemyMissiles
-	text07 = myfont.render(textEnemyMissiles, False, EnemyColor)
-	textEnemyPosition='Position       : '+str(XDiff)+' y'+str(YDiff)
-	text08 = myfont.render(textEnemyPosition, False, EnemyColor)
+	text07 = myfont.render(textEnemyMissiles, False, green)
+	textEnemyPosition='Position       : '+str(XDiff)+' '+str(YDiff)
+	text08 = myfont.render(textEnemyPosition, False, green)
 	textEnemyMood='Status          : '+Mood
 	text09 = myfont.render(textEnemyMood, False, EnemyColor)
 	text10 = myfont.render('Press enter', False, yellow)
@@ -1245,155 +1286,98 @@ def GetEnemyXL (Enemies):
 
 def CollectEnemies (Enemies,CollectedEnemies, PlayerX, PlayerY):
 	if len(Enemies)>0:
-		Counter=len(Enemies)-13
-		CounterCollected=0
+		Counter=0
+		MaxCounter=len(Enemies)
 		PlayerScan=PlayerLevel*2
 		if PlayerScan < 20:
 			PlayerScan=20
-		while Counter >= 0:
-			if CounterCollected > 6:
-				break
+		while Counter < MaxCounter:
+			EnemyMissiles=int(Enemies[Counter+7])
 			EnemyX=int(Enemies[Counter+10])
 			EnemyY=int(Enemies[Counter+11])
 			XDiff=EnemyX-PlayerX
 			YDiff=EnemyY-PlayerY
 			if ((-1*PlayerScan) <= XDiff) and ( XDiff <= PlayerScan) and ((-1*PlayerScan) <= YDiff) and (YDiff <= PlayerScan):
-				CollectedEnemies[CounterCollected]=Counter
-				CounterCollected=CounterCollected+1
-			Counter=Counter-13
+				if (-20 <= XDiff) and ( XDiff <= 20) and (-20 <= YDiff) and (YDiff <= 20):
+					Object='RedBlip'
+				else:
+					Object='GreenBlip'
+				if EnemyMissiles < 1:
+					Object='BlueBlip'
+				CollectedEnemies.append(Object)
+				CollectedEnemies.append(XDiff)
+				CollectedEnemies.append(YDiff)
+			Counter=Counter+13
+	Counter=0
+	MaxCounter=len(Asteroids)
+	PlayerScan=PlayerLevel*2
+	if PlayerScan < 20:
+		PlayerScan=20
+	while Counter < MaxCounter:
+		AsteroidX=int(Asteroids[Counter+1])
+		AsteroidY=int(Asteroids[Counter+2])
+		XDiff=AsteroidX-PlayerX
+		YDiff=AsteroidY-PlayerY
+		if ((-1*PlayerScan) <= XDiff) and ( XDiff <= PlayerScan) and ((-1*PlayerScan) <= YDiff) and (YDiff <= PlayerScan):
+			Object='GreyBlip'
+			CollectedEnemies.append(Object)
+			CollectedEnemies.append(XDiff)
+			CollectedEnemies.append(YDiff)
+		Counter=Counter+3
+	Counter=0
+	MaxCounter=len(Stars)
+	PlayerScan=PlayerLevel*2
+	if PlayerScan < 20:
+		PlayerScan=20
+	while Counter < MaxCounter:
+		StarsX=int(Stars[Counter+1])
+		StarsY=int(Stars[Counter+2])
+		XDiff=StarsX-PlayerX
+		YDiff=StarsY-PlayerY
+		if ((-1*PlayerScan) <= XDiff) and ( XDiff <= PlayerScan) and ((-1*PlayerScan) <= YDiff) and (YDiff <= PlayerScan):
+			Object='YellowBlip'
+			CollectedEnemies.append(Object)
+			CollectedEnemies.append(XDiff)
+			CollectedEnemies.append(YDiff)
+		Counter=Counter+3
 	return (CollectedEnemies)
 
 def DoEnemyList (Enemies, CollectedEnemies, PlayerX, PlayerY):
 	CollectEnemies(Enemies,CollectedEnemies, PlayerX, PlayerY)
-	screen.blit(RadarScreen,(300,300))
+	screen.blit(RadarScreen,(95,95))
+	PlayerScan=PlayerLevel*2
+	if PlayerScan < 20:
+		PlayerScan=20
 	text10 = myfont.render('Press enter', False, yellow)
-	if not CollectedEnemies[0]==None:
-		ObjectImage=Enemies[CollectedEnemies[0]+2]
-		ScreenItem=GetScreenItem(ObjectImage)
-		screen.blit(ScreenItem,(300,300))
-		EnemyX=int(Enemies[CollectedEnemies[0]+10])
-		EnemyY=int(Enemies[CollectedEnemies[0]+11])
-		XDiff=EnemyX-PlayerX
-		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			Lock=' LOCK'
-		else:
-			Lock=''
-		Mood=str(Enemies[CollectedEnemies[0]+12]).rstrip()
-		Pos=str(XDiff)+' '+str(YDiff)+' '
-		EnemyHealth=str(Enemies[CollectedEnemies[0]+6]).rstrip()
-		Text=Pos+EnemyHealth+' '+Mood+Lock
-		EnemyText=myfont.render(Text, False, yellow)
-		screen.blit(EnemyText,(350,300))
-	if not CollectedEnemies[1]==None:
-		ObjectImage=Enemies[CollectedEnemies[1]+2]
-		ScreenItem=GetScreenItem(ObjectImage)
-		screen.blit(ScreenItem,(300,350))
-		EnemyX=int(Enemies[CollectedEnemies[1]+10])
-		EnemyY=int(Enemies[CollectedEnemies[1]+11])
-		XDiff=EnemyX-PlayerX
-		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			Lock=' LOCK'
-		else:
-			Lock=''
-		Mood=str(Enemies[CollectedEnemies[1]+12]).rstrip()
-		Pos=str(XDiff)+' '+str(YDiff)+' '
-		EnemyHealth=str(Enemies[CollectedEnemies[1]+6]).rstrip()
-		Text=Pos+EnemyHealth+' '+Mood+Lock
-		EnemyText=myfont.render(Text, False, yellow)
-		screen.blit(EnemyText,(350,350))
-	if not CollectedEnemies[2]==None:
-		ObjectImage=Enemies[CollectedEnemies[2]+2]
-		ScreenItem=GetScreenItem(ObjectImage)
-		screen.blit(ScreenItem,(300,400))
-		EnemyX=int(Enemies[CollectedEnemies[2]+10])
-		EnemyY=int(Enemies[CollectedEnemies[2]+11])
-		XDiff=EnemyX-PlayerX
-		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			Lock=' LOCK'
-		else:
-			Lock=''
-		Mood=str(Enemies[CollectedEnemies[2]+12]).rstrip()
-		Pos=str(XDiff)+' '+str(YDiff)+' '
-		EnemyHealth=str(Enemies[CollectedEnemies[2]+6]).rstrip()
-		Text=Pos+EnemyHealth+' '+Mood+Lock
-		EnemyText=myfont.render(Text, False, yellow)
-		screen.blit(EnemyText,(350,400))
-	if not CollectedEnemies[3]==None:
-		ObjectImage=Enemies[CollectedEnemies[3]+2]
-		ScreenItem=GetScreenItem(ObjectImage)
-		screen.blit(ScreenItem,(300,450))
-		EnemyX=int(Enemies[CollectedEnemies[3]+10])
-		EnemyY=int(Enemies[CollectedEnemies[3]+11])
-		XDiff=EnemyX-PlayerX
-		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			Lock=' LOCK'
-		else:
-			Lock=''
-		Mood=str(Enemies[CollectedEnemies[3]+12]).rstrip()
-		Pos=str(XDiff)+' '+str(YDiff)+' '
-		EnemyHealth=str(Enemies[CollectedEnemies[3]+6]).rstrip()
-		Text=Pos+EnemyHealth+' '+Mood+Lock
-		EnemyText=myfont.render(Text, False, yellow)
-		screen.blit(EnemyText,(350,450))
-	if not CollectedEnemies[4]==None:
-		ObjectImage=Enemies[CollectedEnemies[4]+2]
-		ScreenItem=GetScreenItem(ObjectImage)
-		screen.blit(ScreenItem,(300,500))
-		EnemyX=int(Enemies[CollectedEnemies[4]+10])
-		EnemyY=int(Enemies[CollectedEnemies[4]+11])
-		XDiff=EnemyX-PlayerX
-		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			Lock=' LOCK'
-		else:
-			Lock=''
-		Mood=str(Enemies[CollectedEnemies[4]+12]).rstrip()
-		Pos=str(XDiff)+' '+str(YDiff)+' '
-		EnemyHealth=str(Enemies[CollectedEnemies[4]+6]).rstrip()
-		Text=Pos+EnemyHealth+' '+Mood+Lock
-		EnemyText=myfont.render(Text, False, yellow)
-		screen.blit(EnemyText,(350,500))
-	if not CollectedEnemies[5]==None:
-		ObjectImage=Enemies[CollectedEnemies[5]+2]
-		ScreenItem=GetScreenItem(ObjectImage)
-		screen.blit(ScreenItem,(300,550))
-		EnemyX=int(Enemies[CollectedEnemies[5]+10])
-		EnemyY=int(Enemies[CollectedEnemies[5]+11])
-		XDiff=EnemyX-PlayerX
-		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			Lock=' LOCK'
-		else:
-			Lock=''
-		Mood=str(Enemies[CollectedEnemies[5]+12]).rstrip()
-		Pos=str(XDiff)+' '+str(YDiff)+' '
-		EnemyHealth=str(Enemies[CollectedEnemies[5]+6]).rstrip()
-		Text=Pos+EnemyHealth+' '+Mood+Lock
-		EnemyText=myfont.render(Text, False, yellow)
-		screen.blit(EnemyText,(350,550))
-	if not CollectedEnemies[6]==None:
-		ObjectImage=Enemies[CollectedEnemies[6]+2]
-		ScreenItem=GetScreenItem(ObjectImage)
-		screen.blit(ScreenItem,(300,600))
-		EnemyX=int(Enemies[CollectedEnemies[6]+10])
-		EnemyY=int(Enemies[CollectedEnemies[6]+11])
-		XDiff=EnemyX-PlayerX
-		YDiff=EnemyY-PlayerY
-		if ((-20) <= XDiff) and ( XDiff <= 20) and ((-20) <= YDiff) and (YDiff <= 20):
-			Lock=' LOCK'
-		else:
-			Lock=''
-		Mood=str(Enemies[CollectedEnemies[6]+12]).rstrip()
-		Pos=str(XDiff)+' '+str(YDiff)+' '
-		EnemyHealth=str(Enemies[CollectedEnemies[6]+6]).rstrip()
-		Text=Pos+EnemyHealth+' '+Mood+Lock
-		EnemyText=myfont.render(Text, False, yellow)
-		screen.blit(EnemyText,(350,600))
-	screen.blit(text10,(300,650))
+	if len(CollectedEnemies) > 0:
+		Counter=0
+		MaxCounter=len(CollectedEnemies)
+		while Counter < MaxCounter:
+			Object=str(CollectedEnemies[Counter])
+			ObjectX=int(CollectedEnemies[Counter+1])
+			ObjectY=int(CollectedEnemies[Counter+2])
+			if Object=='RedBlip':
+				ScreenItem=RedBlip
+			elif Object=='YellowBlip':
+				ScreenItem=YellowBlip
+			elif Object=='GreenBlip':
+				ScreenItem=GreenBlip
+			elif Object=='BlueBlip':
+				ScreenItem=BlueBlip
+			else:
+				ScreenItem=GreyBlip
+			ScreenX=490+(ObjectX*(int(400/PlayerScan)))+int(5-((PlayerScan-20)/4))
+			ScreenY=490+(-1*ObjectY*(int(400/PlayerScan)))+int(5-((PlayerScan-20)/4))
+			screen.blit(ScreenItem,(ScreenX,ScreenY))
+			Counter=Counter+3
+	Range=PlayerScan/5
+	Counter=-5
+	while Counter < 6:
+		RangeText=myfont.render(str(int(Range*Counter)), False, green)
+		ScreenX=495+(80*Counter)
+		screen.blit(RangeText,(ScreenX,500))
+		Counter=Counter+1
+	screen.blit(text10,(95,885))
 	pygame.display.flip()
 	wait()
 	return
@@ -2294,7 +2278,7 @@ while Level < 21:
 						Status=SetStatus()
 						DoScreen(ScreenRange, Move, Level, PlayerLevel, Exp, ExpNeeded, Status, EnemyStatus)
 					elif event.key == pygame.K_END:
-						CollectedEnemies=[None]*7
+						del CollectedEnemies[:]
 						DoEnemyList(Enemies,CollectedEnemies, PlayerX, PlayerY)
 						ClosestEnemy=ScanEnemies(Enemies, PlayerX, PlayerY, Radar, ScanEnemy)
 						EnemyStatus=GetEnemyStatus(Enemies, PlayerX, PlayerY, ClosestEnemy)
@@ -2705,8 +2689,6 @@ while Level < 21:
 									Health=300
 									ExtraMissiles=3
 								EnemyHull=EnemyHull+Health
-								if EnemyHull > (EnemyLevel*150):
-									EnemyHull = (EnemyLevel*150)
 								EnemyMissiles=int(Enemies[Counter+7])
 								EnemyMissiles=EnemyMissiles+ExtraMissiles
 								if EnemyMissiles > EnemyMaxMissiles:
@@ -2719,6 +2701,8 @@ while Level < 21:
 								Status=str(EnemyName).rstrip()+' ate asteroid'
 								screen.blit(AsteroidHarvest,(300,300))
 								ObjectImage=str(Enemies[Counter+2])
+								HullText=str(EnemyHull)
+								BonusText='+'+str(Health)
 								ScreenItemA=GetScreenItem(ObjectImage)
 								if CrashAsteroid==1:
 									ScreenItemB=Asteroid
@@ -2730,12 +2714,19 @@ while Level < 21:
 									ScreenItemB=Asteroid3
 									Size=' large '
 								Crashtext=EnemyName+' eats'+Size+'asteroid'
+								Color=green
+								if EnemyHull < EnemyDef:
+									Color=red
+								HullTextSurf=myfont.render(HullText, False, Color)
+								BonusTextSurf=myfont.render(BonusText, False, green)
 								text01 = myfont.render(Crashtext, False, green)
 								textEnter='Press enter'
 								text02 = myfont.render(textEnter, False, green)
 								screen.blit(text01,(300,300))
 								screen.blit(text02,(300,680))
 								screen.blit(ScreenItemB,(525,475))
+								screen.blit(BonusTextSurf,(525,525))
+								screen.blit(HullTextSurf,(425,525))
 								screen.blit(ScreenItemA,(425,475))
 								pygame.display.flip()
 								wait()
@@ -2999,7 +2990,7 @@ while Level < 21:
 			if EnemyKills >= EnemyKillTarget:
 				Teleport.play()
 				Level=Level+1
-				if Level < 31:
+				if Level < 21:
 					SLevel=str(Level)
 					SPlayerLevel=str(PlayerLevel)
 					SPlayerHull=str(int(PlayerHull))
